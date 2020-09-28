@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "738715240006",
+    "firebase_url": "https://moneyreminder-82f97.firebaseio.com",
+    "project_id": "moneyreminder-82f97",
+    "storage_bucket": "moneyreminder-82f97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738715240006:android:c090af6a56770d0b97ac47",
+        "android_client_info": {
+          "package_name": "com.money.moneyreminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738715240006-dq4tmdp65q8jlbqa7fh17qg0mumfo5uq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.money.moneyreminder",
+            "certificate_hash": "025b28ab47504f314cc20ca01c704c5c5d1de338"
+          }
+        },
+        {
+          "client_id": "738715240006-4pe1b6r1ne5e7f2q7e8i6pdus63bv5mh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEYJIls0xGmXrl1UPMWsNUIwkhmFP9CDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738715240006-4pe1b6r1ne5e7f2q7e8i6pdus63bv5mh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

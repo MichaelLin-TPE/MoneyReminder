@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MoneyReminder</string>
+    <string name="welcome_title">歡迎來到 MoneyReminder , \n輕鬆記帳、輕鬆省錢．</string>
+    <string name="logout_title">登出訊息</string>
+    <string name="logout_content">是否確定要登出?</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+    <string name="money_list">明細</string>
+    <string name="money_calendar">日曆</string>
+    <string name="money_user">會員</string>
+    <string name="test_btn">測試專用</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_list_fragment">ListFragment</string>
+    <string name="hello_user_fragment">UserFragment</string>
+    <string name="hello_calendar_fragment">CalendarFragment</string>
+    <string name="in_come">收入\n$0</string>
+    <string name="expenditure">支出\n$0</string>
+    <string name="in_come_string">收入</string>
+    <string name="expenditure_string">支出</string>
+    <string name="sort">分類</string>
+    <string name="list">明細</string>
+    <string name="enter_money">輸入金額</string>
+    <string name="zero">0</string>
+    <string name="date">日期</string>
+    <string name="not_yet_to_chose">尚未分類</string>
+    <string name="description">描述...</string>
+    <string name="choice_sort">選取分類</string>
+    <string name="recently">經常使用</string>
+    <string name="create">新增分類</string>
+    <string name="no_data">暫無資料</string>
+    <string name="enter_sort_type">輸入分類..</string>
+    <string name="sort_type_info">請選擇一個圖示↓</string>
+    <string name="no_data_yet">尚無帳務資料.</string>
+</resources>

@@ -1,0 +1,18 @@
+package com.money.moneyreminder.list_fragment;
+
+import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.DateDTO;
+
+import java.util.ArrayList;
+
+public interface ListFragmentVu {
+    void showTabLayout(String currentYear, String currentDate, ArrayList<DateDTO> dateString);
+
+    void showProgress(boolean isShow);
+
+    void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome);
+
+    void intentToCalculatorActivity();
+
+    void showTopIncomeData(int incomeMoney, int expenditure);
+}
