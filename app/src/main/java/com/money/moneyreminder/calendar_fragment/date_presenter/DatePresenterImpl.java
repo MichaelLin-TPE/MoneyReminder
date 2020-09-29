@@ -2,21 +2,26 @@ package com.money.moneyreminder.calendar_fragment.date_presenter;
 
 import android.util.Log;
 
+import com.money.moneyreminder.sort.MoneyObject;
+
 import java.util.ArrayList;
 
 public class DatePresenterImpl implements DatePresenter {
 
     private ArrayList<String> weekDayArray,dateList;
 
+    private ArrayList<MoneyObject> moneyDateArray;
+
     public static final int SHOW_WEEK_DAY = 0;
 
     public static final int SHOW_DATE_LIST = 1;
 
     @Override
-    public void setData(ArrayList<String> weekDayArray, ArrayList<String> dateList) {
+    public void setData(ArrayList<String> weekDayArray, ArrayList<String> dateList, ArrayList<MoneyObject> moneyDateArray) {
 
         this.weekDayArray = weekDayArray;
         this.dateList = dateList;
+        this.moneyDateArray = moneyDateArray;
 
     }
 
@@ -43,6 +48,6 @@ public class DatePresenterImpl implements DatePresenter {
     public void onBindDateListHolder(DateListViewHolder holder, int position) {
         int itemPosition = position - weekDayArray.size();
         Log.i("Michael","DateList開始位置 : "+itemPosition);
-        holder.setData(dateList.get(itemPosition));
+        holder.setData(dateList.get(itemPosition),moneyDateArray);
     }
 }

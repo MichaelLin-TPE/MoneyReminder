@@ -31,7 +31,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.week_day_item,parent,false);
                 return new WeekDayViewHolder(view);
             case SHOW_DATE_LIST:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.week_day_item,parent,false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.date_list_item,parent,false);
                 return new DateListViewHolder(view);
             default:
                 return null;

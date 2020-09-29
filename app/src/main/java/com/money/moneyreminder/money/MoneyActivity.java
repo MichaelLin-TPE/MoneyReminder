@@ -114,6 +114,7 @@ public class MoneyActivity extends AppCompatActivity implements MoneyActivityVu{
     @Override
     public void replaceFragment(int tabItemPosition) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
         transaction.replace(R.id.money_frame_layout, DataProvider.getInstance().getAllFragmentArray().get(tabItemPosition)).commit();
     }
 

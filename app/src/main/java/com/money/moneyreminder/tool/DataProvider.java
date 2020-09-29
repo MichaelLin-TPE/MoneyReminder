@@ -21,9 +21,17 @@ public class DataProvider {
 
     private static DataProvider instance = null;
 
+    private SimpleDateFormat dateFormat,yearMonthFormat;
+
+    private DataProvider(){
+        dateFormat = new SimpleDateFormat("dd",Locale.TAIWAN);
+        yearMonthFormat = new SimpleDateFormat("yyyy/MM",Locale.TAIWAN);
+    }
+
     public static DataProvider getInstance() {
         if (instance == null) {
             instance = new DataProvider();
+
             return instance;
         }
         return instance;
@@ -163,6 +171,13 @@ public class DataProvider {
         calendar.set(Calendar.DATE, 1);
         calendar.roll(Calendar.DATE, -1);
         return calendar.get(Calendar.DATE);
+    }
+    public String getTime(long timeMiles){
+        return dateFormat.format(new Date(timeMiles));
+    }
+
+    public String getYearAndDate(long timeMiles){
+        return yearMonthFormat.format(new Date(timeMiles));
     }
 
 }

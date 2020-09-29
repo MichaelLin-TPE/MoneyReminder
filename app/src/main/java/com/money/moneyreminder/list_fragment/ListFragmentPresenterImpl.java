@@ -83,7 +83,6 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
     @Override
     public void onTabSelectedListener(String month, String year) {
         currentMonth = year+"/"+month;
-        Log.i("Michael","點擊後的日期 : "+currentMonth);
         firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
     }
 

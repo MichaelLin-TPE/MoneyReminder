@@ -4,4 +4,8 @@ import java.text.ParseException;
 
 public interface CalendarFragmentPresenter {
     void onActivityCreated();
+
+    void onLeftArrowClickListener();
+
+    void onRightArrowClickListener();
 }

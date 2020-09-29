@@ -60,7 +60,6 @@ public class DateStringProvider extends AsyncTask<Void,Void, ArrayList<DateDTO>>
         calendar.set(Calendar.MONTH,month-1);
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-        Log.i("Michael","日期 : "+dateFormat.format(calendar.getTime()));
         return dateFormat.format(calendar.getTime());
     }
 

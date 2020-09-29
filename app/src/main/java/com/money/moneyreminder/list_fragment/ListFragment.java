@@ -1,5 +1,6 @@
 package com.money.moneyreminder.list_fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.DisplayMetrics;
@@ -47,6 +49,8 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     private RadioButton radIncome;
 
     private RadioButton radExpenditure;
+
+
 
     private Context context;
 
