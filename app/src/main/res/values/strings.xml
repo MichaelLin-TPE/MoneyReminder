@@ -32,4 +32,5 @@
     <string name="enter_sort_type">輸入分類..</string>
     <string name="sort_type_info">請選擇一個圖示↓</string>
     <string name="no_data_yet">尚無帳務資料.</string>
+    <string name="error_title">錯誤訊息</string>
 </resources>

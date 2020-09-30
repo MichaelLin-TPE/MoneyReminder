@@ -131,11 +131,12 @@ public class DataProvider {
             monthString = month + "";
         }
 
-        Date currentDate = null;
+        Date currentDate;
         try {
             currentDate = simpleDateFormat.parse(year + "/" + monthString + "/01");
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         if (currentDate == null) {
             Log.i("Michael", "currentDate is null");

@@ -32,14 +32,17 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
     private ArrayList<MoneyData> incomeArray;
     private ArrayList<MoneyData> expenditureArray;
+    private boolean isEditMode;
 
     public void setOnDetailChildItemClickListener(DetailChildAdapter.OnDetailChildItemClickListener listener){
         this.listener = listener;
     }
 
-    public DetailAdapter(ArrayList<MoneyObject> moneyDataArrayList,boolean isIncome) {
+
+    public void setData(ArrayList<MoneyObject> moneyDataArrayList,boolean isIncome,boolean isEditMode){
         this.moneyDataArrayList = moneyDataArrayList;
         this.isIncome = isIncome;
+        this.isEditMode = isEditMode;
     }
 
     @NonNull
@@ -76,12 +79,22 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     private void changeViewForIsIncome(boolean isIncome, ViewHolder holder) {
         holder.tvExpenditure.setVisibility(isIncome ? View.GONE : View.VISIBLE);
         holder.tvIncome.setVisibility(isIncome ? View.VISIBLE : View.GONE);
-        DetailChildAdapter adapter = new DetailChildAdapter(isIncome ? incomeArray : expenditureArray);
+        DetailChildAdapter adapter = new DetailChildAdapter(isIncome ? incomeArray : expenditureArray,isEditMode);
         holder.recyclerView.setAdapter(adapter);
         adapter.setOnDetailChildItemClickListener(new DetailChildAdapter.OnDetailChildItemClickListener() {
             @Override
             public void onClick(MoneyData data) {
                 listener.onClick(data);
+            }
+
+            @Override
+            public void onLongPress() {
+                listener.onLongPress();
+            }
+
+            @Override
+            public void onCheckBoxChecked(MoneyData data, boolean isChecked) {
+                listener.onCheckBoxChecked(data,isChecked);
             }
         });
     }

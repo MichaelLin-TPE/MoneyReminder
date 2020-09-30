@@ -48,7 +48,7 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
     private ArrayList<MoneyObject> moneyObjectArray;
 
-    private String description,edContent,iconUrl;
+    private String description, edContent, iconUrl;
 
     private SortTypeData sortTypeData;
 
@@ -100,25 +100,25 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null){
+                if (e != null) {
                     onFireStoreCatchListener.onFail("無法取得資料");
                     return;
                 }
-                if (snapshot != null && snapshot.exists()){
+                if (snapshot != null && snapshot.exists()) {
                     String json = (String) snapshot.get("json");
-                    if (json == null){
+                    if (json == null) {
                         onFireStoreCatchListener.onFail("無法取得資料");
                         return;
                     }
-                    userSortData = gson.fromJson(json,SortData.class);
-                    if (userSortData == null){
+                    userSortData = gson.fromJson(json, SortData.class);
+                    if (userSortData == null) {
                         onFireStoreCatchListener.onFail("無法取得資料");
                         return;
                     }
                     onFireStoreCatchListener.onSuccess(userSortData);
-                }else {
+                } else {
                     onFireStoreCatchListener.onFail("無法取得資料");
-                    Log.i("Michael","沒資料");
+                    Log.i("Michael", "沒資料");
                 }
             }
         });
@@ -132,18 +132,19 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (!task.isSuccessful() || task.getResult() == null){
+                        if (!task.isSuccessful() || task.getResult() == null) {
                             onFireStoreCatchListener.onFail("firebase fail");
                             return;
                         }
                         DocumentSnapshot snapshot = task.getResult();
-                        String json = (String)snapshot.get("json");
-                        if (json == null){
+                        String json = (String) snapshot.get("json");
+                        if (json == null) {
                             onFireStoreCatchListener.onFail("firebase fail");
                             return;
                         }
-                        ArrayList<IconData> iconDataArrayList = gson.fromJson(json,new TypeToken<ArrayList<IconData>>(){}.getType());
-                        if (iconDataArrayList == null || iconDataArrayList.isEmpty()){
+                        ArrayList<IconData> iconDataArrayList = gson.fromJson(json, new TypeToken<ArrayList<IconData>>() {
+                        }.getType());
+                        if (iconDataArrayList == null || iconDataArrayList.isEmpty()) {
                             onFireStoreCatchListener.onFail("firebase fail");
                             return;
                         }
@@ -157,9 +158,9 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         this.edContent = edContent;
         this.iconUrl = iconUrl;
 
-        if (userSortData == null){
+        if (userSortData == null) {
             createNewSortList();
-        }else {
+        } else {
             addSortList();
         }
     }
@@ -171,28 +172,63 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null){
+                if (e != null) {
                     onGetUserMoneyDataListener.onFail("無法取得資料");
                     return;
                 }
-                if (snapshot != null && snapshot.exists()){
+                if (snapshot != null && snapshot.exists()) {
                     String json = (String) snapshot.get("json");
-                    if (json == null){
+                    if (json == null) {
                         onGetUserMoneyDataListener.onFail("無法取得資料");
                         return;
                     }
-                    ArrayList<MoneyObject> moneyDataArrayList = gson.fromJson(json,new TypeToken<ArrayList<MoneyObject>>(){}.getType());
-                    if (moneyDataArrayList == null || moneyDataArrayList.isEmpty()){
+                    ArrayList<MoneyObject> moneyDataArrayList = gson.fromJson(json, new TypeToken<ArrayList<MoneyObject>>() {
+                    }.getType());
+                    if (moneyDataArrayList == null || moneyDataArrayList.isEmpty()) {
                         onGetUserMoneyDataListener.onFail("無法取得資料");
                         return;
                     }
                     onGetUserMoneyDataListener.onSuccess(moneyDataArrayList);
-                }else {
+                } else {
                     onGetUserMoneyDataListener.onFail("無法取得資料");
-                    Log.i("Michael","沒資料");
+                    Log.i("Michael", "沒資料");
                 }
             }
         });
+    }
+
+    @Override
+    public void updateUserMoneyList(ArrayList<MoneyObject> moneyArrayList) {
+        if (moneyArrayList == null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("json", "");
+            firebaseFirestore.collection(MONEY_LIST)
+                    .document(getUserEmail())
+                    .set(map);
+            return;
+        }
+        for (MoneyObject data : moneyArrayList) {
+
+            int incomeMoney = 0, exMoney = 0;
+            if (data.getMoneyDataArrayList() == null || data.getMoneyDataArrayList().isEmpty()) {
+                continue;
+            }
+            for (MoneyData moneyData : data.getMoneyDataArrayList()) {
+                if (moneyData.isIncome()) {
+                    incomeMoney += moneyData.getTotalMoney();
+                }else {
+                    exMoney += moneyData.getTotalMoney();
+                }
+            }
+            data.setExpenditureMoney(exMoney);
+            data.setInComeMoney(incomeMoney);
+        }
+        String json = gson.toJson(moneyArrayList);
+        Map<String,Object> map = new HashMap<>();
+        map.put("json",json);
+        firebaseFirestore.collection(MONEY_LIST)
+                .document(getUserEmail())
+                .set(map);
     }
 
     private void addSortList() {
@@ -201,8 +237,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         createData.setSortType(edContent);
         userSortData.getCreateData().add(createData);
         String json = gson.toJson(userSortData);
-        Map<String,Object> map = new HashMap<>();
-        map.put("json",json);
+        Map<String, Object> map = new HashMap<>();
+        map.put("json", json);
         setSortTypeFirestore(map);
     }
 
@@ -221,8 +257,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         createDataArrayList.add(createData);
         userSortData.setCreateData(createDataArrayList);
         String json = gson.toJson(userSortData);
-        Map<String,Object> map = new HashMap<>();
-        map.put("json",json);
+        Map<String, Object> map = new HashMap<>();
+        map.put("json", json);
         setSortTypeFirestore(map);
     }
 
@@ -239,11 +275,12 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                 createNewData();
                 return;
             }
-            moneyObjectArray = gson.fromJson(json,new TypeToken<ArrayList<MoneyObject>>(){}.getType());
+            moneyObjectArray = gson.fromJson(json, new TypeToken<ArrayList<MoneyObject>>() {
+            }.getType());
             boolean isHaveData = moneyObjectArray != null && !moneyObjectArray.isEmpty();
-            if (isHaveData){
+            if (isHaveData) {
                 addNewData();
-            }else {
+            } else {
                 createNewData();
             }
 
@@ -261,25 +298,25 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         moneyData.setIncome(isIncome);
         moneyData.setDescription(description);
         boolean isFoundData = false;
-        for (MoneyObject object : moneyObjectArray){
+        for (MoneyObject object : moneyObjectArray) {
             String date = simpleDateFormat.format(new Date(object.getTimeMiles()));
-            if (date.equals(saveDate)){
+            if (date.equals(saveDate)) {
                 object.getMoneyDataArrayList().add(moneyData);
-                if (isIncome){
-                    object.setInComeMoney(object.getInComeMoney()+totalMoney);
-                }else {
-                    object.setExpenditureMoney(object.getExpenditureMoney()+totalMoney);
+                if (isIncome) {
+                    object.setInComeMoney(object.getInComeMoney() + totalMoney);
+                } else {
+                    object.setExpenditureMoney(object.getExpenditureMoney() + totalMoney);
                 }
                 isFoundData = true;
                 break;
             }
         }
-        if (!isFoundData){
+        if (!isFoundData) {
             MoneyObject moneyObject = new MoneyObject();
             moneyObject.setTimeMiles(choiceTimeMiles);
-            if (isIncome){
+            if (isIncome) {
                 moneyObject.setInComeMoney(totalMoney);
-            }else {
+            } else {
                 moneyObject.setExpenditureMoney(totalMoney);
             }
             ArrayList<MoneyData> moneyDataArrayList = new ArrayList<>();
@@ -308,9 +345,9 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         moneyDataArray.add(moneyData);
         MoneyObject moneyObject = new MoneyObject();
         moneyObject.setTimeMiles(choiceTimeMiles);
-        if (isIncome){
+        if (isIncome) {
             moneyObject.setInComeMoney(totalMoney);
-        }else {
+        } else {
             moneyObject.setExpenditureMoney(totalMoney);
         }
         moneyObject.setMoneyDataArrayList(moneyDataArray);

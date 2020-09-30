@@ -6,7 +6,9 @@ import com.money.moneyreminder.sort.MoneyObject;
 import java.util.ArrayList;
 
 public interface DetailListFragmentPresenter {
-    void onActivityCreated(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome);
+    void onActivityCreated(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isEditMode);
 
     void onDetailChildItemClickListener(MoneyData data);
+
+    void onDetailChildItemLongPressListener();
 }

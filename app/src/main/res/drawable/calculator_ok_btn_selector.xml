@@ -3,13 +3,13 @@
     android:shape="rectangle">
 
     <!--填充的顏色-->
-    <solid android:color="@color/green"/>
+    <solid android:color="@color/app_main_color"/>
 
     <!--設置按鈕的四個角弧形-->
     <corners android:radius="10dip"/>
 
     <!--格線顏色與寬度-->
     <stroke android:width="5px"
-        android:color="@color/green"/>
+        android:color="@color/app_main_color"/>
 
 </shape>

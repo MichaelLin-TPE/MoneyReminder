@@ -10,9 +10,15 @@ public interface ListFragmentVu {
 
     void showProgress(boolean isShow);
 
-    void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome);
+    void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isDelete);
 
     void intentToCalculatorActivity();
 
     void showTopIncomeData(int incomeMoney, int expenditure);
+
+    void changeFloatingButtonView(boolean isChange);
+
+    void resetFloatingButton();
+
+    void showErrorCode(String message);
 }

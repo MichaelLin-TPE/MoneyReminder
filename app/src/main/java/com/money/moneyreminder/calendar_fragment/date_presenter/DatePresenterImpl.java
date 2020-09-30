@@ -47,7 +47,6 @@ public class DatePresenterImpl implements DatePresenter {
     @Override
     public void onBindDateListHolder(DateListViewHolder holder, int position) {
         int itemPosition = position - weekDayArray.size();
-        Log.i("Michael","DateList開始位置 : "+itemPosition);
         holder.setData(dateList.get(itemPosition),moneyDateArray);
     }
 }

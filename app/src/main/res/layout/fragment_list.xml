@@ -9,7 +9,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/list_tab_layout"
-        android:background="@color/green"
+        android:background="@color/app_main_color"
         android:clipChildren="false"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
         android:id="@+id/list_add_money_button"
         android:src="@drawable/add"
         android:scaleType="fitXY"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/app_main_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="50dp"

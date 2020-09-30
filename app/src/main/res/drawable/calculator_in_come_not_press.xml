@@ -10,6 +10,6 @@
 
     <!--格線顏色與寬度-->
     <stroke android:width="5px"
-        android:color="@color/green"/>
+        android:color="@color/app_main_color"/>
 
 </shape>

@@ -1,9 +1,12 @@
 package com.money.moneyreminder.list_fragment.sort_fragment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.tool.ImageLoaderProvider;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,12 +31,15 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
 
     private OnDetailChildItemClickListener listener;
 
+    private boolean isEditMode;
+
     public void setOnDetailChildItemClickListener(OnDetailChildItemClickListener listener){
         this.listener = listener;
     }
 
-    public DetailChildAdapter(ArrayList<MoneyData> dataArray) {
+    public DetailChildAdapter(ArrayList<MoneyData> dataArray,boolean isEditMode) {
         this.dataArray = dataArray;
+        this.isEditMode = isEditMode;
     }
 
     @NonNull
@@ -44,7 +51,7 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final MoneyData data = dataArray.get(position);
         ImageLoaderProvider.getInstance().setImage(data.getSortTypeIcon(),holder.ivIcon);
         holder.tvContent.setText(data.getSortType());
@@ -54,11 +61,45 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
         }else {
             holder.tvMoney.setTextColor(ContextCompat.getColor(context,R.color.red));
         }
+
         holder.tvMoney.setText(String.format(Locale.getDefault(),"$%d",data.getTotalMoney()));
+
+
+        //這邊開始處理修改模式
+        holder.checkBox.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
+
+
+
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("Michael","checkBox 是否被按："+isChecked+" , position : "+position);
+                listener.onCheckBoxChecked(data,isChecked);
+            }
+        });
+
         holder.itemArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(data);
+                if (!isEditMode){
+                    listener.onClick(data);
+                    return;
+                }
+                //這邊處理如果是修改模式的話的情境
+                if (holder.checkBox.isChecked()){
+                    holder.checkBox.setChecked(false);
+                }else {
+                    holder.checkBox.setChecked(true);
+                }
+            }
+        });
+        holder.itemArea.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!isEditMode){
+                    listener.onLongPress();
+                }
+                return false;
             }
         });
     }
@@ -72,12 +113,15 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
 
         private ImageView ivIcon;
 
+        private CheckBox checkBox;
+
         private TextView tvContent,tvMoney,tvDescription;
 
         private ConstraintLayout itemArea;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            checkBox = itemView.findViewById(R.id.detail_child_check_box);
             itemArea = itemView.findViewById(R.id.detail_child_click_area);
             tvDescription = itemView.findViewById(R.id.detail_child_description);
             ivIcon = itemView.findViewById(R.id.detail_child_icon);
@@ -88,5 +132,7 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
 
     public interface OnDetailChildItemClickListener{
         void onClick(MoneyData data);
+        void onLongPress();
+        void onCheckBoxChecked(MoneyData data,boolean isChecked);
     }
 }

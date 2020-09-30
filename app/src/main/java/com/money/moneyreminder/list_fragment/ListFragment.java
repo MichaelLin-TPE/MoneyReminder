@@ -1,6 +1,5 @@
 package com.money.moneyreminder.list_fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.DisplayMetrics;
@@ -28,9 +26,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.calculator.CalculatorActivity;
+import com.money.moneyreminder.list_fragment.sort_fragment.DetailChildAdapter;
+import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DateDTO;
+import com.money.moneyreminder.tool.ErrorDialog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -50,11 +51,9 @@ public class ListFragment extends Fragment implements ListFragmentVu {
 
     private RadioButton radExpenditure;
 
-
+    private boolean isEditMode;
 
     private Context context;
-
-    private ListFragmentAdapter listFragmentAdapter;
 
     private ViewPager viewPager;
 
@@ -134,7 +133,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onAddMoneyButtonClickListener();
+                presenter.onAddMoneyButtonClickListener(isEditMode);
             }
         });
     }
@@ -174,7 +173,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
 
                 String month = dateStringArray.get(tab.getPosition()).getMonth();
                 String year = dateStringArray.get(tab.getPosition()).getYear();
-                presenter.onTabSelectedListener(month,year);
+                presenter.onTabSelectedListener(month, year);
             }
 
             @Override
@@ -212,14 +211,32 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     }
 
     @Override
-    public void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome) {
+    public void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isDelete) {
         Log.i("Michael", "是否是收入 : " + isIncome);
 
+        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getChildFragmentManager());
+        listFragmentAdapter.setData(moneyDataArrayList, isIncome, isDelete);
 
-        listFragmentAdapter = new ListFragmentAdapter(getFragmentManager());
-        listFragmentAdapter.setData(moneyDataArrayList, isIncome);
+
+        //針對 DetailListFragment 點擊事件
+        listFragmentAdapter.setOnDetailChildItemClickListener(new DetailChildAdapter.OnDetailChildItemClickListener() {
+            @Override
+            public void onClick(MoneyData data) {
+                //這邊用不到
+            }
+
+            @Override
+            public void onLongPress() {
+                //這邊用不到
+                presenter.onDetailItemLongPressListener();
+            }
+
+            @Override
+            public void onCheckBoxChecked(MoneyData data, boolean isChecked) {
+                presenter.onDetailItemCheckBoxCheckListener(data, isChecked);
+            }
+        });
         viewPager.setAdapter(listFragmentAdapter);
-
 
         showSortTab();
 
@@ -251,6 +268,23 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         radExpenditure.setText(String.format(Locale.getDefault(), "支出\n$%d", expenditure));
     }
 
+    @Override
+    public void changeFloatingButtonView(boolean isDelete) {
+        isEditMode = true;
+        floatingActionButton.setImageResource(isDelete ? R.drawable.delete : R.drawable.check);
+    }
+
+    @Override
+    public void resetFloatingButton() {
+        isEditMode = false;
+        floatingActionButton.setImageResource(R.drawable.add);
+    }
+
+    @Override
+    public void showErrorCode(String message) {
+        ErrorDialog.newInstance(message).show(getChildFragmentManager(),"dialog");
+    }
+
     private TabLayout.OnTabSelectedListener onSortTabSelectListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
@@ -261,7 +295,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
                 return;
             }
             TextView tvTitle = singleTab.getCustomView().findViewById(R.id.top_tab_title);
-            tvTitle.setTextColor(ContextCompat.getColor(context, R.color.green));
+            tvTitle.setTextColor(ContextCompat.getColor(context, R.color.app_main_color));
 
         }
 
@@ -297,7 +331,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
             }
             sortTabLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.sort_tab_layout_background));
             TextView tvTitle = tab.getCustomView().findViewById(R.id.top_tab_title);
-            tvTitle.setTextColor(ContextCompat.getColor(context, R.color.green));
+            tvTitle.setTextColor(ContextCompat.getColor(context, R.color.app_main_color));
             tab.select();
         }
     };
@@ -316,15 +350,15 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         TextView tvTabTitle = view.findViewById(R.id.top_tab_title);
         LinearLayout itemArea = view.findViewById(R.id.item_area);
 
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        float width = getResources().getDisplayMetrics().widthPixels;
+        float width = context.getResources().getDisplayMetrics().widthPixels;
 
         float singleItemSize = width / 3;
 
         float singleItemDp = singleItemSize / displayMetrics.density;
 
-        int pix = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, singleItemDp, getResources().getDisplayMetrics());
+        int pix = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, singleItemDp, context.getResources().getDisplayMetrics());
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pix, pix);
 

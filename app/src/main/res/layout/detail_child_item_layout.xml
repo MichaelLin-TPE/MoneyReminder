@@ -6,11 +6,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp"
     android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/detail_child_check_box"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="@dimen/sort_type_icon_size"
+        android:layout_height="@dimen/sort_type_icon_size"/>
     
     <ImageView
         android:contentDescription="@null"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/detail_child_check_box"
         android:id="@+id/detail_child_icon"
         android:src="@drawable/plus"
         android:layout_width="@dimen/sort_type_icon_size"

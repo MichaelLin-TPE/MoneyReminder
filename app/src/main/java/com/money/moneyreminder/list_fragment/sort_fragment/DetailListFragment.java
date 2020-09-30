@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.type.Money;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.sort.MoneyData;
@@ -34,11 +32,20 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
 
     private ArrayList<MoneyObject> moneyDataArray;
 
-    private boolean isIncome;
+    private boolean isIncome,isEditMode;
 
     private Context context;
 
     private TextView tvNoData;
+
+    private DetailAdapter adapter;
+
+    private DetailChildAdapter.OnDetailChildItemClickListener onDetailChildItemClickListener;
+
+    public DetailListFragment setOnDetailChildItemClickListener(DetailChildAdapter.OnDetailChildItemClickListener onDetailChildItemClickListener){
+        this.onDetailChildItemClickListener = onDetailChildItemClickListener;
+        return this;
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -46,11 +53,12 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
         this.context = context;
     }
 
-    public static DetailListFragment newInstance(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome) {
+    public static DetailListFragment newInstance(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isEditMode) {
         DetailListFragment fragment = new DetailListFragment();
         Bundle args = new Bundle();
         args.putSerializable("data",moneyDataArrayList);
         args.putBoolean("is_income",isIncome);
+        args.putBoolean("is_edit",isEditMode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,6 +72,7 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
         }
         moneyDataArray = (ArrayList<MoneyObject>) getArguments().getSerializable("data");
         isIncome = getArguments().getBoolean("is_income",false);
+        isEditMode = getArguments().getBoolean("is_edit",false);
         if (moneyDataArray == null){
             return;
         }
@@ -97,17 +106,32 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter.onActivityCreated(moneyDataArray,isIncome);
+        presenter.onActivityCreated(moneyDataArray,isIncome,isEditMode);
     }
 
     @Override
-    public void setRecyclerView(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome) {
-        DetailAdapter adapter = new DetailAdapter(moneyDataArrayList,isIncome);
+    public void setRecyclerView(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isEditMode) {
+        this.moneyDataArray = moneyDataArrayList;
+        this.isIncome = isIncome;
+        adapter = new DetailAdapter();
+        adapter.setData(moneyDataArrayList,isIncome,isEditMode);
         recyclerView.setAdapter(adapter);
         adapter.setOnDetailChildItemClickListener(new DetailChildAdapter.OnDetailChildItemClickListener() {
             @Override
             public void onClick(MoneyData data) {
                 presenter.onDetailChildItemClickListener(data);
+            }
+
+            @Override
+            public void onLongPress() {
+                onDetailChildItemClickListener.onLongPress();
+                presenter.onDetailChildItemLongPressListener();
+            }
+
+            @Override
+            public void onCheckBoxChecked(MoneyData data, boolean isChecked) {
+                onDetailChildItemClickListener.onCheckBoxChecked(data,isChecked);
+
             }
         });
     }
@@ -116,5 +140,11 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
     public void showNoData(boolean isShow) {
         tvNoData.setVisibility(isShow ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(isShow ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void changeDetailChildItemView(boolean isChange) {
+        adapter.setData(moneyDataArray,isIncome,isChange);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -35,6 +35,7 @@ public class CalendarFragmentPresenterImpl implements CalendarFragmentPresenter{
         currentMonth = Integer.parseInt(monthFormat.format(new Date(System.currentTimeMillis())));
         if (DataProvider.getInstance().getDateList(currentYear,currentMonth) == null){
             Log.i("Michael","dateList is null");
+            mView.showErrorCode("資料格式錯誤 dateList is null");
             return;
         }
         firebaseHandler.getUserMoneyData(onFireStoreCatchListener);

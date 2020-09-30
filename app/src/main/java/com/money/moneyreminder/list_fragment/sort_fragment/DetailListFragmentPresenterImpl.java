@@ -2,26 +2,20 @@ package com.money.moneyreminder.list_fragment.sort_fragment;
 
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
-import com.money.moneyreminder.tool.FirebaseHandler;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Locale;
 
 public class DetailListFragmentPresenterImpl implements DetailListFragmentPresenter {
 
     private DetailListFragmentVu mView;
-
-    private FirebaseHandler firebaseHandler;
 
     public DetailListFragmentPresenterImpl(DetailListFragmentVu mView) {
         this.mView = mView;
     }
 
     @Override
-    public void onActivityCreated(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome) {
+    public void onActivityCreated(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isEditMode) {
 
         if (moneyDataArrayList == null || moneyDataArrayList.isEmpty()){
             mView.showNoData(true);
@@ -67,7 +61,8 @@ public class DetailListFragmentPresenterImpl implements DetailListFragmentPresen
             return;
         }
         mView.showNoData(false);
-        mView.setRecyclerView(moneyDataArrayList,isIncome);
+
+        mView.setRecyclerView(moneyDataArrayList,isIncome,isEditMode);
     }
 
     @Override
@@ -75,5 +70,11 @@ public class DetailListFragmentPresenterImpl implements DetailListFragmentPresen
         //這個再想一下
 
     }
+
+    @Override
+    public void onDetailChildItemLongPressListener() {
+        mView.changeDetailChildItemView(true);
+    }
+
 
 }

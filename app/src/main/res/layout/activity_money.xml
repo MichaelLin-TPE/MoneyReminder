@@ -10,7 +10,7 @@
         android:id="@+id/money_tool_bar"
         app:title="@string/app_name"
         app:titleTextColor="@color/white"
-        android:background="@color/green"
+        android:background="@color/app_main_color"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

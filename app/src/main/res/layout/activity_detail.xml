@@ -11,7 +11,7 @@
         android:id="@+id/detail_tool_bar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:background="@color/green"
+        android:background="@color/app_main_color"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@id/detail_tool_bar"
         android:layout_width="match_parent"
-        android:background="@color/green"
+        android:background="@color/app_main_color"
         android:layout_height="200dp">
 
         <TextView

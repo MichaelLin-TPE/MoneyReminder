@@ -21,6 +21,8 @@ public interface FirebaseHandler {
 
     void getUserMoneyData(OnFireStoreCatchListener<ArrayList<MoneyObject>> onGetUserMoneyDataListener);
 
+    void updateUserMoneyList(ArrayList<MoneyObject> moneyArrayList);
+
 
     public interface OnFireStoreCatchListener<T>{
         void onSuccess(T data);

@@ -1,25 +1,14 @@
 package com.money.moneyreminder.calendar_fragment.date_presenter;
 
-import android.content.Context;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DbConvertTool;
-import com.money.moneyreminder.tool.FirebaseHandler;
-import com.money.moneyreminder.tool.FirebaseHandlerImpl;
-import com.money.moneyreminder.tool.MoneyReminderApplication;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -28,12 +17,9 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvItem,tvIncome,tvExpenditure;
 
-    private Context context;
-
 
     public DateListViewHolder(@NonNull View itemView) {
         super(itemView);
-        context = MoneyReminderApplication.getInstance().getApplicationContext();
         tvItem = itemView.findViewById(R.id.date_list_item);
         tvItem.setWidth(DbConvertTool.getInstance().convertDb());
         tvIncome = itemView.findViewById(R.id.date_list_income);
@@ -43,6 +29,8 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
     public void setData(String date, ArrayList<MoneyObject> moneyDateArray) {
         tvItem.setText(date);
         if (moneyDateArray == null){
+            tvIncome.setText("");
+            tvExpenditure.setText("");
             return;
         }
 
@@ -61,11 +49,13 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
             }
         }
         if (moneyObject == null){
+            tvIncome.setText("");
+            tvExpenditure.setText("");
             return;
         }
         tvIncome.setText("");
         tvExpenditure.setText("");
-        Log.i("Michael","收入 : "+moneyObject.getInComeMoney()+" , 支出 : "+moneyObject.getExpenditureMoney());
+        Log.i("Michael","日期："+date+" , 收入 : "+moneyObject.getInComeMoney()+" , 支出 : "+moneyObject.getExpenditureMoney());
         if (moneyObject.getInComeMoney() != 0){
             tvIncome.setVisibility(View.VISIBLE);
             tvIncome.setText(String.format(Locale.getDefault(),"%d",moneyObject.getInComeMoney()));
