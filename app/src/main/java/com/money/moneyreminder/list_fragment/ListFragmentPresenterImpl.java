@@ -73,6 +73,12 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         @Override
         public void onFail(String errorCode) {
             Log.i("Michael", "沒資料");
+
+            int incomeMoney = 0;
+            int expenditure = 0;
+            mView.showTopIncomeData(incomeMoney, expenditure);
+            mView.showSortTabLayout(null, isIncome, isDelete);
+
         }
     };
 

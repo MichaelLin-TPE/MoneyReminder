@@ -211,6 +211,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
             int incomeMoney = 0, exMoney = 0;
             if (data.getMoneyDataArrayList() == null || data.getMoneyDataArrayList().isEmpty()) {
+                data.setInComeMoney(incomeMoney);
+                data.setExpenditureMoney(exMoney);
                 continue;
             }
             for (MoneyData moneyData : data.getMoneyDataArrayList()) {

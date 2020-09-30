@@ -214,7 +214,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     public void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isDelete) {
         Log.i("Michael", "是否是收入 : " + isIncome);
 
-        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getChildFragmentManager());
+        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getFragmentManager());
         listFragmentAdapter.setData(moneyDataArrayList, isIncome, isDelete);
 
 

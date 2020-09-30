@@ -34,8 +34,6 @@ public class CalendarFragmentPresenterImpl implements CalendarFragmentPresenter{
         currentYear = Integer.parseInt(yearFormat.format(new Date(System.currentTimeMillis())));
         currentMonth = Integer.parseInt(monthFormat.format(new Date(System.currentTimeMillis())));
         if (DataProvider.getInstance().getDateList(currentYear,currentMonth) == null){
-            Log.i("Michael","dateList is null");
-            mView.showErrorCode("資料格式錯誤 dateList is null");
             return;
         }
         firebaseHandler.getUserMoneyData(onFireStoreCatchListener);
@@ -84,7 +82,13 @@ public class CalendarFragmentPresenterImpl implements CalendarFragmentPresenter{
 
         @Override
         public void onFail(String errorCode) {
-            mView.showErrorCode(errorCode);
+            String currentDate;
+            if (currentMonth < 10){
+                currentDate = currentYear+"/0"+currentMonth;
+            }else {
+                currentDate = currentYear+"/"+currentMonth;
+            }
+            mView.setTime(currentDate);
             mView.showCalendarView(DataProvider.getInstance().getDateList(currentYear,currentMonth),null);
         }
     };
