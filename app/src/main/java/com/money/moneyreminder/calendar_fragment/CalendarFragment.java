@@ -85,6 +85,7 @@ public class CalendarFragment extends Fragment implements CalendarFragmentVu {
         ivRight = view.findViewById(R.id.calendar_right_arrow);
         recyclerView = view.findViewById(R.id.calendar_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(context,7));
+        recyclerView.addItemDecoration(new CustomGridDivider(2,R.color.black));
 
         ivLeft.setOnClickListener(new View.OnClickListener() {
             @Override
