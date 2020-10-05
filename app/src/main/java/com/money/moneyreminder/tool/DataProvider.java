@@ -198,4 +198,11 @@ public class DataProvider {
     public int getMonthMaxDay(String currentMonth, String currentYear) {
         return getTotalDay(Integer.parseInt(currentYear),Integer.parseInt(currentMonth));
     }
+
+    public ArrayList<String> getAccountItemArray(){
+        ArrayList<String> accountItemArray = new ArrayList<>();
+        accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.set_time_range));
+        accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.signout));
+        return accountItemArray;
+    }
 }

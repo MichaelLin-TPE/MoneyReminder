@@ -26,6 +26,8 @@ import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenterImpl;
 
+import java.util.ArrayList;
+
 
 public class UserFragment extends Fragment implements UserFragmentVu {
 
@@ -94,8 +96,8 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     }
 
     @Override
-    public void showRecyclerView(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney) {
-        viewPresenter.setData(budgetMoney,totalExpenditure,expenditurePercent,monthMoney);
+    public void showRecyclerView(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray) {
+        viewPresenter.setData(budgetMoney,totalExpenditure,expenditurePercent,monthMoney,accountItemArray);
         if (adapter == null){
             adapter = new UserAdapter();
             adapter.setViewPresenter(viewPresenter);

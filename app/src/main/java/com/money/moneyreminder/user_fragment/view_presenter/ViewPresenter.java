@@ -1,5 +1,7 @@
 package com.money.moneyreminder.user_fragment.view_presenter;
 
+import java.util.ArrayList;
+
 public interface ViewPresenter {
     int getItemViewType(int position);
 
@@ -9,7 +11,7 @@ public interface ViewPresenter {
 
     void onBindAccountViewHolder(AccountViewHolder holder, int position);
 
-    void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney);
+    void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray);
 
     void setOnSettingButtonClickListener(BudgetViewHolder holder, BudgetViewHolder.OnSettingButtonClickListener listener);
 }

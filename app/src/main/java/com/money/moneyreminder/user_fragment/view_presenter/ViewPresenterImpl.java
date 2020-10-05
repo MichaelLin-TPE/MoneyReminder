@@ -1,5 +1,7 @@
 package com.money.moneyreminder.user_fragment.view_presenter;
 
+import java.util.ArrayList;
+
 public class ViewPresenterImpl implements ViewPresenter {
 
     public static final int BUDGET = 0;
@@ -8,12 +10,15 @@ public class ViewPresenterImpl implements ViewPresenter {
 
     private long budgetMoney,totalExpenditure,expenditurePercent,monthMoney;
 
+    private ArrayList<String> accountItemArray;
+
     @Override
-    public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney) {
+    public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray) {
         this.budgetMoney = budgetMoney;
         this.totalExpenditure = totalExpenditure;
         this.expenditurePercent = expenditurePercent;
         this.monthMoney = monthMoney;
+        this.accountItemArray = accountItemArray;
     }
 
     @Override
@@ -43,8 +48,8 @@ public class ViewPresenterImpl implements ViewPresenter {
     }
 
     @Override
-    public void onBindAccountViewHolder(AccountViewHolder holder, int position) {
-
+    public void onBindAccountViewHolder(AccountViewHolder holder, int position){
+        holder.setData(accountItemArray);
     }
 
 

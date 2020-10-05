@@ -47,4 +47,6 @@
     <string name="setting">設定預算</string>
     <string name="account_title">帳號設定</string>
     <string name="enter_budget">請輸入預算</string>
+    <string name="set_time_range">設定日期區間</string>
+    <string name="signout">登出</string>
 </resources>

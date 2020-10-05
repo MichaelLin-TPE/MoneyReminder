@@ -97,12 +97,12 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
             }
             Log.i("Michael","達成率 : "+expenditurePercent);
             expenditurePercent = expenditurePercent * 100;
-            mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney);
+            mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney,DataProvider.getInstance().getAccountItemArray());
         }
 
         @Override
         public void onFail(String errorCode) {
-            mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney);
+            mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney,DataProvider.getInstance().getAccountItemArray());
         }
     };
 }
