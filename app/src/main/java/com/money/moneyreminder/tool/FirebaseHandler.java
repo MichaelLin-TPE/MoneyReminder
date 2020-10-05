@@ -23,6 +23,10 @@ public interface FirebaseHandler {
 
     void updateUserMoneyList(ArrayList<MoneyObject> moneyArrayList);
 
+    void saveUserDescription(String description);
+
+    void getUserDescribeData(OnFireStoreCatchListener<ArrayList<String>> onFireStoreCatchListener);
+
 
     public interface OnFireStoreCatchListener<T>{
         void onSuccess(T data);

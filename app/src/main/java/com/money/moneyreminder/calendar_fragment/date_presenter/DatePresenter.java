@@ -14,4 +14,6 @@ public interface DatePresenter {
     void onBindWeekDayHolder(WeekDayViewHolder holder, int position);
 
     void onBindDateListHolder(DateListViewHolder holder, int position);
+
+    void onCalendarItemClickListener(DateListViewHolder holder, DateListViewHolder.OnCalendarItemClickListener listener);
 }

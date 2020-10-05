@@ -26,11 +26,13 @@
     <string name="not_yet_to_chose">尚未分類</string>
     <string name="description">描述...</string>
     <string name="choice_sort">選取分類</string>
-    <string name="recently">經常使用</string>
-    <string name="create">新增分類</string>
+    <string name="recently">最近使用</string>
+    <string name="create">主要分類</string>
     <string name="no_data">暫無資料</string>
     <string name="enter_sort_type">輸入分類..</string>
     <string name="sort_type_info">請選擇一個圖示↓</string>
     <string name="no_data_yet">尚無帳務資料.</string>
     <string name="error_title">錯誤訊息</string>
+    <string name="recently_describe">最近使用的描述</string>
+    <string name="recently_describe_no_data">無資料</string>
 </resources>

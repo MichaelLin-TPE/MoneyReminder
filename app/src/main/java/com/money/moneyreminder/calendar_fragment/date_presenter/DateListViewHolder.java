@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyObject;
@@ -17,17 +18,34 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvItem,tvIncome,tvExpenditure;
 
+    private ConstraintLayout itemArea;
+
+
+    private OnCalendarItemClickListener listener;
+
+    public void setOnCalendarItemClickListener(OnCalendarItemClickListener listener){
+        Log.i("Michael","clickListener DateListViewHolder");
+        this.listener = listener;
+    }
+
 
     public DateListViewHolder(@NonNull View itemView) {
         super(itemView);
+        itemArea = itemView.findViewById(R.id.date_list_item_area);
         tvItem = itemView.findViewById(R.id.date_list_item);
         tvItem.setWidth(DbConvertTool.getInstance().convertDb());
         tvIncome = itemView.findViewById(R.id.date_list_income);
         tvExpenditure = itemView.findViewById(R.id.date_list_expenditure);
     }
 
-    public void setData(String date, ArrayList<MoneyObject> moneyDateArray) {
+    public void setData(final String date, ArrayList<MoneyObject> moneyDateArray) {
         tvItem.setText(date);
+        itemArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(date);
+            }
+        });
         if (moneyDateArray == null){
             tvIncome.setText("");
             tvExpenditure.setText("");
@@ -69,5 +87,11 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
             tvExpenditure.setVisibility(View.INVISIBLE);
         }
 
+
+
+    }
+
+    public interface OnCalendarItemClickListener{
+        void onClick(String date);
     }
 }

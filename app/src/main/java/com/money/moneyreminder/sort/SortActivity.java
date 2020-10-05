@@ -5,8 +5,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -24,10 +25,12 @@ import com.money.moneyreminder.sort_list.SortListActivity;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 import com.money.moneyreminder.tool.ImageLoaderProvider;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.money.moneyreminder.calculator.CalculatorActivity.IS_INCOME;
 import static com.money.moneyreminder.calculator.CalculatorActivity.TOTAL_MONEY;
+import static com.money.moneyreminder.calendar_fragment.CalendarFragment.CURRENT_TIME;
 
 public class SortActivity extends AppCompatActivity implements SortActivityVu{
 
@@ -37,13 +40,15 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
 
     private boolean isIncome;
 
-    private TextView tvDate,tvSort;
+    private TextView tvDate,tvSort,tvNoData;
 
     private EditText edDescription;
 
-    private String choiceTime ;
+    private String choiceTime , currentTime;
 
     private ImageView ivIcon;
+
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +57,11 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
         initPresenter();
         initBundle();
         initView();
-        presenter.onActivityCreate(totalMoney,isIncome);
+        presenter.onActivityCreate(totalMoney,isIncome,currentTime);
     }
 
     private void initView() {
+        tvNoData = findViewById(R.id.sort_recently_describe_no_data);
         ImageView ivBack = findViewById(R.id.sort_back_btn);
         ImageView ivSave = findViewById(R.id.sort_save_btn);
         ConstraintLayout sortArea = findViewById(R.id.sort_chose_area);
@@ -64,6 +70,8 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
         ivIcon = findViewById(R.id.sort_chose_icon);
         tvSort = findViewById(R.id.sort_chose_content);
         edDescription = findViewById(R.id.sort_description);
+        recyclerView = findViewById(R.id.sort_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         sortArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +105,7 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
         }
         totalMoney = Integer.parseInt(bundle.getString(TOTAL_MONEY,""));
         isIncome = bundle.getBoolean(IS_INCOME,false);
+        currentTime = bundle.getString(CURRENT_TIME,"");
     }
 
     private void initPresenter() {
@@ -111,8 +120,6 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void showDatePicker() {
-
-
 
         DatePicker datePicker = new DatePicker(this);
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -198,5 +205,27 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
     public void showSortType(SortTypeData sortTypeData) {
         tvSort.setText(sortTypeData.getSortType());
         ImageLoaderProvider.getInstance().setImage(sortTypeData.getIconUrl(),ivIcon);
+    }
+
+    @Override
+    public void setDescribeRecyclerView(ArrayList<String> describeArray) {
+        SortAdapter adapter = new SortAdapter(describeArray);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnDescribeItemClickListener(new SortAdapter.OnDescribeItemClickListener() {
+            @Override
+            public void onClick(String describe) {
+                presenter.onDescribeItemClickListener(describe);
+            }
+        });
+    }
+
+    @Override
+    public void setDescribe(String describe) {
+        edDescription.setText(describe);
+    }
+
+    @Override
+    public void showTvNoData(boolean isShow) {
+        tvNoData.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 }

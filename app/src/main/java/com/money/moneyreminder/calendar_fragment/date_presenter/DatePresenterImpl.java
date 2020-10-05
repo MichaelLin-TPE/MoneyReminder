@@ -49,4 +49,10 @@ public class DatePresenterImpl implements DatePresenter {
         int itemPosition = position - weekDayArray.size();
         holder.setData(dateList.get(itemPosition),moneyDateArray);
     }
+
+    @Override
+    public void onCalendarItemClickListener(DateListViewHolder holder, DateListViewHolder.OnCalendarItemClickListener listener) {
+        Log.i("Michael","clickListener 傳入 datePresenter");
+        holder.setOnCalendarItemClickListener(listener);
+    }
 }

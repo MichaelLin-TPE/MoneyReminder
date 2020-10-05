@@ -120,6 +120,20 @@ public class DataProvider {
         return weekDayArray;
     }
 
+    public long getTimeMiles(String currentTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd", Locale.TAIWAN);
+        try{
+            Date date = sdf.parse(currentTime);
+            if (date == null){
+                return 0;
+            }
+            return date.getTime();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public ArrayList<String> getDateList(int year, int month) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.TAIWAN);

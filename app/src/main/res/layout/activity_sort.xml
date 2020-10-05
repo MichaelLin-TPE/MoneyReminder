@@ -11,7 +11,7 @@
         android:id="@+id/sort_tool_bar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:background="@color/grey"
+        android:background="@color/app_main_color"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="15dp"
                 android:textSize="@dimen/calculator_title"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:text="@string/sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -144,13 +144,43 @@
         android:hint="@string/description"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="12sp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/black"
         app:layout_constraintTop_toBottomOf="@id/sort_chose_area"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sort_description_height"/>
+    <TextView
+        android:id="@+id/sort_recently_describe"
+        android:text="@string/recently_describe"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintTop_toBottomOf="@id/sort_description"
+        app:layout_constraintLeft_toLeftOf="@id/sort_description"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sort_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/sort_recently_describe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:id="@+id/sort_recently_describe_no_data"
+        android:text="@string/recently_describe_no_data"
+        android:textSize="@dimen/normal_text_size"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/sort_recycler_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

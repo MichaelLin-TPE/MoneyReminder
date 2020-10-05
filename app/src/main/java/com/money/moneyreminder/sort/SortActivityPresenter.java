@@ -3,7 +3,7 @@ package com.money.moneyreminder.sort;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 
 public interface SortActivityPresenter {
-    void onActivityCreate(int totalMoney, boolean isIncome);
+    void onActivityCreate(int totalMoney, boolean isIncome,String currentDate);
 
     void setOnSortAreaClickListener();
 
@@ -16,4 +16,6 @@ public interface SortActivityPresenter {
     void onSaveButtonClickListener();
 
     void onCatchSortTypeData(SortTypeData sortTypeData);
+
+    void onDescribeItemClickListener(String describe);
 }

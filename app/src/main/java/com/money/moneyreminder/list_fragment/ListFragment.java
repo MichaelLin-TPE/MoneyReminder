@@ -1,5 +1,6 @@
 package com.money.moneyreminder.list_fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.DisplayMetrics;
@@ -61,6 +63,8 @@ public class ListFragment extends Fragment implements ListFragmentVu {
 
     private FloatingActionButton floatingActionButton;
 
+    private FragmentActivity fragmentActivity;
+
     public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
@@ -72,6 +76,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        fragmentActivity = (FragmentActivity) context;
     }
 
     @Override
@@ -214,7 +219,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     public void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isDelete) {
         Log.i("Michael", "是否是收入 : " + isIncome);
 
-        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(getFragmentManager());
+        ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(fragmentActivity.getSupportFragmentManager());
         listFragmentAdapter.setData(moneyDataArrayList, isIncome, isDelete);
 
 

@@ -46,6 +46,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
     private static final String ICON_API = "icon_api";
 
+    private static final String DESCRIPTION = "description";
+
     private ArrayList<MoneyObject> moneyObjectArray;
 
     private String description, edContent, iconUrl;
@@ -65,6 +67,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         user = mAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
         gson = new Gson();
+
+
     }
 
     @Override
@@ -229,6 +233,115 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
         Map<String,Object> map = new HashMap<>();
         map.put("json",json);
         firebaseFirestore.collection(MONEY_LIST)
+                .document(getUserEmail())
+                .set(map);
+    }
+
+    @Override
+    public void saveUserDescription(final String description) {
+
+        if (description == null || description.isEmpty()){
+            Log.i("Michael","描述為空白");
+            return;
+        }
+
+        firebaseFirestore.collection(DESCRIPTION)
+                .document(getUserEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful() || task.getResult() == null){
+                            Log.i("Michael","取得Description失敗");
+                            createNewDescribe(description);
+                            return;
+                        }
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (snapshot == null){
+                            Log.i("Michael","取得Description失敗");
+                            createNewDescribe(description);
+                            return;
+                        }
+                        String json = (String) snapshot.get("json");
+                        if (json == null){
+                            Log.i("Michael","取得Description失敗");
+                            createNewDescribe(description);
+                            return;
+                        }
+                        ArrayList<String> descriptionArray = gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
+                        if (descriptionArray == null || descriptionArray.isEmpty()){
+                            Log.i("Michael","取得Description失敗");
+                            createNewDescribe(description);
+                            return;
+                        }
+                        addDescribe(descriptionArray,description);
+                    }
+                });
+    }
+
+    @Override
+    public void getUserDescribeData(final OnFireStoreCatchListener<ArrayList<String>> onFireStoreCatchListener) {
+        firebaseFirestore.collection(DESCRIPTION)
+                .document(getUserEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful() || task.getResult() == null){
+                            Log.i("Michael","取得Description失敗");
+                            onFireStoreCatchListener.onFail("取得Description失敗");
+                            return;
+                        }
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (snapshot == null){
+                            Log.i("Michael","取得Description失敗");
+                            onFireStoreCatchListener.onFail("取得Description失敗");
+                            return;
+                        }
+                        String json = (String) snapshot.get("json");
+                        if (json == null){
+                            Log.i("Michael","取得Description失敗");
+                            onFireStoreCatchListener.onFail("取得Description失敗");
+                            return;
+                        }
+                        ArrayList<String> descriptionArray = gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
+                        if (descriptionArray == null || descriptionArray.isEmpty()){
+                            Log.i("Michael","取得Description失敗");
+                            onFireStoreCatchListener.onFail("取得Description失敗");
+                            return;
+                        }
+                        onFireStoreCatchListener.onSuccess(descriptionArray);
+                    }
+                });
+    }
+
+    private void createNewDescribe(String description) {
+        ArrayList<String> describeArray = new ArrayList<>();
+        describeArray.add(description);
+        String json  = gson.toJson(describeArray);
+        Map<String,Object> map = new HashMap<>();
+        map.put("json",json);
+        firebaseFirestore.collection(DESCRIPTION)
+                .document(getUserEmail())
+                .set(map);
+    }
+
+    private void addDescribe(ArrayList<String> descriptionArray, String description) {
+        boolean isDataRepeat = false;
+        for (String describe : descriptionArray){
+            if (describe.equals(description)){
+                isDataRepeat = true;
+                break;
+            }
+        }
+        if (isDataRepeat){
+            return;
+        }
+        descriptionArray.add(description);
+        String json  = gson.toJson(descriptionArray);
+        Map<String,Object> map = new HashMap<>();
+        map.put("json",json);
+        firebaseFirestore.collection(DESCRIPTION)
                 .document(getUserEmail())
                 .set(map);
     }

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -23,6 +24,8 @@ import com.money.moneyreminder.sort.SortActivity;
 import com.money.moneyreminder.tool.DataProvider;
 
 import java.util.ArrayList;
+
+import static com.money.moneyreminder.calendar_fragment.CalendarFragment.CURRENT_TIME;
 
 public class CalculatorActivity extends AppCompatActivity implements CalculatorActivityVu{
 
@@ -38,14 +41,29 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorA
     public static final String TOTAL_MONEY = "total_money";
 
     public static final String IS_INCOME = "is_income";
+
+    private String currentTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
         initPresenter();
         initView();
-
+        initBundle();
         presenter.onActivityCreate();
+    }
+
+    private void initBundle() {
+
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null){
+            currentTime = "";
+            return;
+        }
+        currentTime = bundle.getString(CURRENT_TIME,"");
+        Log.i("Michael","CurrentTime : "+currentTime);
     }
 
     private void initView() {
@@ -94,8 +112,6 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorA
         });
         rvNumber.setLayoutManager(gridLayoutManager);
 
-//        handleRecyclerViewWidth();
-
         ivBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,19 +123,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorA
 
     }
 
-    private void handleRecyclerViewWidth() {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-        float width = getResources().getDisplayMetrics().widthPixels;
-
-        float singleItemSize = width / 4;
-
-        float singleItemDp = singleItemSize / displayMetrics.density;
-
-        int pix = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,singleItemDp,getResources().getDisplayMetrics());
-        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(pix,0);
-        rvMath.setLayoutParams(params);
-    }
 
     private void initPresenter() {
         presenter = new CalculatorActivityPresenterImpl(this);
@@ -181,6 +185,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorA
         Intent it = new Intent(this, SortActivity.class);
         it.putExtra(TOTAL_MONEY,tvContent);
         it.putExtra(IS_INCOME, isIncome);
+        it.putExtra(CURRENT_TIME,currentTime);
         startActivity(it);
         finish();
     }

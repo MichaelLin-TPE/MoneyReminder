@@ -8,4 +8,6 @@ public interface CalendarFragmentPresenter {
     void onLeftArrowClickListener();
 
     void onRightArrowClickListener();
+
+    void onCalendarItemClickListener(String date);
 }

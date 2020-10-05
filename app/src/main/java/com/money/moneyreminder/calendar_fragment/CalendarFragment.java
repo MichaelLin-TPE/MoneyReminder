@@ -1,6 +1,7 @@
 package com.money.moneyreminder.calendar_fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.calculator.CalculatorActivity;
 import com.money.moneyreminder.calendar_fragment.date_presenter.CalendarAdapter;
+import com.money.moneyreminder.calendar_fragment.date_presenter.DateListViewHolder;
 import com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenter;
 import com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenterImpl;
 import com.money.moneyreminder.sort.MoneyObject;
@@ -44,6 +47,8 @@ public class CalendarFragment extends Fragment implements CalendarFragmentVu {
     private Context context;
 
     private FragmentActivity fragmentActivity;
+
+    public static final String CURRENT_TIME = "currentTime";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -121,6 +126,14 @@ public class CalendarFragment extends Fragment implements CalendarFragmentVu {
         }else {
             adapter.notifyDataSetChanged();
         }
+        adapter.setOnCalendarItemClickListener(new DateListViewHolder.OnCalendarItemClickListener() {
+            @Override
+            public void onClick(String date) {
+                presenter.onCalendarItemClickListener(date);
+            }
+        });
+
+
     }
 
     @Override
@@ -131,5 +144,12 @@ public class CalendarFragment extends Fragment implements CalendarFragmentVu {
     @Override
     public void setTime(String currentDate) {
         tvTime.setText(currentDate);
+    }
+
+    @Override
+    public void intentToCalculatorActivity(String currentTime) {
+        Intent it = new Intent(context, CalculatorActivity.class);
+        it.putExtra(CURRENT_TIME,currentTime);
+        context.startActivity(it);
     }
 }

@@ -10,4 +10,6 @@ public interface CalendarFragmentVu {
     void showErrorCode(String errorCode);
 
     void setTime(String currentDate);
+
+    void intentToCalculatorActivity(String currentTime);
 }

@@ -63,7 +63,7 @@ public class ErrorDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(MoneyReminderApplication.getInstance().getApplicationContext()).inflate(R.layout.error_dialog_layout,container,false);
+        View view = inflater.inflate(R.layout.error_dialog_layout,container,false);
         initView(view);
         return view;
     }

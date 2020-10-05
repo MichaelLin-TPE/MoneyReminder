@@ -1,5 +1,6 @@
 package com.money.moneyreminder.calendar_fragment.date_presenter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,12 @@ import static com.money.moneyreminder.calendar_fragment.date_presenter.DatePrese
 public class CalendarAdapter extends RecyclerView.Adapter {
 
     private DatePresenter datePresenter;
+
+    private DateListViewHolder.OnCalendarItemClickListener listener;
+
+    public void setOnCalendarItemClickListener(DateListViewHolder.OnCalendarItemClickListener listener){
+        this.listener = listener;
+    }
 
     public CalendarAdapter(DatePresenter datePresenter){
         this.datePresenter = datePresenter;
@@ -45,6 +52,8 @@ public class CalendarAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof DateListViewHolder){
             datePresenter.onBindDateListHolder((DateListViewHolder)holder,position);
+            Log.i("Michael","clickListener 傳入");
+            datePresenter.onCalendarItemClickListener((DateListViewHolder)holder,listener);
         }
     }
 

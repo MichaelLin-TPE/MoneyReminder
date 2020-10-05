@@ -59,6 +59,20 @@ public class CalendarFragmentPresenterImpl implements CalendarFragmentPresenter{
         firebaseHandler.getUserMoneyData(onFireStoreCatchListener);
     }
 
+    @Override
+    public void onCalendarItemClickListener(String date) {
+
+        String month;
+        if (currentMonth < 10){
+            month = "0"+currentMonth;
+        }else {
+            month = currentMonth+"";
+        }
+
+        String currentTime = currentYear+"/"+month+"/"+date;
+        mView.intentToCalculatorActivity(currentTime);
+    }
+
     private FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>> onFireStoreCatchListener = new FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>>() {
         @Override
         public void onSuccess(ArrayList<MoneyObject> moneyDateArray) {

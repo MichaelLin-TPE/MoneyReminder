@@ -118,12 +118,11 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             }
         }
 
-
-
         removeDataArray = new ArrayList<>();
         isDelete = true;
         mView.resetFloatingButton();
         firebaseHandler.updateUserMoneyList(moneyArrayList);
+        firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
 
     }
 
