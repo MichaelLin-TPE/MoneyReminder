@@ -15,7 +15,7 @@ public interface SortActivityPresenter {
 
     void onSaveButtonClickListener();
 
-    void onCatchSortTypeData(SortTypeData sortTypeData);
+    void onCatchSortTypeData(SortTypeData sortTypeData, String describe);
 
     void onDescribeItemClickListener(String describe);
 }

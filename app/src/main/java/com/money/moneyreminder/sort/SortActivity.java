@@ -174,7 +174,8 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
                 Log.i("Michael","sortTypeData is null");
                 return;
             }
-            presenter.onCatchSortTypeData(sortTypeData);
+            String describe = bundle.getString("describe","");
+            presenter.onCatchSortTypeData(sortTypeData,describe);
         }else {
             Log.i("Michael","收不到資料");
         }

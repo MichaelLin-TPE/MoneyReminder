@@ -7,10 +7,7 @@ import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class SortActivityPresenterImpl implements SortActivityPresenter {
 
@@ -133,9 +130,10 @@ public class SortActivityPresenterImpl implements SortActivityPresenter {
     }
 
     @Override
-    public void onCatchSortTypeData(SortTypeData sortTypeData) {
+    public void onCatchSortTypeData(SortTypeData sortTypeData, String describe) {
         this.sortTypeData = sortTypeData;
         mView.showSortType(sortTypeData);
+        mView.setDescribe(describe);
     }
 
     @Override

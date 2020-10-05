@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="@id/sort_list_item_icon"
             app:layout_constraintLeft_toRightOf="@id/sort_list_item_icon"
             android:layout_marginStart="15sp"
-            android:textColor="@color/black"
+            android:textColor="@color/app_main_color"
             android:textSize="@dimen/sort_list_text_size"
             android:text="@string/recently"
             android:layout_width="wrap_content"

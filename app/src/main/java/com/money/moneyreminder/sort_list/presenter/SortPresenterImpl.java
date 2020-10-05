@@ -10,9 +10,13 @@ public class SortPresenterImpl implements SortPresenter {
 
     public static final int CREATE_LIST = 1;
 
+    public static final int SECOND_SORT_LIST = 2;
+
     private ArrayList<SortRecentlyData> recentlyArray;
 
     private ArrayList<SortCreateData> createArray;
+
+    private ArrayList<String> contentArray;
 
     @Override
     public void setData(SortData sortData) {
@@ -25,16 +29,41 @@ public class SortPresenterImpl implements SortPresenter {
     }
 
     @Override
+    public void setSecondSortData(ArrayList<String> contentArray) {
+        this.contentArray = contentArray;
+    }
+
+    @Override
+    public void onBindSecondSortViewHolder(SecondSortViewHolder holder, int position) {
+        holder.setData(contentArray);
+    }
+
+    @Override
+    public void setOnDescriptionItemClickListener(SecondSortViewHolder holder, SecondSortContentAdapter.OnDescriptionItemClickListener listener) {
+        holder.setOnDescriptionItemClickListener(listener);
+    }
+
+    @Override
+    public void setOnAddIconClickListener(SecondSortViewHolder holder, SecondSortViewHolder.OnAddIconClickListener onAddIconClickListener) {
+        holder.setOnAddIconClickListener(onAddIconClickListener);
+    }
+
+    @Override
     public int getItemPosition(int position) {
         if (position == 0){
             return RECENTLY;
         }
-        return CREATE_LIST;
+        if (position == 1){
+            return CREATE_LIST;
+        }
+
+        return SECOND_SORT_LIST;
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+
+        return 3;
     }
 
     @Override
@@ -56,4 +85,6 @@ public class SortPresenterImpl implements SortPresenter {
     public void setOnSortTypeRecentlyListener(RecentlyViewHolder holder, RecentlyAdapter.OnSortTypeRecentlySelectListener recentlyListener) {
         holder.setOnSortTypeRecentlyListener(recentlyListener);
     }
+
+
 }

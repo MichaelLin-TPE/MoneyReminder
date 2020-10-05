@@ -12,10 +12,13 @@ import com.money.moneyreminder.sort_list.presenter.CreateAdapter;
 import com.money.moneyreminder.sort_list.presenter.CreateViewHolder;
 import com.money.moneyreminder.sort_list.presenter.RecentlyAdapter;
 import com.money.moneyreminder.sort_list.presenter.RecentlyViewHolder;
+import com.money.moneyreminder.sort_list.presenter.SecondSortContentAdapter;
+import com.money.moneyreminder.sort_list.presenter.SecondSortViewHolder;
 import com.money.moneyreminder.sort_list.presenter.SortPresenter;
 
 import static com.money.moneyreminder.sort_list.presenter.SortPresenterImpl.CREATE_LIST;
 import static com.money.moneyreminder.sort_list.presenter.SortPresenterImpl.RECENTLY;
+import static com.money.moneyreminder.sort_list.presenter.SortPresenterImpl.SECOND_SORT_LIST;
 
 public class SortListAdapter extends RecyclerView.Adapter {
 
@@ -25,6 +28,18 @@ public class SortListAdapter extends RecyclerView.Adapter {
 
     private RecentlyAdapter.OnSortTypeRecentlySelectListener recentlyListener;
 
+    private SecondSortContentAdapter.OnDescriptionItemClickListener listener;
+
+    private SecondSortViewHolder.OnAddIconClickListener onAddIconClickListener;
+
+    public void setOnAddIconClickListener (SecondSortViewHolder.OnAddIconClickListener onAddIconClickListener){
+        this.onAddIconClickListener = onAddIconClickListener;
+    }
+
+    public void setOnDescriptionItemClickListener(SecondSortContentAdapter.OnDescriptionItemClickListener listener){
+        this.listener = listener;
+    }
+
     public void setOnSortTypeRecentlyListener(RecentlyAdapter.OnSortTypeRecentlySelectListener listener){
         this.recentlyListener = listener;
     }
@@ -33,7 +48,8 @@ public class SortListAdapter extends RecyclerView.Adapter {
         this.createListener = createListener;
     }
 
-    public SortListAdapter(SortPresenter sortPresenter) {
+
+    public void setSortPresenter(SortPresenter sortPresenter){
         this.sortPresenter = sortPresenter;
     }
 
@@ -46,6 +62,9 @@ public class SortListAdapter extends RecyclerView.Adapter {
                 return new CreateViewHolder(view);
             case RECENTLY:
                 return new RecentlyViewHolder(view);
+            case SECOND_SORT_LIST:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.second_sort_list_item,parent,false);
+                return new SecondSortViewHolder(view);
             default:
                 return null;
         }
@@ -60,6 +79,11 @@ public class SortListAdapter extends RecyclerView.Adapter {
         if (holder instanceof RecentlyViewHolder){
             sortPresenter.onBindRecentlyViewHolder((RecentlyViewHolder)holder,position);
             sortPresenter.setOnSortTypeRecentlyListener((RecentlyViewHolder)holder,recentlyListener);
+        }
+        if (holder instanceof SecondSortViewHolder){
+            sortPresenter.onBindSecondSortViewHolder((SecondSortViewHolder)holder,position);
+            sortPresenter.setOnDescriptionItemClickListener((SecondSortViewHolder)holder,listener);
+            sortPresenter.setOnAddIconClickListener((SecondSortViewHolder)holder,onAddIconClickListener);
         }
     }
 

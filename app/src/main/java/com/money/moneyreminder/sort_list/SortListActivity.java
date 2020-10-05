@@ -12,16 +12,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort_list.presenter.CreateAdapter;
 import com.money.moneyreminder.sort_list.presenter.RecentlyAdapter;
+import com.money.moneyreminder.sort_list.presenter.SecondSortContentAdapter;
+import com.money.moneyreminder.sort_list.presenter.SecondSortViewHolder;
 import com.money.moneyreminder.sort_list.presenter.SortCreateData;
 import com.money.moneyreminder.sort_list.presenter.SortData;
 import com.money.moneyreminder.sort_list.presenter.SortPresenter;
 import com.money.moneyreminder.sort_list.presenter.SortPresenterImpl;
 import com.money.moneyreminder.sort_list.presenter.SortRecentlyData;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
+import com.money.moneyreminder.tool.SecondSortDialogFragment;
+
+import java.util.ArrayList;
 
 public class SortListActivity extends AppCompatActivity implements SortListActivityVu {
 
@@ -32,6 +36,9 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
     private RecyclerView recyclerView;
 
     private ProgressBar progressBar;
+
+    private SortListAdapter sortListAdapter;
+
 
     public static final int RESULT_OK = 100;
 
@@ -79,7 +86,8 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
     @Override
     public void setRecyclerView(SortData sortData) {
         sortPresenter.setData(sortData);
-        SortListAdapter sortListAdapter = new SortListAdapter(sortPresenter);
+        sortListAdapter = new SortListAdapter();
+        sortListAdapter.setSortPresenter(sortPresenter);
         recyclerView.setAdapter(sortListAdapter);
         sortListAdapter.setOnSortTypeSelectListener(new CreateAdapter.OnSortTypeSelectListener() {
             @Override
@@ -93,12 +101,24 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
                 presenter.onSortTypeRecentlyListener(data);
             }
         });
+        sortListAdapter.setOnDescriptionItemClickListener(new SecondSortContentAdapter.OnDescriptionItemClickListener() {
+            @Override
+            public void onClick(String content) {
+                presenter.onDescriptionItemClickListener(content);
+            }
+        });
+        sortListAdapter.setOnAddIconClickListener(new SecondSortViewHolder.OnAddIconClickListener() {
+            @Override
+            public void onClick() {
+                presenter.onAddIconClickListener();
+            }
+        });
     }
 
     @Override
     public void setEmptyRecyclerView() {
         sortPresenter.setData(null);
-        SortListAdapter sortListAdapter = new SortListAdapter(sortPresenter);
+        SortListAdapter sortListAdapter = new SortListAdapter();
         recyclerView.setAdapter(sortListAdapter);
     }
 
@@ -128,10 +148,33 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
     }
 
     @Override
-    public void saveSortType(SortTypeData sortTypeData) {
+    public void saveSortType(SortTypeData sortTypeData, String describe) {
         Intent it = new Intent();
         it.putExtra("sortType",sortTypeData);
+        it.putExtra("describe",describe);
         this.setResult(RESULT_OK,it);
         finish();
+    }
+
+    @Override
+    public void showSecondSortDialog(String edContent) {
+        SecondSortDialogFragment.newInstance(edContent).setOnSecondSortSaveButtonClickListener(new SecondSortDialogFragment.OnSecondSortTypeSaveButtonClickListener() {
+            @Override
+            public void onClick(ArrayList<String> secondSortContentArray,String sortTitle) {
+                presenter.onSecondSortSaveButtonClickListener(secondSortContentArray,sortTitle);
+            }
+        }).show(getSupportFragmentManager(),"dialog");
+    }
+
+    @Override
+    public void showSecondSortRecyclerView(ArrayList<String> contentArray) {
+        sortPresenter.setSecondSortData(contentArray);
+        sortListAdapter.setSortPresenter(sortPresenter);
+        sortListAdapter.notifyItemChanged(2);
+    }
+
+    @Override
+    public void refreshView(int position) {
+        sortListAdapter.notifyItemChanged(position);
     }
 }

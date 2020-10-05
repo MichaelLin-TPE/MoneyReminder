@@ -21,7 +21,7 @@ public class RecentlyAdapter extends RecyclerView.Adapter<RecentlyAdapter.ViewHo
 
     private ArrayList<SortRecentlyData> recentlyDataArrayList;
 
-    private int userPressIndex;
+    private int userPressIndex = -1;
 
     private OnSortTypeRecentlySelectListener listener;
 

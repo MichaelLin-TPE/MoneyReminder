@@ -22,6 +22,7 @@ import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.sort_list.IconData;
 import com.money.moneyreminder.sort_list.presenter.SortCreateData;
 import com.money.moneyreminder.sort_list.presenter.SortData;
+import com.money.moneyreminder.sort_list.presenter.SortRecentlyData;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 
 import java.text.SimpleDateFormat;
@@ -46,9 +47,13 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
     private static final String ICON_API = "icon_api";
 
+    private static final String SECOND_SORT_LIST = "second_sort_list";
+
     private static final String DESCRIPTION = "description";
 
     private ArrayList<MoneyObject> moneyObjectArray;
+
+    private ArrayList<SecondSortData> secondSortDataArray;
 
     private String description, edContent, iconUrl;
 
@@ -126,6 +131,31 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                 }
             }
         });
+
+        firebaseFirestore.collection(SECOND_SORT_LIST)
+                .document(getUserEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful() || task.getResult() == null){
+                            Log.i("Michael","無法取得次分類表");
+                            return;
+                        }
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (snapshot == null){
+                            Log.i("Michael","無法取得次分類表");
+                            return;
+                        }
+                        String json = (String) snapshot.get("json");
+                        if (json == null || json.isEmpty()){
+                            Log.i("Michael","無法取得次分類表");
+                            return;
+                        }
+                        secondSortDataArray = gson.fromJson(json,new TypeToken<ArrayList<SecondSortData>>(){}.getType());
+
+                    }
+                });
     }
 
     @Override
@@ -170,6 +200,104 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
     }
 
     @Override
+    public void setPersonalRecentlySortType(SortCreateData sortCreateData) {
+        SortRecentlyData recentlyData = new SortRecentlyData();
+        recentlyData.setIconUrl(sortCreateData.getIconUrl());
+        recentlyData.setSortType(sortCreateData.getSortType());
+
+        if (userSortData.getRecentlyData() == null || userSortData.getRecentlyData().isEmpty()){
+            ArrayList<SortRecentlyData> recentlyDataArray = new ArrayList<>();
+            recentlyDataArray.add(recentlyData);
+            userSortData.setRecentlyData(recentlyDataArray);
+            String json = gson.toJson(userSortData);
+            saveUserSortData(json);
+            return;
+        }
+        boolean isDataRepeat = false;
+        for (SortRecentlyData data : userSortData.getRecentlyData()){
+            if (data.getIconUrl().equals(recentlyData.getIconUrl()) && data.getSortType().equals(recentlyData.getSortType())){
+                isDataRepeat = true;
+                break;
+            }
+        }
+        //資料重複什麼都不做
+        if (isDataRepeat){
+            return;
+        }
+
+        userSortData.getRecentlyData().add(recentlyData);
+        String json = gson.toJson(userSortData);
+        saveUserSortData(json);
+    }
+
+    @Override
+    public void saveUserSecondSortData(final ArrayList<String> contentArray, final String sortTitle) {
+        final SecondSortData secondSortData = new SecondSortData();
+        secondSortData.setContentArray(contentArray);
+        secondSortData.setSortTitle(sortTitle);
+        if (secondSortDataArray == null || secondSortDataArray.isEmpty()){
+
+            secondSortDataArray = new ArrayList<>();
+            secondSortDataArray.add(secondSortData);
+            saveUserSecondSortList(secondSortDataArray);
+            return;
+        }
+        boolean isTitleRepeat = false;
+        for (SecondSortData data : secondSortDataArray){
+            if (data.getSortTitle().equals(secondSortData.getSortTitle())){
+                for (String content : secondSortData.getContentArray()){
+                    boolean isContentRepeat = false;
+                    for (String oldContent : data.getContentArray()){
+                        if (oldContent.equals(content)){
+                            isContentRepeat = true;
+                            break;
+                        }
+                    }
+                    if (!isContentRepeat){
+                        data.getContentArray().add(content);
+                    }
+                    isTitleRepeat = true;
+                }
+                break;
+            }
+        }
+        if (!isTitleRepeat){
+            secondSortDataArray.add(secondSortData);
+        }
+        saveUserSecondSortList(secondSortDataArray);
+
+    }
+
+    @Override
+    public void getSecondSortArray(OnFireStoreCatchListener<ArrayList<SecondSortData>> onFireStoreCatchListener) {
+        if (secondSortDataArray == null || secondSortDataArray.isEmpty()){
+            onFireStoreCatchListener.onFail("無法取得次分類表");
+            return;
+        }
+        onFireStoreCatchListener.onSuccess(secondSortDataArray);
+    }
+
+    private void saveUserSecondSortList(ArrayList<SecondSortData> secondSortDataArray) {
+        String json = gson.toJson(secondSortDataArray);
+        Map<String,Object> map = new HashMap<>();
+        map.put("json",json);
+        firebaseFirestore.collection(SECOND_SORT_LIST)
+                .document(getUserEmail())
+                .set(map);
+    }
+
+
+    private void saveUserSortData(String json) {
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("json",json);
+
+        firebaseFirestore.collection(SORT_LIST)
+                .document(getUserEmail())
+                .set(map);
+    }
+
+    @Override
     public void getUserMoneyData(final OnFireStoreCatchListener<ArrayList<MoneyObject>> onGetUserMoneyDataListener) {
         DocumentReference docRef = firebaseFirestore.collection(MONEY_LIST)
                 .document(getUserEmail());
@@ -199,6 +327,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                 }
             }
         });
+
+
     }
 
     @Override
@@ -314,6 +444,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     }
                 });
     }
+
+
 
     private void createNewDescribe(String description) {
         ArrayList<String> describeArray = new ArrayList<>();

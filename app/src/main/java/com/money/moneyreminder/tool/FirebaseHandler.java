@@ -3,6 +3,7 @@ package com.money.moneyreminder.tool;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.sort_list.IconData;
+import com.money.moneyreminder.sort_list.presenter.SortCreateData;
 import com.money.moneyreminder.sort_list.presenter.SortData;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 
@@ -26,6 +27,12 @@ public interface FirebaseHandler {
     void saveUserDescription(String description);
 
     void getUserDescribeData(OnFireStoreCatchListener<ArrayList<String>> onFireStoreCatchListener);
+
+    void setPersonalRecentlySortType(SortCreateData sortCreateData);
+
+    void saveUserSecondSortData(ArrayList<String> secondSortContentArray, String sortTitle);
+
+    void getSecondSortArray(OnFireStoreCatchListener<ArrayList<SecondSortData>> onFireStoreCatchListener);
 
 
     public interface OnFireStoreCatchListener<T>{

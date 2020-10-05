@@ -22,7 +22,7 @@
         app:layout_constraintLeft_toRightOf="@id/sort_type_dialog_icon"
         android:layout_marginStart="5dp"
         android:textSize="@dimen/sort_type_content_size"
-        android:textColor="@color/black"
+        android:textColor="@color/app_main_color"
         android:lines="1"
         android:maxLines="1"
         android:ellipsize="end"

@@ -21,7 +21,7 @@ public class CreateAdapter extends RecyclerView.Adapter<CreateAdapter.ViewHolder
 
     private ArrayList<SortCreateData> createDataArrayList;
 
-    private int userPressIndex;
+    private int userPressIndex = -1;
 
     private OnSortTypeSelectListener listener;
 
