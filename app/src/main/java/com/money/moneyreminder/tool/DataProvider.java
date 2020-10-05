@@ -195,4 +195,7 @@ public class DataProvider {
         return yearMonthFormat.format(new Date(timeMiles));
     }
 
+    public int getMonthMaxDay(String currentMonth, String currentYear) {
+        return getTotalDay(Integer.parseInt(currentYear),Integer.parseInt(currentMonth));
+    }
 }

@@ -34,6 +34,12 @@ public interface FirebaseHandler {
 
     void getSecondSortArray(OnFireStoreCatchListener<ArrayList<SecondSortData>> onFireStoreCatchListener);
 
+    void getBudgetMoney(OnFireStoreCatchListener<Long> onCatchBudgetListener);
+
+    String getUserDisplayName();
+
+    void saveUserBudgetMoney(int budget);
+
 
     public interface OnFireStoreCatchListener<T>{
         void onSuccess(T data);

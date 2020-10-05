@@ -51,6 +51,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
     private static final String DESCRIPTION = "description";
 
+    private static final String BUDGET = "budget";
+
     private ArrayList<MoneyObject> moneyObjectArray;
 
     private ArrayList<SecondSortData> secondSortDataArray;
@@ -275,6 +277,43 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
             return;
         }
         onFireStoreCatchListener.onSuccess(secondSortDataArray);
+    }
+
+    @Override
+    public void getBudgetMoney(final OnFireStoreCatchListener<Long> onCatchBudgetListener) {
+        firebaseFirestore.collection(BUDGET)
+                .document(getUserEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful() || task.getResult() == null){
+                            onCatchBudgetListener.onFail("無預算");
+                            return;
+                        }
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (snapshot == null || snapshot.get("budget") == null){
+                            onCatchBudgetListener.onFail("無預算");
+                            return;
+                        }
+                        long budgetMoney = (long) snapshot.get("budget");
+                        onCatchBudgetListener.onSuccess(budgetMoney);
+                    }
+                });
+    }
+
+    @Override
+    public String getUserDisplayName() {
+        return user.getDisplayName();
+    }
+
+    @Override
+    public void saveUserBudgetMoney(int budget) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("budget",budget);
+        firebaseFirestore.collection(BUDGET)
+                .document(getUserEmail())
+                .set(map);
     }
 
     private void saveUserSecondSortList(ArrayList<SecondSortData> secondSortDataArray) {
