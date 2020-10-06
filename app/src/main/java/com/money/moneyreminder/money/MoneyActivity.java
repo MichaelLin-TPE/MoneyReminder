@@ -43,45 +43,16 @@ public class MoneyActivity extends AppCompatActivity implements MoneyActivityVu{
     }
 
     private void initView() {
-        ImageView ivLogout = findViewById(R.id.money_logout_btn);
+
         tabLayout = findViewById(R.id.money_tab_layout);
-        ivLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.onLogoutButtonClickListener();
-            }
-        });
+
     }
 
     private void initPresenter() {
         presenter = new MoneyActivityPresenterImpl(this);
     }
 
-    @Override
-    public void intentToMainActivity() {
-        Intent it = new Intent(this, MainActivity.class);
-        startActivity(it);
-        finish();
-    }
 
-    @Override
-    public void showLogoutConfirmDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.logout_title))
-                .setMessage(getString(R.string.logout_content))
-                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        presenter.onLogoutConfirmClickListener();
-                    }
-                }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                }).create();
-        dialog.show();
-    }
 
     @Override
     public void showTabLayout() {

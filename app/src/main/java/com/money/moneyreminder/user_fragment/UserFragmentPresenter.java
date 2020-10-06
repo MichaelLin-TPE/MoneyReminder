@@ -6,4 +6,8 @@ public interface UserFragmentPresenter {
     void onSettingButtonClickListener();
 
     void onSetBudgetMoneyConfirmClickListener(String toString);
+
+    void onAccountItemClickListener(String itemName);
+
+    void onLogoutConfirmClickListener();
 }

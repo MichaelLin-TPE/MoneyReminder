@@ -1,8 +1,10 @@
 package com.money.moneyreminder.user_fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,11 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
+import com.money.moneyreminder.tool.SecondSortAdapter;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenterImpl;
@@ -42,6 +47,8 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     private RecyclerView recyclerView;
 
     private UserAdapter adapter;
+
+    private ProgressBar progressBar;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -77,6 +84,7 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     }
 
     private void initView(View view) {
+        progressBar = view.findViewById(R.id.user_progress_bar);
         tvName = view.findViewById(R.id.user_name);
         recyclerView = view.findViewById(R.id.user_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -112,6 +120,12 @@ public class UserFragment extends Fragment implements UserFragmentVu {
                 presenter.onSettingButtonClickListener();
             }
         });
+        adapter.setOnAccountItemClickListener(new SecondSortAdapter.OnAccountItemClickListener() {
+            @Override
+            public void onClick(String itemName) {
+                presenter.onAccountItemClickListener(itemName);
+            }
+        });
     }
 
     @Override
@@ -139,5 +153,36 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     @Override
     public void showToast(String message) {
         Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showProgressBar(boolean isShow) {
+        progressBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showLogoutDialog() {
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(context)
+                .setTitle(getString(R.string.logout_title))
+                .setMessage(getString(R.string.logout_content))
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenter.onLogoutConfirmClickListener();
+                    }
+                }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).create();
+        dialog.show();
+    }
+
+    @Override
+    public void intentToMainActivity() {
+        Intent it = new Intent(context, MainActivity.class);
+        context.startActivity(it);
+        ((Activity)context).finish();
     }
 }

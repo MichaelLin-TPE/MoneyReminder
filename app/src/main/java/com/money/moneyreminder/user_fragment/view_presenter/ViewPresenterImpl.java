@@ -1,5 +1,7 @@
 package com.money.moneyreminder.user_fragment.view_presenter;
 
+import com.money.moneyreminder.tool.SecondSortAdapter;
+
 import java.util.ArrayList;
 
 public class ViewPresenterImpl implements ViewPresenter {
@@ -24,6 +26,11 @@ public class ViewPresenterImpl implements ViewPresenter {
     @Override
     public void setOnSettingButtonClickListener(BudgetViewHolder holder, BudgetViewHolder.OnSettingButtonClickListener listener) {
         holder.setOnSettingButtonClickListener(listener);
+    }
+
+    @Override
+    public void setOnAccountItemClickListener(AccountViewHolder holder, SecondSortAdapter.OnAccountItemClickListener onAccountItemClickListener) {
+        holder.setOnAccountItemClickListener(onAccountItemClickListener);
     }
 
     @Override

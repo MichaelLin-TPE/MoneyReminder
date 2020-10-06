@@ -16,6 +16,13 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
 
     private ArrayList<String> secondSortContentArray;
 
+
+    private OnAccountItemClickListener listener;
+
+    public void setOnAccountItemClickListener(OnAccountItemClickListener listener){
+        this.listener = listener;
+    }
+
     public SecondSortAdapter() {
 
     }
@@ -33,9 +40,15 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String content = secondSortContentArray.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final String content = secondSortContentArray.get(position);
         holder.tvItem.setText(content);
+        holder.tvItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(content);
+            }
+        });
     }
 
     @Override
@@ -51,5 +64,9 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
             super(itemView);
             tvItem = itemView.findViewById(R.id.sort_description_item);
         }
+    }
+
+    public interface OnAccountItemClickListener{
+        void onClick(String itemName);
     }
 }

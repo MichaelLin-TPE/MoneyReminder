@@ -10,4 +10,10 @@ public interface UserFragmentVu {
     void showBudgetDialog();
 
     void showToast(String message);
+
+    void showProgressBar(boolean isShow);
+
+    void showLogoutDialog();
+
+    void intentToMainActivity();
 }

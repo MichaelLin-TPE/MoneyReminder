@@ -116,13 +116,6 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
     }
 
     @Override
-    public void setEmptyRecyclerView() {
-        sortPresenter.setData(null);
-        SortListAdapter sortListAdapter = new SortListAdapter();
-        recyclerView.setAdapter(sortListAdapter);
-    }
-
-    @Override
     public void closePage() {
         finish();
     }

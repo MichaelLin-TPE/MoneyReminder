@@ -156,7 +156,7 @@ public class SortListActivityPresenterImpl implements SortListActivityPresenter 
         @Override
         public void onFail(String errorCode) {
             mView.showProgress(false);
-            mView.setEmptyRecyclerView();
+            mView.setRecyclerView(null);
         }
     };
 }

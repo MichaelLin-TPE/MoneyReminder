@@ -18,6 +18,12 @@ public class AccountViewHolder extends RecyclerView.ViewHolder {
 
     private RecyclerView recyclerView;
 
+    private SecondSortAdapter.OnAccountItemClickListener listener;
+
+    public void setOnAccountItemClickListener(SecondSortAdapter.OnAccountItemClickListener listener){
+        this.listener = listener;
+    }
+
     public AccountViewHolder(@NonNull View itemView) {
         super(itemView);
         recyclerView = itemView.findViewById(R.id.account_item_recycler_view);
@@ -29,5 +35,14 @@ public class AccountViewHolder extends RecyclerView.ViewHolder {
         SecondSortAdapter adapter = new SecondSortAdapter();
         adapter.setSecondSortContentArray(accountItemArray);
         recyclerView.setAdapter(adapter);
+        adapter.setOnAccountItemClickListener(new SecondSortAdapter.OnAccountItemClickListener() {
+            @Override
+            public void onClick(String itemName) {
+                listener.onClick(itemName);
+            }
+        });
     }
+
+
+
 }

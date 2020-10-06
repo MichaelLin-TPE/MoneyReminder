@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.SecondSortAdapter;
 import com.money.moneyreminder.user_fragment.view_presenter.AccountViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
@@ -20,6 +21,12 @@ public class UserAdapter extends RecyclerView.Adapter {
     private ViewPresenter viewPresenter;
 
     private BudgetViewHolder.OnSettingButtonClickListener listener;
+
+    private SecondSortAdapter.OnAccountItemClickListener onAccountItemClickListener;
+
+    public void setOnAccountItemClickListener(SecondSortAdapter.OnAccountItemClickListener onAccountItemClickListener){
+        this.onAccountItemClickListener = onAccountItemClickListener;
+    }
 
     public void setOnSettingButtonClickListener(BudgetViewHolder.OnSettingButtonClickListener listener){
         this.listener = listener;
@@ -55,6 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof AccountViewHolder){
             viewPresenter.onBindAccountViewHolder((AccountViewHolder)holder,position);
+            viewPresenter.setOnAccountItemClickListener((AccountViewHolder)holder,onAccountItemClickListener);
         }
     }
 

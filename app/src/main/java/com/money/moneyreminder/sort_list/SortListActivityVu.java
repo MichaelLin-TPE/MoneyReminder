@@ -8,8 +8,6 @@ import java.util.ArrayList;
 public interface SortListActivityVu {
     void setRecyclerView(SortData sortData);
 
-    void setEmptyRecyclerView();
-
     void closePage();
 
     void showProgress(boolean isShow);

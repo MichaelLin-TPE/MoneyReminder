@@ -13,16 +13,8 @@ public class MoneyActivityPresenterImpl implements MoneyActivityPresenter {
         loginHandler = new LoginHandlerImpl();
     }
 
-    @Override
-    public void onLogoutButtonClickListener() {
-        mView.showLogoutConfirmDialog();
 
-    }
 
-    @Override
-    public void onLogoutConfirmClickListener() {
-        loginHandler.onDoLogOut(onGoogleLogoutListener);
-    }
 
     @Override
     public void onActivityCreate() {
@@ -35,10 +27,4 @@ public class MoneyActivityPresenterImpl implements MoneyActivityPresenter {
         mView.replaceFragment(tabItemPosition);
     }
 
-    private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {
-        @Override
-        public void onLogoutSuccess() {
-            mView.intentToMainActivity();
-        }
-    };
 }

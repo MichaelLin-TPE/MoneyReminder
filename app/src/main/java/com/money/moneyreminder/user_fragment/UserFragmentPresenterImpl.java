@@ -2,6 +2,8 @@ package com.money.moneyreminder.user_fragment;
 
 import android.util.Log;
 
+import com.money.moneyreminder.LoginHandler;
+import com.money.moneyreminder.LoginHandlerImpl;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
@@ -24,9 +26,16 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     private String currentMonth,currentYear,currentTime;
 
+    private static final String DATE_RANGE = "設定日期區間";
+
+    private static final String LOGOUT = "登出";
+
+    private LoginHandler loginHandler;
+
     public UserFragmentPresenterImpl(UserFragmentVu mView) {
         this.mView = mView;
         firebaseHandler = new FirebaseHandlerImpl();
+        loginHandler = new LoginHandlerImpl();
     }
 
     @Override
@@ -54,9 +63,32 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
         firebaseHandler.getBudgetMoney(onCatchBudgetListener);
     }
 
+    @Override
+    public void onAccountItemClickListener(String itemName) {
+        switch (itemName){
+            case DATE_RANGE:
+                break;
+            case LOGOUT:
+                mView.showLogoutDialog();
+                break;
+        }
+    }
+
+    @Override
+    public void onLogoutConfirmClickListener() {
+        loginHandler.onDoLogOut(onGoogleLogoutListener);
+    }
+    private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {
+        @Override
+        public void onLogoutSuccess() {
+            mView.intentToMainActivity();
+        }
+    };
+
     private FirebaseHandler.OnFireStoreCatchListener<Long> onCatchBudgetListener = new FirebaseHandler.OnFireStoreCatchListener<Long>() {
         @Override
         public void onSuccess(Long budgetMoney) {
+
             UserFragmentPresenterImpl.this.budgetMoney = budgetMoney;
             firebaseHandler.getUserMoneyData(onCatchUserMoneyData);
         }
@@ -71,6 +103,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
     private FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>> onCatchUserMoneyData = new FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>>() {
         @Override
         public void onSuccess(ArrayList<MoneyObject> userDataArray) {
+            mView.showProgressBar(false);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM",Locale.TAIWAN);
             totalExpenditure = 0;
             expenditurePercent = 0;
@@ -102,6 +135,10 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
         @Override
         public void onFail(String errorCode) {
+            totalExpenditure = 0;
+            expenditurePercent = 0;
+            monthMoney = 0;
+            mView.showProgressBar(false);
             mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney,DataProvider.getInstance().getAccountItemArray());
         }
     };
