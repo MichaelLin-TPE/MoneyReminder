@@ -63,15 +63,16 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             Log.i("Michael", "有資料 : " + dataArray.size());
             int incomeMoney = 0;
             int expenditure = 0;
+            //這個判斷式屬於當12月到1月的時候才要用
+            if (firstMonth == 12 && endMonth == 1){
+                endDay = monthDateFormat.format(new Date(DataProvider.getInstance().getTimeMiles(endDay)));
+                currentYear++;
+                endDay = currentYear+"/"+endDay;
+                Log.i("Michael","修改過後的最後日 : "+endDay);
+            }
+
             ArrayList<MoneyObject> moneyDataArrayList = new ArrayList<>();
             for (MoneyObject object : dataArray) {
-
-                //這個判斷式屬於當12月到1月的時候才要用
-                if (firstMonth == 12 && endMonth == 1){
-                    endDay = monthDateFormat.format(new Date(DataProvider.getInstance().getTimeMiles(endDay)));
-                    currentYear++;
-                    endDay = currentYear+"/"+endDay;
-                }
                 long firstMiles = DataProvider.getInstance().getTimeMiles(firstDay);
                 long endMiles = DataProvider.getInstance().getTimeMiles(endDay);
                 Date cDate = new Date(object.getTimeMiles());

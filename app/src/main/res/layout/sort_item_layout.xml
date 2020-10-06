@@ -58,7 +58,7 @@
         android:progress="50"
         app:layout_constraintTop_toTopOf="@id/sort_item_percent"
         app:layout_constraintBottom_toBottomOf="@id/sort_item_percent"
-        app:layout_constraintLeft_toLeftOf="@id/sort_item_list"
+        app:layout_constraintLeft_toRightOf="@id/sort_item_percent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="0dp"
         android:layout_height="@dimen/seek_bar_height"/>

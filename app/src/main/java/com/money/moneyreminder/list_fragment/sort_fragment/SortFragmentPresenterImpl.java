@@ -3,11 +3,13 @@ package com.money.moneyreminder.list_fragment.sort_fragment;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.money.moneyreminder.list_fragment.SortComparatorForPicClass;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SortFragmentPresenterImpl implements SortFragmentPresenter {
 
@@ -88,6 +90,10 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
             mView.showNoDataView(true);
             return;
         }
+
+        //排順序
+        Collections.sort(sortTypeArray,new SortComparatorForPicClass());
+
         mView.showNoDataView(false);
 
         mView.setRecyclerView(sortTypeArray,isIncome);
