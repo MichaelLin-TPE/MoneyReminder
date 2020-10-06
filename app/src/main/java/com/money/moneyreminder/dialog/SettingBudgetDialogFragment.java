@@ -1,4 +1,4 @@
-package com.money.moneyreminder.tool;
+package com.money.moneyreminder.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.DpConvertTool;
 
 public class SettingBudgetDialogFragment extends MoneyReminderDialogFragment {
 

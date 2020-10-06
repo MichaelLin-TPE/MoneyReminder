@@ -6,7 +6,7 @@ import com.money.moneyreminder.tool.DateDTO;
 import java.util.ArrayList;
 
 public interface ListFragmentVu {
-    void showTabLayout(String currentYear, String currentDate, ArrayList<DateDTO> dateString);
+    void showTabLayout(int selectIndex, ArrayList<DateDTO> dateString);
 
     void showProgress(boolean isShow);
 

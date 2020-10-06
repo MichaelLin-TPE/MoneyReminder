@@ -1,4 +1,4 @@
-package com.money.moneyreminder.tool;
+package com.money.moneyreminder.dialog;
 
 import android.view.LayoutInflater;
 import android.view.View;

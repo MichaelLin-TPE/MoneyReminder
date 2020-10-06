@@ -23,7 +23,7 @@ import com.money.moneyreminder.sort_list.presenter.SortPresenter;
 import com.money.moneyreminder.sort_list.presenter.SortPresenterImpl;
 import com.money.moneyreminder.sort_list.presenter.SortRecentlyData;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
-import com.money.moneyreminder.tool.SecondSortDialogFragment;
+import com.money.moneyreminder.dialog.SecondSortDialogFragment;
 
 import java.util.ArrayList;
 

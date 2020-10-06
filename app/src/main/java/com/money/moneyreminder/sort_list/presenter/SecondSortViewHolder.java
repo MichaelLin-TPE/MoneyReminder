@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
-import com.money.moneyreminder.tool.SecondSortAdapter;
 
 import java.util.ArrayList;
 

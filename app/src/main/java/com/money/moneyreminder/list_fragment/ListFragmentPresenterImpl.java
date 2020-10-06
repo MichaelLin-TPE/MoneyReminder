@@ -4,16 +4,21 @@ import android.util.Log;
 
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DateDTO;
 import com.money.moneyreminder.tool.DateStringProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
+
+import static com.money.moneyreminder.dialog.SettingDayRangeDialogFragment.FIVE;
+import static com.money.moneyreminder.dialog.SettingDayRangeDialogFragment.ONE;
 
 public class ListFragmentPresenterImpl implements ListFragmentPresenter {
 
@@ -25,7 +30,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
 
     private SimpleDateFormat simpleDateFormat;
 
-    private String currentMonth;
+    private String currentMonth,firstDay,endDay;
 
     private ArrayList<MoneyData> removeDataArray;
 
@@ -35,7 +40,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         this.mView = mView;
         removeDataArray = new ArrayList<>();
         firebaseHandler = new FirebaseHandlerImpl();
-        simpleDateFormat = new SimpleDateFormat("yyyy/MM", Locale.TAIWAN);
+        simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.TAIWAN);
         currentMonth = simpleDateFormat.format(new Date(System.currentTimeMillis()));
     }
 
@@ -46,7 +51,6 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         DateStringProvider dateStringProvider = new DateStringProvider();
         dateStringProvider.execute();
         dateStringProvider.setOnDateStringProvideListener(onDateStringProvideListener);
-//        firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
     }
 
     private FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>> onGetUserMoneyDataListener = new FirebaseHandler.OnFireStoreCatchListener<ArrayList<MoneyObject>>() {
@@ -58,8 +62,13 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             int expenditure = 0;
             ArrayList<MoneyObject> moneyDataArrayList = new ArrayList<>();
             for (MoneyObject object : dataArray) {
-                String saveDate = simpleDateFormat.format(new Date(object.getTimeMiles()));
-                if (saveDate.equals(currentMonth)) {
+
+                long firstMiles = DataProvider.getInstance().getTimeMiles(firstDay);
+                long endMiles = DataProvider.getInstance().getTimeMiles(endDay);
+                Date cDate = new Date(object.getTimeMiles());
+                Date firstDate = new Date(firstMiles);
+                Date endDate = new Date(endMiles);
+                if (cDate.after(firstDate) && cDate.before(endDate)) {
                     incomeMoney += object.getInComeMoney();
                     expenditure += object.getExpenditureMoney();
                     moneyDataArrayList.add(object);
@@ -133,8 +142,10 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
     }
 
     @Override
-    public void onTabSelectedListener(String month, String year) {
-        currentMonth = year + "/" + month;
+    public void onTabSelectedListener(String firstDay, String endDay) {
+        this.firstDay = firstDay;
+        this.endDay = endDay;
+        currentMonth = new SimpleDateFormat("yyyy/MM/dd",Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
         firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
     }
 
@@ -182,7 +193,34 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             mView.showProgress(false);
             String currentYear = new SimpleDateFormat("yyyy", Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
             String currentDate = new SimpleDateFormat("MM", Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
-            mView.showTabLayout(currentYear, currentDate, dateString);
+            String currentTime = new SimpleDateFormat("yyyy/MM/dd", Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
+            int selectIndex = 0;
+            if (UserManager.getInstance().getDayRange().equals(ONE)) {
+                for (int i = 0; i < dateString.size(); i++) {
+                    if (dateString.get(i).getYear().equals(currentYear) && dateString.get(i).getMonth().equals(currentDate)) {
+                        selectIndex = i;
+                    }
+                }
+                mView.showTabLayout(selectIndex, dateString);
+                return;
+            }
+            //以下是五號開始或十號開始
+            for (int i = 0; i < dateString.size(); i++) {
+                String firstDay = dateString.get(i).getYear()+"/"+dateString.get(i).getFirstDateOfMonth();
+                String endDay = dateString.get(i).getYear()+"/"+dateString.get(i).getEndDateOfMonth();
+                long currentTimeMiles = DataProvider.getInstance().getTimeMiles(currentTime);
+                long firstDayTimeMiles = DataProvider.getInstance().getTimeMiles(firstDay);
+                long endDayTimeMiles = DataProvider.getInstance().getTimeMiles(endDay);
+                Date cDate = new Date(currentTimeMiles);
+                Date firstDate = new Date(firstDayTimeMiles);
+                Date endDate = new Date(endDayTimeMiles);
+                if (cDate.after(firstDate) && cDate.before(endDate)){
+                    Log.i("Michael","現在日期："+currentTime+" , 第一天："+firstDay+" , 最後一天："+endDay);
+                    selectIndex = i;
+                    break;
+                }
+            }
+            mView.showTabLayout(selectIndex, dateString);
         }
     };
 }

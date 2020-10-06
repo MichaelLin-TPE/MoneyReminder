@@ -6,7 +6,7 @@ import com.money.moneyreminder.sort_list.presenter.SortRecentlyData;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
-import com.money.moneyreminder.tool.SecondSortData;
+import com.money.moneyreminder.dialog.SecondSortData;
 
 import java.util.ArrayList;
 

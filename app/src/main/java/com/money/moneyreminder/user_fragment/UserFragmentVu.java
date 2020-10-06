@@ -20,4 +20,8 @@ public interface UserFragmentVu {
     void showDataSortDialog();
 
     void saveSortType(String sortType);
+
+    void showDayRangeDialog();
+
+    void saveDayRange(String sortType);
 }

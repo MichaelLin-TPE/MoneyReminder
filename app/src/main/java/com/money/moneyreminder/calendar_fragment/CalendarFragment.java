@@ -25,7 +25,7 @@ import com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenter;
 import com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenterImpl;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
-import com.money.moneyreminder.tool.ErrorDialog;
+import com.money.moneyreminder.dialog.ErrorDialog;
 
 import java.util.ArrayList;
 

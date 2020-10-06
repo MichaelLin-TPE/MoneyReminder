@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +21,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.auth.User;
 import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.dialog.SettingDayRangeDialogFragment;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
-import com.money.moneyreminder.tool.SecondSortAdapter;
-import com.money.moneyreminder.tool.SettingBudgetDialogFragment;
-import com.money.moneyreminder.tool.SettingDataSortDialogFragment;
+import com.money.moneyreminder.dialog.SecondSortAdapter;
+import com.money.moneyreminder.dialog.SettingBudgetDialogFragment;
+import com.money.moneyreminder.dialog.SettingDataSortDialogFragment;
 import com.money.moneyreminder.tool.UserManager;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenterImpl;
 
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 
 
@@ -204,5 +202,23 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     @Override
     public void saveSortType(String sortType) {
         UserManager.getInstance().saveDataSort(sortType);
+    }
+
+    @Override
+    public void showDayRangeDialog() {
+        final SettingDayRangeDialogFragment dayRangeDialogFragment = SettingDayRangeDialogFragment.newInstance(UserManager.getInstance().getDayRange());
+        dayRangeDialogFragment.setOnDataSortButtonClickListener(new SettingDayRangeDialogFragment.OnDataSortButtonClickListener() {
+            @Override
+            public void onChecked(String sortType) {
+                presenter.onDayRangeButtonClickListener(sortType);
+                dayRangeDialogFragment.dismiss();
+            }
+        });
+        dayRangeDialogFragment.show(fragmentActivity.getSupportFragmentManager(),"dialog");
+    }
+
+    @Override
+    public void saveDayRange(String sortType) {
+        UserManager.getInstance().saveDayRange(sortType);
     }
 }

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
-import com.money.moneyreminder.tool.SecondSortAdapter;
+import com.money.moneyreminder.dialog.SecondSortAdapter;
 import com.money.moneyreminder.user_fragment.view_presenter.AccountViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;

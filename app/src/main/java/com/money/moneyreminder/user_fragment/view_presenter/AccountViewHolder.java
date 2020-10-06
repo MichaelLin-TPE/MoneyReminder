@@ -1,7 +1,6 @@
 package com.money.moneyreminder.user_fragment.view_presenter;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
-import com.money.moneyreminder.tool.SecondSortAdapter;
+import com.money.moneyreminder.dialog.SecondSortAdapter;
 
 import java.util.ArrayList;
 

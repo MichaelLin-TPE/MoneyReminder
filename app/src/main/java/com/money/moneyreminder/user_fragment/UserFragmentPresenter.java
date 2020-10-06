@@ -12,4 +12,6 @@ public interface UserFragmentPresenter {
     void onLogoutConfirmClickListener();
 
     void onDataSortClickListener(String sortType);
+
+    void onDayRangeButtonClickListener(String sortType);
 }

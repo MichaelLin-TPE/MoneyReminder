@@ -1,6 +1,6 @@
 package com.money.moneyreminder.tool;
 
-import com.money.moneyreminder.sort.MoneyData;
+import com.money.moneyreminder.dialog.SecondSortData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.sort_list.IconData;
 import com.money.moneyreminder.sort_list.presenter.SortCreateData;

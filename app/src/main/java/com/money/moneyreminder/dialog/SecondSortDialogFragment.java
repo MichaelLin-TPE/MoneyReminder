@@ -1,4 +1,4 @@
-package com.money.moneyreminder.tool;
+package com.money.moneyreminder.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.DpConvertTool;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,5 @@
 package com.money.moneyreminder.list_fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +32,7 @@ import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DateDTO;
-import com.money.moneyreminder.tool.ErrorDialog;
+import com.money.moneyreminder.dialog.ErrorDialog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -151,15 +150,9 @@ public class ListFragment extends Fragment implements ListFragmentVu {
 
 
     @Override
-    public void showTabLayout(String currentYear, String currentDate, final ArrayList<DateDTO> dateStringArray) {
+    public void showTabLayout(int selectIndex, final ArrayList<DateDTO> dateStringArray) {
         tabLayout.removeAllTabs();
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        int selectIndex = 0;
-        for (int i = 0; i < dateStringArray.size(); i++) {
-            if (dateStringArray.get(i).getYear().equals(currentYear) && dateStringArray.get(i).getMonth().equals(currentDate)) {
-                selectIndex = i;
-            }
-        }
 
         for (DateDTO dateDTO : dateStringArray) {
             TabLayout.Tab tab = tabLayout.newTab();
@@ -175,10 +168,9 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
-                String month = dateStringArray.get(tab.getPosition()).getMonth();
-                String year = dateStringArray.get(tab.getPosition()).getYear();
-                presenter.onTabSelectedListener(month, year);
+                String firstDay = dateStringArray.get(tab.getPosition()).getYear()+"/"+dateStringArray.get(tab.getPosition()).getFirstDateOfMonth();
+                String endDay = dateStringArray.get(tab.getPosition()).getYear()+"/"+dateStringArray.get(tab.getPosition()).getEndDateOfMonth();
+                presenter.onTabSelectedListener(firstDay, endDay);
             }
 
             @Override

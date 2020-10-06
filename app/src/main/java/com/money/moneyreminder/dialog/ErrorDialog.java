@@ -1,4 +1,4 @@
-package com.money.moneyreminder.tool;
+package com.money.moneyreminder.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 import com.money.moneyreminder.R;
 

@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 
 import com.google.android.gms.common.SignInButton;
 import com.money.moneyreminder.money.MoneyActivity;
-import com.money.moneyreminder.tool.ErrorDialog;
+import com.money.moneyreminder.dialog.ErrorDialog;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 public class MainActivity extends AppCompatActivity implements MainActivityVu {

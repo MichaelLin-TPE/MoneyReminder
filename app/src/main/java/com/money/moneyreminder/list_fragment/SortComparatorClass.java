@@ -1,12 +1,11 @@
 package com.money.moneyreminder.list_fragment;
 
-import com.google.common.collect.Comparators;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.UserManager;
 
 import java.util.Comparator;
 
-import static com.money.moneyreminder.tool.SettingDataSortDialogFragment.FAR;
+import static com.money.moneyreminder.dialog.SettingDataSortDialogFragment.FAR;
 
 public class SortComparatorClass implements Comparator {
 

@@ -52,4 +52,7 @@
     <string name="sort_type">設定資料排序</string>
     <string name="sort_near">由近到遠</string>
     <string name="sort_far">由遠到近</string>
+    <string name="sort_one">一號開始</string>
+    <string name="sort_five">五號開始</string>
+    <string name="sort_ten">十號開始</string>
 </resources>

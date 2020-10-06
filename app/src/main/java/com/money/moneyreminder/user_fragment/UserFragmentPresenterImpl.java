@@ -70,6 +70,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
         Log.i("Michael","點擊了什麼按鈕："+itemName);
         switch (itemName){
             case DATE_RANGE:
+                mView.showDayRangeDialog();
                 break;
             case DATA_SORT:
                 mView.showDataSortDialog();
@@ -89,6 +90,12 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
     public void onDataSortClickListener(String sortType) {
         Log.i("Michael","選擇了什麼排序："+sortType);
         mView.saveSortType(sortType);
+    }
+
+    @Override
+    public void onDayRangeButtonClickListener(String sortType) {
+        Log.i("Michael","選擇了什麼區間："+sortType);
+        mView.saveDayRange(sortType);
     }
 
     private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {
