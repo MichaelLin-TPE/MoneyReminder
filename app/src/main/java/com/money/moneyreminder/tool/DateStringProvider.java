@@ -26,7 +26,9 @@ public class DateStringProvider extends AsyncTask<Void,Void, ArrayList<DateDTO>>
     @Override
     protected ArrayList<DateDTO> doInBackground(Void... voids) {
 
-
+        if (UserManager.getInstance().getDayRange().isEmpty()){
+            return getDefaultArray();
+        }
         if (UserManager.getInstance().getDayRange().equals(ONE)){
             return getDefaultArray();
         }else if (UserManager.getInstance().getDayRange().equals(FIVE)){
@@ -80,7 +82,11 @@ public class DateStringProvider extends AsyncTask<Void,Void, ArrayList<DateDTO>>
                 String nextMonthString;
                 if (month < 10){
                     monthString = "0"+month;
-                    nextMonthString = "0"+(month+1);
+                    if ((month+1) == 10){
+                        nextMonthString = (month+1)+"";
+                    }else {
+                        nextMonthString = "0"+(month+1);
+                    }
                 }else {
                     monthString = month+"";
                     if (month == 12){

@@ -44,6 +44,7 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         SortPercentData data = sortPercentDataArrayList.get(position);
+        holder.tvNumber.setText(String.format(Locale.getDefault(),"%d.",(position+1)));
         holder.tvTitle.setText(data.getTitle());
         holder.tvNumberOfCase.setText(String.format(Locale.getDefault(),"%d 筆明細",data.getNumberOfCase()));
         holder.tvMoney.setText(String.format(Locale.getDefault(),"$%d",data.getTotalMoney()));
@@ -70,7 +71,7 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvTitle,tvNumberOfCase,tvPercent,tvMoney;
+        private TextView tvTitle,tvNumberOfCase,tvPercent,tvMoney,tvNumber;
 
         private ImageView ivIcon;
 
@@ -84,6 +85,7 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
             tvMoney = itemView.findViewById(R.id.sort_item_moeny);
             ivIcon = itemView.findViewById(R.id.sort_item_icon);
             seekBar = itemView.findViewById(R.id.sort_item_seek_bar);
+            tvNumber = itemView.findViewById(R.id.sort_item_number);
         }
     }
 }

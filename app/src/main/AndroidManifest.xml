@@ -10,12 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detail.DetailActivity"></activity>
-        <activity android:name=".sort_list.SortListActivity" />
-        <activity android:name=".sort.SortActivity" />
-        <activity android:name=".calculator.CalculatorActivity" />
-        <activity android:name=".money.MoneyActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".detail.DetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".sort_list.SortListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".sort.SortActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".calculator.CalculatorActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".money.MoneyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
