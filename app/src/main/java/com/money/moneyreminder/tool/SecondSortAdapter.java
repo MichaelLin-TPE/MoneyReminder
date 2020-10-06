@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
@@ -43,7 +44,7 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final String content = secondSortContentArray.get(position);
         holder.tvItem.setText(content);
-        holder.tvItem.setOnClickListener(new View.OnClickListener() {
+        holder.itemArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(content);
@@ -60,9 +61,12 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
 
         private TextView tvItem;
 
+        private ConstraintLayout itemArea;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvItem = itemView.findViewById(R.id.sort_description_item);
+            itemArea = itemView.findViewById(R.id.sort_description_item_area);
         }
     }
 

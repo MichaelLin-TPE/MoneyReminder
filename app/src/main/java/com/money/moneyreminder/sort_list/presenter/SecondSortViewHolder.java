@@ -1,5 +1,6 @@
 package com.money.moneyreminder.sort_list.presenter;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class SecondSortViewHolder extends RecyclerView.ViewHolder {
         adapter.setOnDescriptionItemClickListener(new SecondSortContentAdapter.OnDescriptionItemClickListener() {
             @Override
             public void onClick(String content) {
+                Log.i("Michael","次分類點擊");
                 adapter.notifyDataSetChanged();
                 listener.onClick(content);
             }

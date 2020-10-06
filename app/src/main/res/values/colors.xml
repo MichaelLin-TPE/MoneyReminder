@@ -11,4 +11,5 @@
     <color name="red">#FF1201</color>
     <color name="bule">#3374F7</color>
     <color name="colorDekraYellow">#2196F3</color>
+    <color name="default_text_view_color">#808080</color>
 </resources>

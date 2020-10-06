@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.calendar_fragment.CalendarFragment;
 import com.money.moneyreminder.list_fragment.ListFragment;
+import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.user_fragment.UserFragment;
 
 import java.text.SimpleDateFormat;
@@ -202,6 +203,7 @@ public class DataProvider {
     public ArrayList<String> getAccountItemArray(){
         ArrayList<String> accountItemArray = new ArrayList<>();
         accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.set_time_range));
+        accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.sort_type));
         accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.signout));
         return accountItemArray;
     }

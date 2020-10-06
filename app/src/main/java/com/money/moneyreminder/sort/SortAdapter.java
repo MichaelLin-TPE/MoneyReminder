@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final String describe = describeArray.get(position);
         holder.tvItem.setText(describe);
+        holder.tvItem.setTextColor(ContextCompat.getColor(MoneyReminderApplication.getInstance().getApplicationContext(),R.color.default_text_view_color));
         holder.tvItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

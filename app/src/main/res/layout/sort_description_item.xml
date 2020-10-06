@@ -11,15 +11,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/sort_description_item"
         android:padding="10dp"
+        android:textColor="@color/app_main_color"
         tools:text="早餐"
         android:textSize="@dimen/normal_text_size"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <ImageView
         android:id="@+id/sort_description_icon"
         android:src="@drawable/check_item"
         android:visibility="gone"
+        tools:visibility="visible"
         android:contentDescription="@null"
         app:layout_constraintTop_toTopOf="@id/sort_description_item"
         app:layout_constraintBottom_toBottomOf="@id/sort_description_item"

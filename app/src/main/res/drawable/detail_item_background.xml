@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!--填充的顏色-->
-    <solid android:color="@color/grey"/>
+    <solid android:color="@color/app_main_color"/>
 
     <!--設置按鈕的四個角弧形-->
     <corners android:topRightRadius="10dp"

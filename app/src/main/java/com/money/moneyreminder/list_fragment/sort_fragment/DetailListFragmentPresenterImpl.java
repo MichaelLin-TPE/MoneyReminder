@@ -1,9 +1,11 @@
 package com.money.moneyreminder.list_fragment.sort_fragment;
 
+import com.money.moneyreminder.list_fragment.SortComparatorClass;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class DetailListFragmentPresenterImpl implements DetailListFragmentPresenter {
@@ -60,6 +62,9 @@ public class DetailListFragmentPresenterImpl implements DetailListFragmentPresen
             mView.showNoData(true);
             return;
         }
+        //日期排序
+        Collections.sort(moneyDataArrayList,new SortComparatorClass());
+
         mView.showNoData(false);
 
         mView.setRecyclerView(moneyDataArrayList,isIncome,isEditMode);
