@@ -28,9 +28,11 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
 
     private boolean isIncome, isDelete;
 
-    private SimpleDateFormat simpleDateFormat;
+    private int firstMonth, endMonth, currentYear;
 
-    private String currentMonth,firstDay,endDay;
+    private SimpleDateFormat monthFormat, yearFormat,monthDateFormat;
+
+    private String firstDay, endDay;
 
     private ArrayList<MoneyData> removeDataArray;
 
@@ -40,8 +42,9 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         this.mView = mView;
         removeDataArray = new ArrayList<>();
         firebaseHandler = new FirebaseHandlerImpl();
-        simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.TAIWAN);
-        currentMonth = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+        monthFormat = new SimpleDateFormat("MM", Locale.TAIWAN);
+        yearFormat = new SimpleDateFormat("yyyy", Locale.TAIWAN);
+        monthDateFormat = new SimpleDateFormat("MM/dd",Locale.TAIWAN);
     }
 
     @Override
@@ -63,6 +66,12 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             ArrayList<MoneyObject> moneyDataArrayList = new ArrayList<>();
             for (MoneyObject object : dataArray) {
 
+                //這個判斷式屬於當12月到1月的時候才要用
+                if (firstMonth == 12 && endMonth == 1){
+                    endDay = monthDateFormat.format(new Date(DataProvider.getInstance().getTimeMiles(endDay)));
+                    currentYear++;
+                    endDay = currentYear+"/"+endDay;
+                }
                 long firstMiles = DataProvider.getInstance().getTimeMiles(firstDay);
                 long endMiles = DataProvider.getInstance().getTimeMiles(endDay);
                 Date cDate = new Date(object.getTimeMiles());
@@ -145,7 +154,9 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
     public void onTabSelectedListener(String firstDay, String endDay) {
         this.firstDay = firstDay;
         this.endDay = endDay;
-        currentMonth = new SimpleDateFormat("yyyy/MM/dd",Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
+        firstMonth = Integer.parseInt(monthFormat.format(new Date(DataProvider.getInstance().getTimeMiles(firstDay))));
+        endMonth = Integer.parseInt(monthFormat.format(new Date(DataProvider.getInstance().getTimeMiles(endDay))));
+        currentYear = Integer.parseInt(yearFormat.format(new Date(DataProvider.getInstance().getTimeMiles(firstDay))));
         firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
     }
 
@@ -206,16 +217,16 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             }
             //以下是五號開始或十號開始
             for (int i = 0; i < dateString.size(); i++) {
-                String firstDay = dateString.get(i).getYear()+"/"+dateString.get(i).getFirstDateOfMonth();
-                String endDay = dateString.get(i).getYear()+"/"+dateString.get(i).getEndDateOfMonth();
+                String firstDay = dateString.get(i).getYear() + "/" + dateString.get(i).getFirstDateOfMonth();
+                String endDay = dateString.get(i).getYear() + "/" + dateString.get(i).getEndDateOfMonth();
                 long currentTimeMiles = DataProvider.getInstance().getTimeMiles(currentTime);
                 long firstDayTimeMiles = DataProvider.getInstance().getTimeMiles(firstDay);
                 long endDayTimeMiles = DataProvider.getInstance().getTimeMiles(endDay);
                 Date cDate = new Date(currentTimeMiles);
                 Date firstDate = new Date(firstDayTimeMiles);
                 Date endDate = new Date(endDayTimeMiles);
-                if (cDate.after(firstDate) && cDate.before(endDate)){
-                    Log.i("Michael","現在日期："+currentTime+" , 第一天："+firstDay+" , 最後一天："+endDay);
+                if (cDate.after(firstDate) && cDate.before(endDate)) {
+                    Log.i("Michael", "現在日期：" + currentTime + " , 第一天：" + firstDay + " , 最後一天：" + endDay);
                     selectIndex = i;
                     break;
                 }

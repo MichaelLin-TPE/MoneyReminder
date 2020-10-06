@@ -66,6 +66,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/budget_item_percent"
             android:textColor="@color/app_main_color"
+            android:layout_marginEnd="80dp"
             android:textSize="@dimen/normal_text_size"
             tools:text="目前達成率 : 50%"
             app:layout_constraintTop_toTopOf="parent"

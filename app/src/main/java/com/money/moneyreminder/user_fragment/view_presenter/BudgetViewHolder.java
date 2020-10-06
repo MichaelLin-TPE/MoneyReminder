@@ -35,8 +35,8 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder {
     public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney) {
         tvBudget.setText(String.format(Locale.getDefault(),"目前預算 : $%d",budgetMoney));
         tvTotalExpenditure.setText(String.format(Locale.getDefault(),"目前支出 : $%d",totalExpenditure));
-        tvExpenditurePercent.setText(String.format(Locale.getDefault(),"目前支出達成 : %d%%",expenditurePercent));
-        tvMonthMoney.setText(String.format(Locale.getDefault(),"每天對多花 : $%d",monthMoney));
+        tvExpenditurePercent.setText(String.format(Locale.getDefault(),"支出率 : %d%%",expenditurePercent));
+        tvMonthMoney.setText(String.format(Locale.getDefault(),"平均支出(天) : $%d",monthMoney));
 
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
