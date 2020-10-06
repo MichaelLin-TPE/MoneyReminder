@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
-import com.money.moneyreminder.tool.DbConvertTool;
+import com.money.moneyreminder.tool.DpConvertTool;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -33,7 +33,7 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         itemArea = itemView.findViewById(R.id.date_list_item_area);
         tvItem = itemView.findViewById(R.id.date_list_item);
-        tvItem.setWidth(DbConvertTool.getInstance().convertDb());
+        tvItem.setWidth(DpConvertTool.getInstance().convertDb());
         tvIncome = itemView.findViewById(R.id.date_list_income);
         tvExpenditure = itemView.findViewById(R.id.date_list_expenditure);
     }

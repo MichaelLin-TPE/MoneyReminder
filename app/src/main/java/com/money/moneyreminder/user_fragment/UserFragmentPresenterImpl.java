@@ -105,6 +105,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
         public void onSuccess(ArrayList<MoneyObject> userDataArray) {
             mView.showProgressBar(false);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM",Locale.TAIWAN);
+            SimpleDateFormat dayFormat = new SimpleDateFormat("dd",Locale.TAIWAN);
             totalExpenditure = 0;
             expenditurePercent = 0;
             monthMoney = 0;
@@ -121,7 +122,9 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
                 expenditurePercent = (float)totalExpenditure / budgetMoney;
             }
             int monthMaxDay = DataProvider.getInstance().getMonthMaxDay(currentMonth,currentYear);
-            monthMoney = (budgetMoney - totalExpenditure) / monthMaxDay;
+            int currentDay = Integer.parseInt(dayFormat.format(new Date(System.currentTimeMillis())));
+            int restOfDay = monthMaxDay - currentDay;
+            monthMoney = (budgetMoney - totalExpenditure) / restOfDay;
             if (monthMoney < 0){
                 monthMoney = 0;
             }

@@ -1,7 +1,6 @@
 package com.money.moneyreminder.user_fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,15 +9,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.InputType;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +24,7 @@ import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.tool.SecondSortAdapter;
+import com.money.moneyreminder.tool.SettingBudgetDialogFragment;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenterImpl;
@@ -50,10 +48,13 @@ public class UserFragment extends Fragment implements UserFragmentVu {
 
     private ProgressBar progressBar;
 
+    private FragmentActivity fragmentActivity;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        fragmentActivity = (FragmentActivity) context;
     }
 
     public static UserFragment newInstance() {
@@ -130,24 +131,18 @@ public class UserFragment extends Fragment implements UserFragmentVu {
 
     @Override
     public void showBudgetDialog() {
-        final EditText editText = new EditText(context);
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        editText.setHint(context.getString(R.string.enter_budget));
-        AlertDialog dialog = new AlertDialog.Builder(context)
-                .setTitle(context.getString(R.string.setting))
-                .setView(editText)
-                .setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        presenter.onSetBudgetMoneyConfirmClickListener(editText.getText().toString());
-                    }
-                }).setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).create();
-        dialog.show();
+        SettingBudgetDialogFragment.newInstance().setOnBudgetDialogButtonClickListener(new SettingBudgetDialogFragment.OnBudgetDialogButtonClickListener() {
+            @Override
+            public void onConfirmClick(String content) {
+                presenter.onSetBudgetMoneyConfirmClickListener(content);
+            }
+
+            @Override
+            public void onCancelClick() {
+                //這邊不做任何事情
+            }
+        }).show(fragmentActivity.getSupportFragmentManager(),"dialog");
     }
 
     @Override

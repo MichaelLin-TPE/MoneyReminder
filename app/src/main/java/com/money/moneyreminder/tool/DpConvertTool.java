@@ -4,16 +4,12 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import androidx.core.content.ContextCompat;
+public class DpConvertTool {
+    private static DpConvertTool instance = null;
 
-import com.money.moneyreminder.R;
-
-public class DbConvertTool {
-    private static DbConvertTool instance = null;
-
-    public static DbConvertTool getInstance(){
+    public static DpConvertTool getInstance(){
         if (instance == null){
-            instance = new DbConvertTool();
+            instance = new DpConvertTool();
             return instance;
         }
         return instance;
@@ -26,6 +22,14 @@ public class DbConvertTool {
         float width = (float) context.getResources().getDisplayMetrics().widthPixels;
         float singleItemSize = (float) width / 7 / metrics.density;
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,singleItemSize,context.getResources().getDisplayMetrics());
+    }
+
+    public int getScreenSize(){
+        return (int) MoneyReminderApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+    }
+    public int getDb(int pix){
+
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,pix,MoneyReminderApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics());
     }
 
 }
