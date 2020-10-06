@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +22,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.auth.User;
 import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.tool.SecondSortAdapter;
 import com.money.moneyreminder.tool.SettingBudgetDialogFragment;
+import com.money.moneyreminder.tool.SettingDataSortDialogFragment;
+import com.money.moneyreminder.tool.UserManager;
 import com.money.moneyreminder.user_fragment.view_presenter.BudgetViewHolder;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenter;
 import com.money.moneyreminder.user_fragment.view_presenter.ViewPresenterImpl;
 
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 
 
@@ -179,5 +185,24 @@ public class UserFragment extends Fragment implements UserFragmentVu {
         Intent it = new Intent(context, MainActivity.class);
         context.startActivity(it);
         ((Activity)context).finish();
+    }
+
+    @Override
+    public void showDataSortDialog() {
+        final SettingDataSortDialogFragment sortDialogFragment = SettingDataSortDialogFragment.newInstance(UserManager.getInstance().getSortType());
+        sortDialogFragment.setOnDataSortButtonClickListener(new SettingDataSortDialogFragment.OnDataSortButtonClickListener() {
+            @Override
+            public void onChecked(String sortType) {
+                presenter.onDataSortClickListener(sortType);
+                sortDialogFragment.dismiss();
+            }
+        });
+        sortDialogFragment.show(fragmentActivity.getSupportFragmentManager(),"dialog");
+
+    }
+
+    @Override
+    public void saveSortType(String sortType) {
+        UserManager.getInstance().saveDataSort(sortType);
     }
 }

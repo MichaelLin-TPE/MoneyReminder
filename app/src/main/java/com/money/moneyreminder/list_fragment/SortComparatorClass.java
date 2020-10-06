@@ -2,8 +2,11 @@ package com.money.moneyreminder.list_fragment;
 
 import com.google.common.collect.Comparators;
 import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.UserManager;
 
 import java.util.Comparator;
+
+import static com.money.moneyreminder.tool.SettingDataSortDialogFragment.FAR;
 
 public class SortComparatorClass implements Comparator {
 
@@ -13,6 +16,13 @@ public class SortComparatorClass implements Comparator {
         MoneyObject money = (MoneyObject)o1;
         MoneyObject money1 = (MoneyObject)o2;
 
+        String sortType = UserManager.getInstance().getSortType();
+        if (sortType.equals(FAR)){
+            if (money.getTimeMiles() > money1.getTimeMiles()){
+                return  -1;
+            }
+            return 1;
+        }
         if (money.getTimeMiles() > money1.getTimeMiles()){
             return  1;
         }

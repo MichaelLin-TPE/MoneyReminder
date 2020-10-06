@@ -20,7 +20,7 @@ import com.money.moneyreminder.R;
  * 這個尚未完成
  */
 
-public class ErrorDialog extends DialogFragment {
+public class ErrorDialog extends MoneyReminderDialogFragment {
 
 
     private String errorCode;

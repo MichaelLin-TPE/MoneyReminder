@@ -19,7 +19,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.money.moneyreminder.R;
 
-public class SettingBudgetDialogFragment extends DialogFragment {
+public class SettingBudgetDialogFragment extends MoneyReminderDialogFragment {
 
 
     private EditText editText;

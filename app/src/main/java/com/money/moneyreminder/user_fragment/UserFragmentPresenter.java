@@ -10,4 +10,6 @@ public interface UserFragmentPresenter {
     void onAccountItemClickListener(String itemName);
 
     void onLogoutConfirmClickListener();
+
+    void onDataSortClickListener(String sortType);
 }

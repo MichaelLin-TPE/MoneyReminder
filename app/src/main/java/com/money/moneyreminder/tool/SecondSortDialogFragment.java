@@ -26,7 +26,7 @@ import com.money.moneyreminder.R;
 
 import java.util.ArrayList;
 
-public class SecondSortDialogFragment extends DialogFragment {
+public class SecondSortDialogFragment extends MoneyReminderDialogFragment {
 
 
     private EditText edContent;

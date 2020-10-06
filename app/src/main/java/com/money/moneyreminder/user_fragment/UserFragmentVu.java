@@ -16,4 +16,8 @@ public interface UserFragmentVu {
     void showLogoutDialog();
 
     void intentToMainActivity();
+
+    void showDataSortDialog();
+
+    void saveSortType(String sortType);
 }

@@ -30,6 +30,8 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     private static final String LOGOUT = "登出";
 
+    private static final String DATA_SORT = "設定資料排序";
+
     private LoginHandler loginHandler;
 
     public UserFragmentPresenterImpl(UserFragmentVu mView) {
@@ -65,8 +67,12 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     @Override
     public void onAccountItemClickListener(String itemName) {
+        Log.i("Michael","點擊了什麼按鈕："+itemName);
         switch (itemName){
             case DATE_RANGE:
+                break;
+            case DATA_SORT:
+                mView.showDataSortDialog();
                 break;
             case LOGOUT:
                 mView.showLogoutDialog();
@@ -78,6 +84,13 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
     public void onLogoutConfirmClickListener() {
         loginHandler.onDoLogOut(onGoogleLogoutListener);
     }
+
+    @Override
+    public void onDataSortClickListener(String sortType) {
+        Log.i("Michael","選擇了什麼排序："+sortType);
+        mView.saveSortType(sortType);
+    }
+
     private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {
         @Override
         public void onLogoutSuccess() {

@@ -50,4 +50,6 @@
     <string name="set_time_range">設定日期區間</string>
     <string name="signout">登出</string>
     <string name="sort_type">設定資料排序</string>
+    <string name="sort_near">由近到遠</string>
+    <string name="sort_far">由遠到近</string>
 </resources>
