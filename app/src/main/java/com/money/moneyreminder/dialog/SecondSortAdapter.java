@@ -47,6 +47,9 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
         holder.itemArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener == null){
+                    return;
+                }
                 listener.onClick(content);
             }
         });

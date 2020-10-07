@@ -128,26 +128,6 @@ public class SecondSortDialogFragment extends MoneyReminderDialogFragment {
 
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setStyle(DialogFragment.STYLE_NO_FRAME,android.R.style.Theme);
-        return dialog;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //設定DIALOG 寬度
-        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = DpConvertTool.getInstance().getDb(350);
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        getDialog().getWindow().setAttributes(params);
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

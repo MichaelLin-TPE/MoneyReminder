@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyReminder</string>
+    <string name="app_name">支出管理大師</string>
     <string name="welcome_title">歡迎來到 MoneyReminder , \n輕鬆記帳、輕鬆省錢．</string>
     <string name="logout_title">登出訊息</string>
     <string name="logout_content">是否確定要登出?</string>
