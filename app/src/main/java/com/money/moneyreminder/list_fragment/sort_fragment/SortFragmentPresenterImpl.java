@@ -15,6 +15,10 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
 
     private SortFragmentVu mView;
 
+    private ArrayList<MoneyObject> moneyObjectArrayList;
+
+    private boolean isIncome;
+
     public SortFragmentPresenterImpl(SortFragmentVu mView) {
         this.mView = mView;
     }
@@ -28,6 +32,9 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
 
             return;
         }
+
+        this.moneyObjectArrayList = moneyObjectArrayList;
+        this.isIncome = isIncome;
         mView.showNoDataView(false);
 
         int totalCaseCount = 0;
@@ -54,6 +61,7 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
                         sortTypeArray.add(sortPercentData);
                         continue;
                     }
+
                     boolean isDataRepeat = false;
                     for (SortPercentData sortType : sortTypeArray){
                         if (sortType.getTitle().equals(data.getSortType())){
@@ -100,6 +108,26 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
 
 
 
+
+    }
+
+    @Override
+    public void onNumberOfCaseButtonClickListener(String sortType) {
+
+        ArrayList<MoneyData> moneyDataArrayList = new ArrayList<>();
+
+        for (MoneyObject object : moneyObjectArrayList){
+
+            if (object.getMoneyDataArrayList() == null || object.getMoneyDataArrayList().isEmpty()){
+                continue;
+            }
+            for (MoneyData data : object.getMoneyDataArrayList()){
+                if (data.isIncome() == isIncome && data.getSortType().equals(sortType)){
+                    moneyDataArrayList.add(data);
+                }
+            }
+        }
+        mView.showDetailListDialog(sortType,moneyDataArrayList);
 
     }
 }

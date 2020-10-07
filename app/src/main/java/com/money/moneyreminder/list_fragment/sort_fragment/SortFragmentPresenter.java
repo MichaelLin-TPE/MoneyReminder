@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface SortFragmentPresenter {
     void onActivityCreated(ArrayList<MoneyObject> moneyObjectArrayList, boolean isIncome);
+
+    void onNumberOfCaseButtonClickListener(String sortType);
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.dialog.DetailListDialogFragment;
+import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 
 import java.util.ArrayList;
@@ -35,10 +38,13 @@ public class SortFragment extends Fragment implements SortFragmentVu {
 
     private TextView tvNoData;
 
+    private FragmentActivity fragmentActivity;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        fragmentActivity = (FragmentActivity) context;
     }
 
     public static SortFragment newInstance(ArrayList<MoneyObject> moneyObjectArrayList,boolean isIncome) {
@@ -98,11 +104,23 @@ public class SortFragment extends Fragment implements SortFragmentVu {
     public void setRecyclerView(ArrayList<SortPercentData> sortTypeArray, boolean isIncome) {
         SortTypePercentAdapter adapter = new SortTypePercentAdapter(sortTypeArray,isIncome);
         recyclerView.setAdapter(adapter);
+        adapter.setOnNumberOfCaseButtonClickListener(new SortTypePercentAdapter.OnNumberOfCaseButtonClickListener() {
+            @Override
+            public void onClick(String sortType) {
+                presenter.onNumberOfCaseButtonClickListener(sortType);
+            }
+        });
     }
 
     @Override
     public void showNoDataView(boolean isShow) {
         tvNoData.setVisibility(isShow ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(isShow ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void showDetailListDialog(String sortType, ArrayList<MoneyData> moneyDataArrayList) {
+        DetailListDialogFragment detailListDialogFragment = DetailListDialogFragment.newInstance(sortType,moneyDataArrayList);
+        detailListDialogFragment.show(fragmentActivity.getSupportFragmentManager(),"dialog");
     }
 }

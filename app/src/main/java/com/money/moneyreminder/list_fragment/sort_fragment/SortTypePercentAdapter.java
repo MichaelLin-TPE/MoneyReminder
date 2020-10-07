@@ -28,6 +28,12 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
 
     private boolean isIncome;
 
+    private OnNumberOfCaseButtonClickListener listener;
+
+    public void setOnNumberOfCaseButtonClickListener(OnNumberOfCaseButtonClickListener listener){
+        this.listener = listener;
+    }
+
     public SortTypePercentAdapter(ArrayList<SortPercentData> sortPercentDataArrayList, boolean isIncome) {
         this.isIncome = isIncome;
         this.sortPercentDataArrayList = sortPercentDataArrayList;
@@ -43,7 +49,7 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        SortPercentData data = sortPercentDataArrayList.get(position);
+        final SortPercentData data = sortPercentDataArrayList.get(position);
         holder.tvNumber.setText(String.format(Locale.getDefault(),"%d.",(position+1)));
         holder.tvTitle.setText(data.getTitle());
         holder.tvNumberOfCase.setText(String.format(Locale.getDefault(),"%d 筆明細",data.getNumberOfCase()));
@@ -62,6 +68,13 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
         }else {
             holder.tvMoney.setTextColor(ContextCompat.getColor(context,R.color.red));
         }
+
+        holder.tvNumberOfCase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(data.getTitle());
+            }
+        });
     }
 
     @Override
@@ -87,5 +100,10 @@ public class SortTypePercentAdapter extends RecyclerView.Adapter<SortTypePercent
             seekBar = itemView.findViewById(R.id.sort_item_seek_bar);
             tvNumber = itemView.findViewById(R.id.sort_item_number);
         }
+    }
+
+
+    public interface OnNumberOfCaseButtonClickListener{
+        void onClick(String sortType);
     }
 }
