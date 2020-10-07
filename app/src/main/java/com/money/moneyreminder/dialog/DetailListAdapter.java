@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyData;
-import com.money.moneyreminder.tool.DataProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
