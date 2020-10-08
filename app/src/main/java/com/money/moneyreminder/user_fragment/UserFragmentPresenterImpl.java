@@ -32,6 +32,8 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     private static final String DATA_SORT = "設定資料排序";
 
+    private static final String SORT_ANALYSIS = "設定分析圖";
+
     private LoginHandler loginHandler;
 
     public UserFragmentPresenterImpl(UserFragmentVu mView) {
@@ -75,6 +77,9 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
             case DATA_SORT:
                 mView.showDataSortDialog();
                 break;
+            case SORT_ANALYSIS:
+                mView.showSortAnalysisDialog();
+                break;
             case LOGOUT:
                 mView.showLogoutDialog();
                 break;
@@ -96,6 +101,11 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
     public void onDayRangeButtonClickListener(String sortType) {
         Log.i("Michael","選擇了什麼區間："+sortType);
         mView.saveDayRange(sortType);
+    }
+
+    @Override
+    public void onSortAnalysisButtonClickListener(String sortType) {
+        mView.saveSortAnalysis(sortType);
     }
 
     private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {

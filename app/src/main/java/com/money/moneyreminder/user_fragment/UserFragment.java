@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.dialog.SettingDayRangeDialogFragment;
+import com.money.moneyreminder.dialog.SettingSortAnalysisDialogFragment;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.dialog.SecondSortAdapter;
 import com.money.moneyreminder.dialog.SettingBudgetDialogFragment;
@@ -220,5 +221,20 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     @Override
     public void saveDayRange(String sortType) {
         UserManager.getInstance().saveDayRange(sortType);
+    }
+
+    @Override
+    public void showSortAnalysisDialog() {
+        SettingSortAnalysisDialogFragment.newInstance(UserManager.getInstance().getSortAnalysisType()).setOnDataSortButtonClickListener(new SettingSortAnalysisDialogFragment.OnDataSortButtonClickListener() {
+            @Override
+            public void onChecked(String sortType) {
+                presenter.onSortAnalysisButtonClickListener(sortType);
+            }
+        }).show(fragmentActivity.getSupportFragmentManager(),"dialog");
+    }
+
+    @Override
+    public void saveSortAnalysis(String sortType) {
+        UserManager.getInstance().saveSortAnalysisType(sortType);
     }
 }

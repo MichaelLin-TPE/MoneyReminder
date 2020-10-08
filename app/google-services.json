@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "738715240006-6fol74adjqmfkl4t532le5ppcnpbn222.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.money.moneyreminder",
+            "certificate_hash": "27a31118993a3b5e1caf6a72ec0033ca1d9b8828"
+          }
+        },
+        {
           "client_id": "738715240006-snpl6io5tbfaaummqrqe6sil56m65nu1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

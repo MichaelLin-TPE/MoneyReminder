@@ -15,6 +15,8 @@ public class UserManager {
 
     private static final String DAY_RANGE = "day_range";
 
+    private static final String SORT_ANALYSIS = "sort_analysis";
+
     public static UserManager getInstance(){
         if (instance == null){
             instance = new UserManager();
@@ -42,5 +44,15 @@ public class UserManager {
     }
     public String getDayRange(){
         return sharedPreferences.getString(DAY_RANGE,"");
+    }
+
+    public void saveSortAnalysisType(String sortType){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SORT_ANALYSIS,sortType);
+        editor.apply();
+    }
+
+    public String getSortAnalysisType(){
+        return sharedPreferences.getString(SORT_ANALYSIS,"");
     }
 }

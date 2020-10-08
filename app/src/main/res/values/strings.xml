@@ -55,4 +55,7 @@
     <string name="sort_one">一號開始</string>
     <string name="sort_five">五號開始</string>
     <string name="sort_ten">十號開始</string>
+    <string name="long_analysis">長條分析圖</string>
+    <string name="pie_analysis">圓餅分析圖</string>
+    <string name="set_analysis">設定分析圖</string>
 </resources>

@@ -204,6 +204,7 @@ public class DataProvider {
         ArrayList<String> accountItemArray = new ArrayList<>();
         accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.set_time_range));
         accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.sort_type));
+        accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.set_analysis));
         accountItemArray.add(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.signout));
         return accountItemArray;
     }

@@ -24,4 +24,8 @@ public interface UserFragmentVu {
     void showDayRangeDialog();
 
     void saveDayRange(String sortType);
+
+    void showSortAnalysisDialog();
+
+    void saveSortAnalysis(String sortType);
 }

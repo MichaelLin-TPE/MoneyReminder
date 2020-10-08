@@ -14,4 +14,6 @@ public interface UserFragmentPresenter {
     void onDataSortClickListener(String sortType);
 
     void onDayRangeButtonClickListener(String sortType);
+
+    void onSortAnalysisButtonClickListener(String sortType);
 }
