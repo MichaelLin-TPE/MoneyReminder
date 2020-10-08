@@ -124,7 +124,7 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
 
     @Override
     public void onNumberOfCaseButtonClickListener(String sortType) {
-
+        //
         ArrayList<MoneyData> moneyDataArrayList = new ArrayList<>();
 
         for (MoneyObject object : moneyObjectArrayList){
