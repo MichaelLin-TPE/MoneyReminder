@@ -3,10 +3,12 @@ package com.money.moneyreminder.list_fragment.sort_fragment;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.SortComparatorForPicClass;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
+import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -99,12 +101,21 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
             return;
         }
 
-        //排順序
-        Collections.sort(sortTypeArray,new SortComparatorForPicClass());
 
+        if (mView.getSortAnalysisType().equals(MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.long_analysis))){
+
+            //排順序
+            Collections.sort(sortTypeArray,new SortComparatorForPicClass());
+
+            mView.showNoDataView(false);
+
+            mView.setRecyclerView(sortTypeArray,isIncome);
+
+            return;
+        }
         mView.showNoDataView(false);
+        mView.pieChart(sortTypeArray);
 
-        mView.setRecyclerView(sortTypeArray,isIncome);
 
 
 
@@ -129,5 +140,23 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
         }
         mView.showDetailListDialog(sortType,moneyDataArrayList);
 
+    }
+
+    @Override
+    public void onPieChatItemClickListener(String label) {
+        ArrayList<MoneyData> moneyDataArrayList = new ArrayList<>();
+
+        for (MoneyObject object : moneyObjectArrayList){
+
+            if (object.getMoneyDataArrayList() == null || object.getMoneyDataArrayList().isEmpty()){
+                continue;
+            }
+            for (MoneyData data : object.getMoneyDataArrayList()){
+                if (data.isIncome() == isIncome && data.getSortType().equals(label)){
+                    moneyDataArrayList.add(data);
+                }
+            }
+        }
+        mView.showDetailListDialog(label,moneyDataArrayList);
     }
 }
