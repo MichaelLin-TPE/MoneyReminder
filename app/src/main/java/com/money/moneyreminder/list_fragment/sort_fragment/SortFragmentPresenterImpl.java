@@ -108,11 +108,13 @@ public class SortFragmentPresenterImpl implements SortFragmentPresenter {
             Collections.sort(sortTypeArray,new SortComparatorForPicClass());
 
             mView.showNoDataView(false);
+            mView.changeView(false);
 
             mView.setRecyclerView(sortTypeArray,isIncome);
 
             return;
         }
+        mView.changeView(true);
         mView.showNoDataView(false);
         mView.pieChart(sortTypeArray);
 

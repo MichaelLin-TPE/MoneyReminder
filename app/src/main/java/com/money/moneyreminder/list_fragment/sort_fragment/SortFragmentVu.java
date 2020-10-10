@@ -14,4 +14,6 @@ public interface SortFragmentVu {
     String getSortAnalysisType();
 
     void pieChart(ArrayList<SortPercentData> sortTypeArray);
+
+    void changeView(boolean isShow);
 }

@@ -198,6 +198,12 @@ public class SortFragment extends Fragment implements SortFragmentVu, OnChartVal
 
     }
 
+    @Override
+    public void changeView(boolean isShow) {
+        recyclerView.setVisibility(isShow ? View.GONE : View.VISIBLE);
+        pieChart.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     private void setPieChartData(ArrayList<SortPercentData> sortTypeArray) {
         ArrayList<PieEntry> pieEntryArrayList = new ArrayList<>();
         ArrayList<Integer> colorArray = DataProvider.getInstance().getColorArray(sortTypeArray.size());
