@@ -136,6 +136,7 @@ public class SortFragment extends Fragment implements SortFragmentVu, OnChartVal
     public void showNoDataView(boolean isShow) {
         tvNoData.setVisibility(isShow ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(isShow ? View.GONE : View.VISIBLE);
+        pieChart.setVisibility(isShow ? View.GONE : View.VISIBLE);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.money.moneyreminder.dialog;
+package com.money.moneyreminder.user_fragment.view_presenter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +14,11 @@ import com.money.moneyreminder.tool.UserManager;
 
 import java.util.ArrayList;
 
-public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.ViewHolder> {
+public class AccountSettingAdapter extends RecyclerView.Adapter<AccountSettingAdapter.ViewHolder> {
 
     private ArrayList<String> secondSortContentArray;
+
+    private  ArrayList<String> accountItemArray;
 
 
     private OnAccountItemClickListener listener;
@@ -25,12 +27,13 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
         this.listener = listener;
     }
 
-    public SecondSortAdapter() {
+    public AccountSettingAdapter() {
 
     }
 
-    public void setSecondSortContentArray(ArrayList<String> secondSortContentArray) {
+    public void setSecondSortContentArray(ArrayList<String> secondSortContentArray, ArrayList<String> accountItemArray) {
         this.secondSortContentArray = secondSortContentArray;
+        this.accountItemArray = accountItemArray;
     }
 
     @NonNull
@@ -45,6 +48,14 @@ public class SecondSortAdapter extends RecyclerView.Adapter<SecondSortAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final String content = secondSortContentArray.get(position);
         holder.tvItem.setText(content);
+
+
+        if (position < secondSortContentArray.size()-1){
+            String type = accountItemArray.get(position);
+            holder.tvChoice.setText(type);
+        }
+
+
         holder.itemArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

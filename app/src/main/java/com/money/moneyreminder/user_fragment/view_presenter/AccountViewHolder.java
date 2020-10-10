@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
 import com.money.moneyreminder.dialog.SecondSortAdapter;
+import com.money.moneyreminder.tool.UserManager;
 
 import java.util.ArrayList;
 
@@ -30,14 +31,15 @@ public class AccountViewHolder extends RecyclerView.ViewHolder {
         recyclerView.addItemDecoration(new DividerItemDecoration(MoneyReminderApplication.getInstance().getApplicationContext(),DividerItemDecoration.VERTICAL));
     }
 
-    public void setData(ArrayList<String> accountItemArray) {
-        SecondSortAdapter adapter = new SecondSortAdapter();
-        adapter.setSecondSortContentArray(accountItemArray);
+    public void setData(final ArrayList<String> itemArray, final ArrayList<String> accountItemArray) {
+        final AccountSettingAdapter adapter = new AccountSettingAdapter();
+        adapter.setSecondSortContentArray(itemArray,accountItemArray);
         recyclerView.setAdapter(adapter);
-        adapter.setOnAccountItemClickListener(new SecondSortAdapter.OnAccountItemClickListener() {
+        adapter.setOnAccountItemClickListener(new AccountSettingAdapter.OnAccountItemClickListener() {
             @Override
             public void onClick(String itemName) {
                 listener.onClick(itemName);
+                adapter.notifyDataSetChanged();
             }
         });
     }

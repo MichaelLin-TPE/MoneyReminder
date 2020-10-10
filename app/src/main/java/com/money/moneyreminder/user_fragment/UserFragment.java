@@ -55,6 +55,11 @@ public class UserFragment extends Fragment implements UserFragmentVu {
 
     private FragmentActivity fragmentActivity;
 
+    private long budgetMoney,  totalExpenditure, monthMoney;
+
+    private int expenditurePercent;
+
+    private ArrayList<String> accountItemArray;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -111,7 +116,16 @@ public class UserFragment extends Fragment implements UserFragmentVu {
 
     @Override
     public void showRecyclerView(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray) {
-        viewPresenter.setData(budgetMoney,totalExpenditure,expenditurePercent,monthMoney,accountItemArray);
+        this.accountItemArray = accountItemArray;
+        this.budgetMoney = budgetMoney;
+        this.totalExpenditure = totalExpenditure;
+        this.expenditurePercent = expenditurePercent;
+        this.monthMoney = monthMoney;
+        ArrayList<String> accountSettingArray = new ArrayList<>();
+        accountSettingArray.add(UserManager.getInstance().getDayRange());
+        accountSettingArray.add(UserManager.getInstance().getSortType());
+        accountSettingArray.add(UserManager.getInstance().getSortAnalysisType());
+        viewPresenter.setData(budgetMoney,totalExpenditure,expenditurePercent,monthMoney,accountItemArray,accountSettingArray);
         if (adapter == null){
             adapter = new UserAdapter();
             adapter.setViewPresenter(viewPresenter);
@@ -236,5 +250,12 @@ public class UserFragment extends Fragment implements UserFragmentVu {
     @Override
     public void saveSortAnalysis(String sortType) {
         UserManager.getInstance().saveSortAnalysisType(sortType);
+    }
+
+    @Override
+    public void updateRecyclerView(ArrayList<String> accountSettingArray) {
+        viewPresenter.setData(budgetMoney,totalExpenditure,expenditurePercent,monthMoney,accountItemArray,accountSettingArray);
+        adapter.setViewPresenter(viewPresenter);
+        adapter.notifyDataSetChanged();
     }
 }

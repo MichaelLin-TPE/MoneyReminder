@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.firebase.firestore.auth.User;
+import com.money.moneyreminder.R;
 
 public class UserManager {
 
@@ -34,7 +35,13 @@ public class UserManager {
         editor.apply();
     }
     public String getSortType(){
-        return sharedPreferences.getString(SORT_TYPE,"");
+        String type = sharedPreferences.getString(SORT_TYPE,"");
+
+        if (type == null || type.isEmpty()){
+            type = MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.sort_near);
+        }
+
+        return type;
     }
 
     public void saveDayRange(String sortType){
@@ -43,7 +50,13 @@ public class UserManager {
         editor.apply();
     }
     public String getDayRange(){
-        return sharedPreferences.getString(DAY_RANGE,"");
+
+        String type = sharedPreferences.getString(DAY_RANGE,"");
+        if (type == null || type.isEmpty()){
+            type = MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.sort_one);
+        }
+
+        return type;
     }
 
     public void saveSortAnalysisType(String sortType){
@@ -53,6 +66,11 @@ public class UserManager {
     }
 
     public String getSortAnalysisType(){
-        return sharedPreferences.getString(SORT_ANALYSIS,"");
+
+        String type = sharedPreferences.getString(SORT_ANALYSIS,"");
+        if (type == null || type.isEmpty()){
+            type = MoneyReminderApplication.getInstance().getApplicationContext().getString(R.string.long_analysis);
+        }
+        return type;
     }
 }

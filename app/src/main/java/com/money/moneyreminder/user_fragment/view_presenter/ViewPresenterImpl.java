@@ -1,6 +1,7 @@
 package com.money.moneyreminder.user_fragment.view_presenter;
 
 import com.money.moneyreminder.dialog.SecondSortAdapter;
+import com.money.moneyreminder.tool.UserManager;
 
 import java.util.ArrayList;
 
@@ -12,15 +13,16 @@ public class ViewPresenterImpl implements ViewPresenter {
 
     private long budgetMoney,totalExpenditure,expenditurePercent,monthMoney;
 
-    private ArrayList<String> accountItemArray;
+    private ArrayList<String> accountItemArray,accountSettingArray;
 
     @Override
-    public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray) {
+    public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray, ArrayList<String> accountSettingArray) {
         this.budgetMoney = budgetMoney;
         this.totalExpenditure = totalExpenditure;
         this.expenditurePercent = expenditurePercent;
         this.monthMoney = monthMoney;
         this.accountItemArray = accountItemArray;
+        this.accountSettingArray = accountSettingArray;
     }
 
     @Override
@@ -56,7 +58,7 @@ public class ViewPresenterImpl implements ViewPresenter {
 
     @Override
     public void onBindAccountViewHolder(AccountViewHolder holder, int position){
-        holder.setData(accountItemArray);
+        holder.setData(accountItemArray,accountSettingArray);
     }
 
 

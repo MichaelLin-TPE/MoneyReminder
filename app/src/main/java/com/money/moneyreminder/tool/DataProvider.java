@@ -1,5 +1,6 @@
 package com.money.moneyreminder.tool;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -213,16 +214,11 @@ public class DataProvider {
 
     public ArrayList<Integer> getColorArray(int length){
         ArrayList<Integer> colorArray = new ArrayList<>();
+        Context context = MoneyReminderApplication.getInstance().getApplicationContext();
+        int[] colorList = context.getResources().getIntArray(R.array.color_list);
         Random random = new Random();
         for (int i = 0 ; i < length ; i ++){
-            String r,g,b;
-            r = Integer.toHexString(random.nextInt(256)).toUpperCase();
-            g = Integer.toHexString(random.nextInt(256)).toUpperCase();
-            b = Integer.toHexString(random.nextInt(256)).toUpperCase();
-            r = r.length() == 1 ? "0" + r : r;
-            g = g.length() == 1 ? "0" + g : g;
-            b = b.length() == 1 ? "0" + b : b;
-            colorArray.add(Color.parseColor("#"+r+g+b));
+            colorArray.add(colorList[random.nextInt(30)]);
         }
         return colorArray;
     }
