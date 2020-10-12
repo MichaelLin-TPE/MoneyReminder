@@ -83,7 +83,7 @@ public class SortTypeDialogFragment extends DialogFragment {
         btnSave = view.findViewById(R.id.sort_type_btn_save);
         edContent = view.findViewById(R.id.sort_type_edContent);
         recyclerView = view.findViewById(R.id.sort_type_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,4));
+        recyclerView.setLayoutManager(new GridLayoutManager(context,3));
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

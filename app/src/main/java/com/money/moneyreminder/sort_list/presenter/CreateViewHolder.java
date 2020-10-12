@@ -29,7 +29,7 @@ public class CreateViewHolder extends RecyclerView.ViewHolder {
         tvTitle = itemView.findViewById(R.id.sort_list_item_title);
         recyclerView = itemView.findViewById(R.id.sort_list_item_recycler_view);
         tvNoData = itemView.findViewById(R.id.sort_list_item_no_data);
-        recyclerView.setLayoutManager(new GridLayoutManager(MoneyReminderApplication.getInstance().getApplicationContext(),4));
+        recyclerView.setLayoutManager(new GridLayoutManager(MoneyReminderApplication.getInstance().getApplicationContext(),3));
         tvNoData.setVisibility(View.GONE);
         ivIcon.setImageResource(R.drawable.create);
         tvTitle.setText(R.string.create);
