@@ -90,7 +90,13 @@ public class SettingBudgetDialogFragment extends MoneyReminderDialogFragment {
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (listener == null){
+                    dismiss();
+                    return;
+                }
                 listener.onConfirmClick(editText.getText().toString());
+                dismiss();
             }
         });
         tvCancel.setOnClickListener(new View.OnClickListener() {
