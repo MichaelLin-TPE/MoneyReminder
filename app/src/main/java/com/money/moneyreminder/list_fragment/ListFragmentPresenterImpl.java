@@ -79,7 +79,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
                 Date cDate = new Date(object.getTimeMiles());
                 Date firstDate = new Date(firstMiles);
                 Date endDate = new Date(endMiles);
-                if (cDate.after(firstDate) && cDate.before(endDate)) {
+                if ((cDate.equals(firstDate) || cDate.after(firstDate)) && cDate.before(endDate)) {
                     incomeMoney += object.getInComeMoney();
                     expenditure += object.getExpenditureMoney();
                     moneyDataArrayList.add(object);
@@ -225,7 +225,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
                 Date cDate = new Date(currentTimeMiles);
                 Date firstDate = new Date(firstDayTimeMiles);
                 Date endDate = new Date(endDayTimeMiles);
-                if (cDate.after(firstDate) && cDate.before(endDate)) {
+                if ((cDate.equals(firstDate) || cDate.after(firstDate)) && cDate.before(endDate)) {
                     MichaelLog.i("現在日期：" + currentTime + " , 第一天：" + firstDay + " , 最後一天：" + endDay);
                     selectIndex = i;
                     break;
