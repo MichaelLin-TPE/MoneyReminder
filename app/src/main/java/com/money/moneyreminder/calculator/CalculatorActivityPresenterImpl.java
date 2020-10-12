@@ -85,6 +85,7 @@ public class CalculatorActivityPresenterImpl implements CalculatorActivityPresen
                 isCalculating = false;
                 mView.resetNumberList();
                 calculatorRepeatIndex = 0;
+                //
                 break;
             default:
                 if (mView.getTvContent().equals(ZERO)){
