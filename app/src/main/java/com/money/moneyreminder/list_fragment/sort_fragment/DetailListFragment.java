@@ -20,6 +20,7 @@ import com.money.moneyreminder.R;
 import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -76,8 +77,7 @@ public class DetailListFragment extends Fragment implements DetailListFragmentVu
         if (moneyDataArray == null){
             return;
         }
-
-        Log.i("Michael","取得資料長度 : "+moneyDataArray.size()+" 是否有收入 : "+isIncome);
+        MichaelLog.i("取得資料長度 : "+moneyDataArray.size()+" 是否有收入 : "+isIncome);
     }
 
     private void initPresenter() {

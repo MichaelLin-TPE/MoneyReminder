@@ -24,6 +24,7 @@ import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort_list.SortListActivity;
 import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 import com.money.moneyreminder.tool.ImageLoaderProvider;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -165,19 +166,19 @@ public class SortActivity extends AppCompatActivity implements SortActivityVu{
         if (requestCode == 100 && data != null){
             Bundle bundle = data.getExtras();
             if (bundle == null){
-                Log.i("Michael","bundle ActivityResult is null");
+                MichaelLog.i("bundle ActivityResult is null");
                 return;
             }
 
             SortTypeData sortTypeData = (SortTypeData) bundle.getSerializable("sortType");
             if (sortTypeData == null){
-                Log.i("Michael","sortTypeData is null");
+                MichaelLog.i("sortTypeData is null");
                 return;
             }
             String describe = bundle.getString("describe","");
             presenter.onCatchSortTypeData(sortTypeData,describe);
         }else {
-            Log.i("Michael","收不到資料");
+            MichaelLog.i("收不到資料");
         }
     }
 

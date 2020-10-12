@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.DpConvertTool;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -146,7 +147,7 @@ public class SecondSortDialogFragment extends MoneyReminderDialogFragment {
             return;
         }
         sortTitle = getArguments().getString(SORT_TITLE,"");
-        Log.i("Michael","主分類為："+sortTitle);
+        MichaelLog.i("主分類為："+sortTitle);
     }
     public interface OnSecondSortTypeSaveButtonClickListener{
         void onClick(ArrayList<String> secondSortContentArray,String sortTitle);

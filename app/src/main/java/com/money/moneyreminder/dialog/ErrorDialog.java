@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.MichaelLog;
 
 /**
  * 這個尚未完成
@@ -70,7 +71,7 @@ public class ErrorDialog extends MoneyReminderDialogFragment {
     private void initView(View view) {
 
         if (getArguments() == null) {
-            Log.i("Michael", "getArgument == null");
+            MichaelLog.i("getArgument == null");
             return;
         }
         errorCode = getArguments().getString("error", "");

@@ -157,11 +157,11 @@ public class DataProvider {
             return null;
         }
         if (currentDate == null) {
-            Log.i("Michael", "currentDate is null");
+            MichaelLog.i("currentDate is null");
             return null;
         }
         int firstWeekDay = Integer.parseInt(weekFormat.format(currentDate));
-        Log.i("Michael", "星期 " + firstWeekDay);
+        MichaelLog.i("星期 " + firstWeekDay);
         ArrayList<String> dateList = new ArrayList<>();
         int totalDays = getTotalDay(year, month);
         int weekDay = 1;

@@ -33,6 +33,7 @@ import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DateDTO;
 import com.money.moneyreminder.dialog.ErrorDialog;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -160,7 +161,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
             tab.setText(dateDTO.getTabString());
             tabLayout.addTab(tab);
         }
-        Log.i("Michael", "selectIndex = " + selectIndex);
+        MichaelLog.i("selectIndex = " + selectIndex);
 
 
         finalSelectIndex = selectIndex;
@@ -189,12 +190,12 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         @Override
         public void run() {
             if (tabLayout.getTabAt(finalSelectIndex) == null) {
-                Log.i("Michael", "tabItem is null ");
+                MichaelLog.i("tabItem is null ");
                 return;
             }
             TabLayout.Tab tab = tabLayout.getTabAt(finalSelectIndex);
             if (tab == null) {
-                Log.i("Michael", "tabItem is null ");
+                MichaelLog.i("tabItem is null ");
                 return;
             }
             tab.select();
@@ -209,7 +210,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
 
     @Override
     public void showSortTabLayout(ArrayList<MoneyObject> moneyDataArrayList, boolean isIncome, boolean isDelete) {
-        Log.i("Michael", "是否是收入 : " + isIncome);
+        MichaelLog.i("是否是收入 : " + isIncome);
 
         ListFragmentAdapter listFragmentAdapter = new ListFragmentAdapter(fragmentActivity.getSupportFragmentManager());
         listFragmentAdapter.setData(moneyDataArrayList, isIncome, isDelete);
@@ -288,7 +289,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
             int pressPosition = tab.getPosition();
             TabLayout.Tab singleTab = sortTabLayout.getTabAt(pressPosition);
             if (singleTab == null || singleTab.getCustomView() == null) {
-                Log.i("Michael", "singleTab is null");
+                MichaelLog.i("singleTab is null");
                 return;
             }
             TextView tvTitle = singleTab.getCustomView().findViewById(R.id.top_tab_title);
@@ -301,7 +302,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
             int pressPosition = tab.getPosition();
             TabLayout.Tab singleTab = sortTabLayout.getTabAt(pressPosition);
             if (singleTab == null || singleTab.getCustomView() == null) {
-                Log.i("Michael", "singleTab is null");
+                MichaelLog.i("singleTab is null");
                 return;
             }
             TextView tvTitle = singleTab.getCustomView().findViewById(R.id.top_tab_title);
@@ -318,12 +319,12 @@ public class ListFragment extends Fragment implements ListFragmentVu {
         @Override
         public void run() {
             if (sortTabLayout.getTabAt(1) == null) {
-                Log.i("Michael", "secondTab is null");
+                MichaelLog.i("secondTab is null");
                 return;
             }
             TabLayout.Tab tab = sortTabLayout.getTabAt(1);
             if (tab == null || tab.getCustomView() == null) {
-                Log.i("Michael", "SortItem is null ");
+                MichaelLog.i("SortItem is null ");
                 return;
             }
             sortTabLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.sort_tab_layout_background));

@@ -9,6 +9,7 @@ import com.money.moneyreminder.tool.DateDTO;
 import com.money.moneyreminder.tool.DateStringProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.MichaelLog;
 import com.money.moneyreminder.tool.UserManager;
 
 import java.text.SimpleDateFormat;
@@ -60,7 +61,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         @Override
         public void onSuccess(ArrayList<MoneyObject> dataArray) {
             moneyArrayList = dataArray;
-            Log.i("Michael", "有資料 : " + dataArray.size());
+            MichaelLog.i("有資料 : " + dataArray.size());
             int incomeMoney = 0;
             int expenditure = 0;
             //這個判斷式屬於當12月到1月的時候才要用
@@ -68,7 +69,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
                 endDay = monthDateFormat.format(new Date(DataProvider.getInstance().getTimeMiles(endDay)));
                 currentYear++;
                 endDay = currentYear+"/"+endDay;
-                Log.i("Michael","修改過後的最後日 : "+endDay);
+                MichaelLog.i("修改過後的最後日 : "+endDay);
             }
 
             ArrayList<MoneyObject> moneyDataArrayList = new ArrayList<>();
@@ -91,7 +92,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
 
         @Override
         public void onFail(String errorCode) {
-            Log.i("Michael", "沒資料");
+            MichaelLog.i("沒資料");
 
             int incomeMoney = 0;
             int expenditure = 0;
@@ -109,7 +110,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
         }
 
         if (!isDelete) {
-            Log.i("Michael", "更新ViewPagerAdapter");
+            MichaelLog.i("更新ViewPagerAdapter");
             mView.resetFloatingButton();
             firebaseHandler.getUserMoneyData(onGetUserMoneyDataListener);
             return;
@@ -130,7 +131,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
                             && data.getTotalMoney() == moneyData.getTotalMoney()
                             && data.getSortType().equals(moneyData.getSortType())
                             && data.getDescription().equals(moneyData.getDescription())) {
-                        Log.i("Michael", "會刪除的資料有 ： 類別：" + data.getSortType() + " , money : " + data.getTotalMoney());
+                        MichaelLog.i("會刪除的資料有 ： 類別：" + data.getSortType() + " , money : " + data.getTotalMoney());
                         moneyDataIterator.remove();
                     }
                 }
@@ -167,8 +168,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             isDelete = true;
             removeDataArray.add(data);
             mView.changeFloatingButtonView(isDelete);
-
-            Log.i("Michael", "removeDataArray size : " + removeDataArray.size());
+            MichaelLog.i("removeDataArray size : " + removeDataArray.size());
             return;
         }
         if (removeDataArray.size() == 0) {
@@ -184,8 +184,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
             isDelete = false;
             mView.changeFloatingButtonView(false);
         }
-
-        Log.i("Michael", "刪除完的 removeDataArray size : " + removeDataArray.size());
+        MichaelLog.i("刪除完的 removeDataArray size : " + removeDataArray.size());
     }
 
     @Override
@@ -227,7 +226,7 @@ public class ListFragmentPresenterImpl implements ListFragmentPresenter {
                 Date firstDate = new Date(firstDayTimeMiles);
                 Date endDate = new Date(endDayTimeMiles);
                 if (cDate.after(firstDate) && cDate.before(endDate)) {
-                    Log.i("Michael", "現在日期：" + currentTime + " , 第一天：" + firstDay + " , 最後一天：" + endDay);
+                    MichaelLog.i("現在日期：" + currentTime + " , 第一天：" + firstDay + " , 最後一天：" + endDay);
                     selectIndex = i;
                     break;
                 }

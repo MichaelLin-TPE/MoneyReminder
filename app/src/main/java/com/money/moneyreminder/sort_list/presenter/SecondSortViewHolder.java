@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.MichaelLog;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class SecondSortViewHolder extends RecyclerView.ViewHolder {
         adapter.setOnDescriptionItemClickListener(new SecondSortContentAdapter.OnDescriptionItemClickListener() {
             @Override
             public void onClick(String content) {
-                Log.i("Michael","次分類點擊");
+                MichaelLog.i("次分類點擊");
                 adapter.notifyDataSetChanged();
                 listener.onClick(content);
             }

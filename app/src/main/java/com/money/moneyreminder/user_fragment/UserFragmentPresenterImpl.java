@@ -8,6 +8,7 @@ import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.MichaelLog;
 import com.money.moneyreminder.tool.UserManager;
 
 import java.text.SimpleDateFormat;
@@ -75,7 +76,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     @Override
     public void onAccountItemClickListener(String itemName) {
-        Log.i("Michael","點擊了什麼按鈕："+itemName);
+        MichaelLog.i("點擊了什麼按鈕："+itemName);
         switch (itemName){
             case DATE_RANGE:
                 mView.showDayRangeDialog();
@@ -99,7 +100,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     @Override
     public void onDataSortClickListener(String sortType) {
-        Log.i("Michael","選擇了什麼排序："+sortType);
+        MichaelLog.i("選擇了什麼排序："+sortType);
         mView.saveSortType(sortType);
         ArrayList<String> accountSettingArray = new ArrayList<>();
         accountSettingArray.add(UserManager.getInstance().getDayRange());
@@ -110,7 +111,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
 
     @Override
     public void onDayRangeButtonClickListener(String sortType) {
-        Log.i("Michael","選擇了什麼區間："+sortType);
+        MichaelLog.i("選擇了什麼區間："+sortType);
         mView.saveDayRange(sortType);
         ArrayList<String> accountSettingArray = new ArrayList<>();
         accountSettingArray.add(UserManager.getInstance().getDayRange());
@@ -182,7 +183,7 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
             if (expenditurePercent <= 0){
                 expenditurePercent = 0;
             }
-            Log.i("Michael","達成率 : "+expenditurePercent);
+            MichaelLog.i("達成率 : "+expenditurePercent);
             expenditurePercent = expenditurePercent * 100;
             mView.showRecyclerView(budgetMoney,totalExpenditure,(int)expenditurePercent,monthMoney,DataProvider.getInstance().getAccountItemArray());
         }

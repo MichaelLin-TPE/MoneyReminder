@@ -34,6 +34,7 @@ import com.money.moneyreminder.dialog.DetailListDialogFragment;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
+import com.money.moneyreminder.tool.MichaelLog;
 import com.money.moneyreminder.tool.MyValueFormatter;
 import com.money.moneyreminder.tool.UserManager;
 
@@ -86,7 +87,7 @@ public class SortFragment extends Fragment implements SortFragmentVu, OnChartVal
 
     private void initBundle() {
         if (getArguments() == null){
-            Log.i("Michael","getArguments is null");
+            MichaelLog.i("getArguments is null");
             return;
         }
         moneyObjectArrayList = (ArrayList<MoneyObject>) getArguments().getSerializable("money");

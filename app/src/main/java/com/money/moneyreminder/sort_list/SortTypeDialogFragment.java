@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -130,7 +131,7 @@ public class SortTypeDialogFragment extends DialogFragment {
     private FirebaseHandler.OnFireStoreCatchListener<ArrayList<IconData>> onFireStoreCatchListener = new FirebaseHandler.OnFireStoreCatchListener<ArrayList<IconData>>() {
         @Override
         public void onSuccess(ArrayList<IconData> dataArray) {
-            Log.i("Michael","dataArray is not null");
+            MichaelLog.i("dataArray is not null");
             final SortTypeAdapter adapter = new SortTypeAdapter();
             adapter.setData(dataArray);
             recyclerView.setAdapter(adapter);
@@ -145,7 +146,7 @@ public class SortTypeDialogFragment extends DialogFragment {
 
         @Override
         public void onFail(String errorCode) {
-            Log.i("Michael","取不到資料 : "+errorCode);
+            MichaelLog.i("取不到資料 : "+errorCode);
         }
     };
 

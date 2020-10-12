@@ -81,7 +81,7 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
     @Override
     public String getUserEmail() {
         if (user == null) {
-            Log.i("Michael", "娶不到UserEmail");
+            MichaelLog.i("娶不到UserEmail");
             return "";
         }
         return user.getEmail();
@@ -129,7 +129,7 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     onFireStoreCatchListener.onSuccess(userSortData);
                 } else {
                     onFireStoreCatchListener.onFail("無法取得資料");
-                    Log.i("Michael", "沒資料");
+                    MichaelLog.i("沒資料");
                 }
             }
         });
@@ -141,17 +141,17 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.isSuccessful() || task.getResult() == null){
-                            Log.i("Michael","無法取得次分類表");
+                            MichaelLog.i("無法取得次分類表");
                             return;
                         }
                         DocumentSnapshot snapshot = task.getResult();
                         if (snapshot == null){
-                            Log.i("Michael","無法取得次分類表");
+                            MichaelLog.i("無法取得次分類表");
                             return;
                         }
                         String json = (String) snapshot.get("json");
                         if (json == null || json.isEmpty()){
-                            Log.i("Michael","無法取得次分類表");
+                            MichaelLog.i("無法取得次分類表");
                             return;
                         }
                         secondSortDataArray = gson.fromJson(json,new TypeToken<ArrayList<SecondSortData>>(){}.getType());
@@ -362,7 +362,7 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     onGetUserMoneyDataListener.onSuccess(moneyDataArrayList);
                 } else {
                     onGetUserMoneyDataListener.onFail("無法取得資料");
-                    Log.i("Michael", "沒資料");
+                    MichaelLog.i("沒資料");
                 }
             }
         });
@@ -410,7 +410,7 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
     public void saveUserDescription(final String description) {
 
         if (description == null || description.isEmpty()){
-            Log.i("Michael","描述為空白");
+            MichaelLog.i("描述為空白");
             return;
         }
 
@@ -421,25 +421,25 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.isSuccessful() || task.getResult() == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             createNewDescribe(description);
                             return;
                         }
                         DocumentSnapshot snapshot = task.getResult();
                         if (snapshot == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             createNewDescribe(description);
                             return;
                         }
                         String json = (String) snapshot.get("json");
                         if (json == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             createNewDescribe(description);
                             return;
                         }
                         ArrayList<String> descriptionArray = gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
                         if (descriptionArray == null || descriptionArray.isEmpty()){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             createNewDescribe(description);
                             return;
                         }
@@ -457,25 +457,25 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (!task.isSuccessful() || task.getResult() == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             onFireStoreCatchListener.onFail("取得Description失敗");
                             return;
                         }
                         DocumentSnapshot snapshot = task.getResult();
                         if (snapshot == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             onFireStoreCatchListener.onFail("取得Description失敗");
                             return;
                         }
                         String json = (String) snapshot.get("json");
                         if (json == null){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             onFireStoreCatchListener.onFail("取得Description失敗");
                             return;
                         }
                         ArrayList<String> descriptionArray = gson.fromJson(json,new TypeToken<ArrayList<String>>(){}.getType());
                         if (descriptionArray == null || descriptionArray.isEmpty()){
-                            Log.i("Michael","取得Description失敗");
+                            MichaelLog.i("取得Description失敗");
                             onFireStoreCatchListener.onFail("取得Description失敗");
                             return;
                         }

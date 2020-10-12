@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.MenuItemHoverListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import static com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenterImpl.SHOW_DATE_LIST;
 import static com.money.moneyreminder.calendar_fragment.date_presenter.DatePresenterImpl.SHOW_WEEK_DAY;
@@ -52,7 +54,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof DateListViewHolder){
             datePresenter.onBindDateListHolder((DateListViewHolder)holder,position);
-            Log.i("Michael","clickListener 傳入");
+            MichaelLog.i("clickListener 傳入");
             datePresenter.onCalendarItemClickListener((DateListViewHolder)holder,listener);
         }
     }

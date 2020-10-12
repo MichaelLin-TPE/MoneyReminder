@@ -2,6 +2,8 @@ package com.money.moneyreminder.sort_list.presenter;
 
 import android.util.Log;
 
+import com.money.moneyreminder.tool.MichaelLog;
+
 import java.util.ArrayList;
 
 public class SortPresenterImpl implements SortPresenter {
@@ -21,7 +23,7 @@ public class SortPresenterImpl implements SortPresenter {
     @Override
     public void setData(SortData sortData) {
         if (sortData == null){
-            Log.i("Michael","sortData is null");
+            MichaelLog.i("sortData is null");
             return;
         }
         recentlyArray = sortData.getRecentlyData();

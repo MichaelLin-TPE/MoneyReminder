@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.SortActivity;
 import com.money.moneyreminder.tool.DataProvider;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorA
             return;
         }
         currentTime = bundle.getString(CURRENT_TIME,"");
-        Log.i("Michael","CurrentTime : "+currentTime);
+        MichaelLog.i("CurrentTime : "+currentTime);
     }
 
     private void initView() {

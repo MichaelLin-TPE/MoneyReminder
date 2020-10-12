@@ -6,6 +6,7 @@ import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,7 +84,7 @@ public class CalendarFragmentPresenterImpl implements CalendarFragmentPresenter{
                 currentDate = currentYear+"/"+currentMonth;
             }
             mView.setTime(currentDate);
-            Log.i("Michael","currentDate : "+currentDate);
+            MichaelLog.i("currentDate : "+currentDate);
             ArrayList<MoneyObject> dataArray = new ArrayList<>();
             for (MoneyObject data : moneyDateArray){
                 String dataTime = DataProvider.getInstance().getYearAndDate(data.getTimeMiles());

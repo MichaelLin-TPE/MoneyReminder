@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.money.moneyreminder.MainActivity;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.tool.DataProvider;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -70,7 +71,7 @@ public class MoneyActivity extends AppCompatActivity implements MoneyActivityVu{
 
         TabLayout.Tab firstTab = tabLayout.getTabAt(0);
         if (firstTab == null || firstTab.getCustomView() == null){
-            Log.i("Michael","FirstTab is null");
+            MichaelLog.i("FirstTab is null");
             return;
         }
         ivTabIcon = firstTab.getCustomView().findViewById(R.id.bottom_tab_icon);
@@ -95,7 +96,7 @@ public class MoneyActivity extends AppCompatActivity implements MoneyActivityVu{
             int position = tab.getPosition();
             TabLayout.Tab singleTab = tabLayout.getTabAt(position);
             if (singleTab == null || singleTab.getCustomView() == null){
-                Log.i("Michael","singleTab is null");
+                MichaelLog.i("singleTab is null");
                 return;
             }
             ivTabIcon = singleTab.getCustomView().findViewById(R.id.bottom_tab_icon);
@@ -108,7 +109,7 @@ public class MoneyActivity extends AppCompatActivity implements MoneyActivityVu{
             int position = tab.getPosition();
             TabLayout.Tab singleTab = tabLayout.getTabAt(position);
             if (singleTab == null || singleTab.getCustomView() == null){
-                Log.i("Michael","singleTab is null");
+                MichaelLog.i("singleTab is null");
                 return;
             }
             ivTabIcon = singleTab.getCustomView().findViewById(R.id.bottom_tab_icon);

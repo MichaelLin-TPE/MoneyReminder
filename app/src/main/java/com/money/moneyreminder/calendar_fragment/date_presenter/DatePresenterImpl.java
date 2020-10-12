@@ -3,6 +3,7 @@ package com.money.moneyreminder.calendar_fragment.date_presenter;
 import android.util.Log;
 
 import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class DatePresenterImpl implements DatePresenter {
 
     @Override
     public void onCalendarItemClickListener(DateListViewHolder holder, DateListViewHolder.OnCalendarItemClickListener listener) {
-        Log.i("Michael","clickListener 傳入 datePresenter");
+        MichaelLog.i("clickListener 傳入 datePresenter");
         holder.setOnCalendarItemClickListener(listener);
     }
 }

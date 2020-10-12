@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.sort.MoneyObject;
+import com.money.moneyreminder.tool.MichaelLog;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 import java.util.ArrayList;
@@ -67,10 +68,10 @@ public class DetailListDialogFragment extends MoneyReminderDialogFragment {
         sortType = getArguments().getString(SORT_TYPE,"");
         moneyObjectArrayList = (ArrayList<MoneyData>) getArguments().getSerializable(MONEY_LIST);
         if (moneyObjectArrayList == null){
-            Log.i("Michael","moneyArray is null");
+            MichaelLog.i("moneyArray is null");
             return;
         }
-        Log.i("Michael","接收到的 sortType : "+sortType + " , moenyArray size is "+moneyObjectArrayList.size());
+        MichaelLog.i("接收到的 sortType : "+sortType + " , moenyArray size is "+moneyObjectArrayList.size());
     }
 
     @Override

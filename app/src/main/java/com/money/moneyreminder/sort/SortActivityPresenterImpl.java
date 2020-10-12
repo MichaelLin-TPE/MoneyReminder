@@ -6,6 +6,7 @@ import com.money.moneyreminder.sort_list.presenter.SortTypeData;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.util.ArrayList;
 
@@ -50,14 +51,14 @@ public class SortActivityPresenterImpl implements SortActivityPresenter {
     private FirebaseHandler.OnFireStoreCatchListener<ArrayList<String>> onFireStoreCatchListener = new FirebaseHandler.OnFireStoreCatchListener<ArrayList<String>>() {
         @Override
         public void onSuccess(ArrayList<String> describeArray) {
-            Log.i("Michael","有描述資料");
+            MichaelLog.i("有描述資料");
             mView.showTvNoData(false);
             mView.setDescribeRecyclerView(describeArray);
         }
 
         @Override
         public void onFail(String errorCode) {
-            Log.i("Michael","無描述資料");
+            MichaelLog.i("無描述資料");
             mView.showTvNoData(true);
             mView.setDescribeRecyclerView(null);
         }
@@ -76,7 +77,7 @@ public class SortActivityPresenterImpl implements SortActivityPresenter {
     @Override
     public void onDateConfirmClickListener(String choiceTime) {
 
-        Log.i("Michael","我選擇的時間 : "+choiceTime);
+        MichaelLog.i("我選擇的時間 : "+choiceTime);
 
         if (choiceTime == null || choiceTime.isEmpty()){
             String currentTime = DataProvider.getInstance().getCurrentTime();

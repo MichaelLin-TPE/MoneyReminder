@@ -10,6 +10,8 @@ import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.DpConvertTool;
+import com.money.moneyreminder.tool.MichaelLog;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -24,7 +26,7 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
     private OnCalendarItemClickListener listener;
 
     public void setOnCalendarItemClickListener(OnCalendarItemClickListener listener){
-        Log.i("Michael","clickListener DateListViewHolder");
+        MichaelLog.i("clickListener DateListViewHolder");
         this.listener = listener;
     }
 
@@ -73,7 +75,8 @@ public class DateListViewHolder extends RecyclerView.ViewHolder {
         }
         tvIncome.setText("");
         tvExpenditure.setText("");
-        Log.i("Michael","日期："+date+" , 收入 : "+moneyObject.getInComeMoney()+" , 支出 : "+moneyObject.getExpenditureMoney());
+        MichaelLog.i("日期："+date+" , 收入 : "+moneyObject.getInComeMoney()+" , 支出 : "+moneyObject.getExpenditureMoney());
+
         if (moneyObject.getInComeMoney() != 0){
             tvIncome.setVisibility(View.VISIBLE);
             tvIncome.setText(String.format(Locale.getDefault(),"%d",moneyObject.getInComeMoney()));

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.money.moneyreminder.R;
 import com.money.moneyreminder.sort.MoneyData;
 import com.money.moneyreminder.tool.ImageLoaderProvider;
+import com.money.moneyreminder.tool.MichaelLog;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -73,7 +74,8 @@ public class DetailChildAdapter extends RecyclerView.Adapter<DetailChildAdapter.
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("Michael","checkBox 是否被按："+isChecked+" , position : "+position);
+                MichaelLog.i("checkBox 是否被按："+isChecked+" , position : "+position);
+
                 listener.onCheckBoxChecked(data,isChecked);
             }
         });
