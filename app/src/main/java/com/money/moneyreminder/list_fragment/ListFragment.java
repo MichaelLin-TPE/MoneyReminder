@@ -2,6 +2,8 @@ package com.money.moneyreminder.list_fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.money.moneyreminder.R;
@@ -172,11 +175,27 @@ public class ListFragment extends Fragment implements ListFragmentVu {
                 String firstDay = dateStringArray.get(tab.getPosition()).getYear()+"/"+dateStringArray.get(tab.getPosition()).getFirstDateOfMonth();
                 String endDay = dateStringArray.get(tab.getPosition()).getYear()+"/"+dateStringArray.get(tab.getPosition()).getEndDateOfMonth();
                 presenter.onTabSelectedListener(firstDay, endDay);
+
+                TabLayout.Tab selectTab = tabLayout.getTabAt(tab.getPosition());
+                if (selectTab == null || selectTab.getCustomView() == null) {
+                    MichaelLog.i("top tab getCustomView() == null");
+                    return;
+                }
+                TextView tvTitle = selectTab.getCustomView().findViewById(R.id.top_tab_title);
+                tvTitle.setTextColor(Color.WHITE);
+                tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                TabLayout.Tab unSelectTab = tabLayout.getTabAt(tab.getPosition());
+                if (unSelectTab == null || unSelectTab.getCustomView() == null) {
+                    MichaelLog.i("top tab getCustomView() == null");
+                    return;
+                }
+                TextView tvTitle = unSelectTab.getCustomView().findViewById(R.id.top_tab_title);
+                tvTitle.setTextColor(ContextCompat.getColor(context,R.color.deep_grey));
+                tvTitle.setTypeface(null);
             }
 
             @Override
@@ -346,6 +365,7 @@ public class ListFragment extends Fragment implements ListFragmentVu {
     private View prepare(String content) {
         View view = View.inflate(context, R.layout.list_top_tab_layout_custom_view, null);
         TextView tvTabTitle = view.findViewById(R.id.top_tab_title);
+        tvTabTitle.setTextColor(ContextCompat.getColor(context,R.color.deep_grey));
         LinearLayout itemArea = view.findViewById(R.id.item_area);
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
