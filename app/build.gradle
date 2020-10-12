@@ -8,8 +8,8 @@ android {
         applicationId "com.money.moneyreminder"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 7
-        versionName "1.7"
+        versionCode 8
+        versionName "1.8"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("boolean","LOG","true")
