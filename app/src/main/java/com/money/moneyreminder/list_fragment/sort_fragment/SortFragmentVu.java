@@ -10,4 +10,10 @@ public interface SortFragmentVu {
     void showNoDataView(boolean isShow);
 
     void showDetailListDialog(String sortType, ArrayList<MoneyData> moneyDataArrayList);
+
+    String getSortAnalysisType();
+
+    void pieChart(ArrayList<SortPercentData> sortTypeArray);
+
+    void changeView(boolean isShow);
 }

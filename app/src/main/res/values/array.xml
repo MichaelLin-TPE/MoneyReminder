@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="color_list">
+        <item>@color/pie_char_color1</item>
+        <item>@color/pie_char_color2</item>
+        <item>@color/pie_char_color3</item>
+        <item>@color/pie_char_color4</item>
+        <item>@color/pie_char_color5</item>
+        <item>@color/pie_char_color6</item>
+        <item>@color/pie_char_color7</item>
+        <item>@color/pie_char_color8</item>
+        <item>@color/pie_char_color9</item>
+        <item>@color/pie_char_color10</item>
+        <item>@color/pie_char_color11</item>
+        <item>@color/pie_char_color12</item>
+        <item>@color/pie_char_color13</item>
+        <item>@color/pie_char_color14</item>
+        <item>@color/pie_char_color15</item>
+        <item>@color/pie_char_color16</item>
+        <item>@color/pie_char_color17</item>
+        <item>@color/pie_char_color18</item>
+        <item>@color/pie_char_color19</item>
+        <item>@color/pie_char_color20</item>
+        <item>@color/pie_char_color21</item>
+        <item>@color/pie_char_color22</item>
+        <item>@color/pie_char_color23</item>
+        <item>@color/pie_char_color24</item>
+        <item>@color/pie_char_color25</item>
+        <item>@color/pie_char_color26</item>
+        <item>@color/pie_char_color27</item>
+        <item>@color/pie_char_color28</item>
+        <item>@color/pie_char_color29</item>
+        <item>@color/pie_char_color30</item>
+    </array>
+
+</resources>

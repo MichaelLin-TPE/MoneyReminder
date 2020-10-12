@@ -28,4 +28,6 @@ public interface UserFragmentVu {
     void showSortAnalysisDialog();
 
     void saveSortAnalysis(String sortType);
+
+    void updateRecyclerView(ArrayList<String> accountSettingArray);
 }

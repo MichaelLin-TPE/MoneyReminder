@@ -8,4 +8,6 @@ public interface SortFragmentPresenter {
     void onActivityCreated(ArrayList<MoneyObject> moneyObjectArrayList, boolean isIncome);
 
     void onNumberOfCaseButtonClickListener(String sortType);
+
+    void onPieChatItemClickListener(String label);
 }

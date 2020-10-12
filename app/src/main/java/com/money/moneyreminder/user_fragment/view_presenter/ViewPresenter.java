@@ -13,7 +13,7 @@ public interface ViewPresenter {
 
     void onBindAccountViewHolder(AccountViewHolder holder, int position);
 
-    void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray);
+    void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney, ArrayList<String> accountItemArray, ArrayList<String> accountSettingArray);
 
     void setOnSettingButtonClickListener(BudgetViewHolder holder, BudgetViewHolder.OnSettingButtonClickListener listener);
 

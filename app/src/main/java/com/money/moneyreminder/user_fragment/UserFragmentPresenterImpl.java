@@ -8,6 +8,7 @@ import com.money.moneyreminder.sort.MoneyObject;
 import com.money.moneyreminder.tool.DataProvider;
 import com.money.moneyreminder.tool.FirebaseHandler;
 import com.money.moneyreminder.tool.FirebaseHandlerImpl;
+import com.money.moneyreminder.tool.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,6 +64,11 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
             return;
         }
         int budget = Integer.parseInt(budgetMoney);
+        ArrayList<String> accountSettingArray = new ArrayList<>();
+        accountSettingArray.add(UserManager.getInstance().getDayRange());
+        accountSettingArray.add(UserManager.getInstance().getSortType());
+        accountSettingArray.add(UserManager.getInstance().getSortAnalysisType());
+        mView.updateRecyclerView(accountSettingArray);
         firebaseHandler.saveUserBudgetMoney(budget);
         firebaseHandler.getBudgetMoney(onCatchBudgetListener);
     }
@@ -95,17 +101,32 @@ public class UserFragmentPresenterImpl implements UserFragmentPresenter {
     public void onDataSortClickListener(String sortType) {
         Log.i("Michael","選擇了什麼排序："+sortType);
         mView.saveSortType(sortType);
+        ArrayList<String> accountSettingArray = new ArrayList<>();
+        accountSettingArray.add(UserManager.getInstance().getDayRange());
+        accountSettingArray.add(UserManager.getInstance().getSortType());
+        accountSettingArray.add(UserManager.getInstance().getSortAnalysisType());
+        mView.updateRecyclerView(accountSettingArray);
     }
 
     @Override
     public void onDayRangeButtonClickListener(String sortType) {
         Log.i("Michael","選擇了什麼區間："+sortType);
         mView.saveDayRange(sortType);
+        ArrayList<String> accountSettingArray = new ArrayList<>();
+        accountSettingArray.add(UserManager.getInstance().getDayRange());
+        accountSettingArray.add(UserManager.getInstance().getSortType());
+        accountSettingArray.add(UserManager.getInstance().getSortAnalysisType());
+        mView.updateRecyclerView(accountSettingArray);
     }
 
     @Override
     public void onSortAnalysisButtonClickListener(String sortType) {
         mView.saveSortAnalysis(sortType);
+        ArrayList<String> accountSettingArray = new ArrayList<>();
+        accountSettingArray.add(UserManager.getInstance().getDayRange());
+        accountSettingArray.add(UserManager.getInstance().getSortType());
+        accountSettingArray.add(UserManager.getInstance().getSortAnalysisType());
+        mView.updateRecyclerView(accountSettingArray);
     }
 
     private LoginHandler.OnGoogleLogoutListener onGoogleLogoutListener = new LoginHandler.OnGoogleLogoutListener() {
