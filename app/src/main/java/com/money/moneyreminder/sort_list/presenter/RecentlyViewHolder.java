@@ -1,5 +1,6 @@
 package com.money.moneyreminder.sort_list.presenter;
 
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
+import com.money.moneyreminder.list_fragment.CustomDecoration;
 import com.money.moneyreminder.tool.MoneyReminderApplication;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class RecentlyViewHolder extends RecyclerView.ViewHolder {
         recyclerView = itemView.findViewById(R.id.sort_list_item_recycler_view);
         tvNoData = itemView.findViewById(R.id.sort_list_item_no_data);
         recyclerView.setLayoutManager(new GridLayoutManager(MoneyReminderApplication.getInstance().getApplicationContext(),3));
+        int pix = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,10,MoneyReminderApplication.getInstance().getApplicationContext().getResources().getDisplayMetrics());
+        recyclerView.addItemDecoration(new CustomDecoration(pix));
         tvNoData.setVisibility(View.GONE);
         ivIcon.setImageResource(R.drawable.refresh);
         tvTitle.setText(R.string.recently);

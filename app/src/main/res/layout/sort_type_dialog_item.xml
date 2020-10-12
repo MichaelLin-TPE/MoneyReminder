@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sort_type_dialog_area"
-    android:padding="10dp"
+    android:padding="5dp"
     android:layout_height="wrap_content">
 
     <ImageView
