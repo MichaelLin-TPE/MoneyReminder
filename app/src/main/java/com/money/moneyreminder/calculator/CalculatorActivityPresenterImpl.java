@@ -44,6 +44,10 @@ public class CalculatorActivityPresenterImpl implements CalculatorActivityPresen
         mView.showRecyclerView(DataProvider.getInstance().getNumberArray(),DataProvider.getInstance().getMathArray());
     }
 
+    /**
+     * 按下數字格式的方法
+     * @param number
+     */
     @Override
     public void onNumberItemClickListener(String number) {
         switch (number){
@@ -92,6 +96,13 @@ public class CalculatorActivityPresenterImpl implements CalculatorActivityPresen
                 break;
         }
         if (isCalculating){
+            if (number.equals(CLEAR_VIEW)){
+                mView.resetNumberList();
+                mView.clearView();
+                isCalculating = false;
+                calculatorRepeatIndex = 0;
+                return;
+            }
             mView.setCalculatorContentEmpty();
             mView.setCalculatorContent(number);
             isCalculating = false;;
@@ -116,6 +127,11 @@ public class CalculatorActivityPresenterImpl implements CalculatorActivityPresen
         mView.closePage();
     }
 
+
+    /**
+     * 按下計算鈕的方法
+     * @param mathItem
+     */
     @Override
     public void onMathItemClickListener(String mathItem) {
         if (mathItem.equals(BACK) && !mView.getTvContent().equals(ZERO)){
