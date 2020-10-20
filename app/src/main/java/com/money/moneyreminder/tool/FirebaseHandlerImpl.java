@@ -49,6 +49,8 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
     private static final String SECOND_SORT_LIST = "second_sort_list";
 
+    private static final String DEFAULT_SORT_LIST = "default_sort_list";
+
     private static final String DESCRIPTION = "description";
 
     private static final String BUDGET = "budget";
@@ -112,23 +114,23 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    onFireStoreCatchListener.onFail("無法取得資料");
+                    catchDefaultList(onFireStoreCatchListener);
                     return;
                 }
                 if (snapshot != null && snapshot.exists()) {
                     String json = (String) snapshot.get("json");
                     if (json == null) {
-                        onFireStoreCatchListener.onFail("無法取得資料");
+                        catchDefaultList(onFireStoreCatchListener);
                         return;
                     }
                     userSortData = gson.fromJson(json, SortData.class);
                     if (userSortData == null) {
-                        onFireStoreCatchListener.onFail("無法取得資料");
+                        catchDefaultList(onFireStoreCatchListener);
                         return;
                     }
                     onFireStoreCatchListener.onSuccess(userSortData);
                 } else {
-                    onFireStoreCatchListener.onFail("無法取得資料");
+                    catchDefaultList(onFireStoreCatchListener);
                     MichaelLog.i("沒資料");
                 }
             }
@@ -158,6 +160,36 @@ public class FirebaseHandlerImpl implements FirebaseHandler {
 
                     }
                 });
+    }
+
+    private void catchDefaultList(final OnFireStoreCatchListener<SortData> onFireStoreCatchListener) {
+        DocumentReference docRef = firebaseFirestore.collection(DEFAULT_SORT_LIST)
+                .document("list");
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    onFireStoreCatchListener.onFail("");
+                    return;
+                }
+                if (snapshot != null && snapshot.exists()) {
+                    String json = (String) snapshot.get("json");
+                    if (json == null) {
+                        onFireStoreCatchListener.onFail("");
+                        return;
+                    }
+                    userSortData = gson.fromJson(json, SortData.class);
+                    if (userSortData == null) {
+                        onFireStoreCatchListener.onFail("");
+                        return;
+                    }
+                    onFireStoreCatchListener.onSuccess(userSortData);
+                } else {
+                    onFireStoreCatchListener.onFail("");
+                    MichaelLog.i("沒資料");
+                }
+            }
+        });
     }
 
     @Override
