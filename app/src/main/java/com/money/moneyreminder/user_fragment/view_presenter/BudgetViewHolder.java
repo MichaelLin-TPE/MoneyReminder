@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.money.moneyreminder.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class BudgetViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView tvBudget,tvTotalExpenditure,tvExpenditurePercent,tvMonthMoney;
+    private final TextView tvBudget,tvTotalExpenditure,tvExpenditurePercent,tvMonthMoney,tvTitle;
 
     private OnSettingButtonClickListener listener;
 
-    private Button btnSetting;
+    private final Button btnSetting;
 
     public void setOnSettingButtonClickListener(OnSettingButtonClickListener listener){
         this.listener = listener;
@@ -30,9 +32,15 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder {
         tvExpenditurePercent = itemView.findViewById(R.id.budget_item_percent);
         tvMonthMoney = itemView.findViewById(R.id.budget_item_month);
         btnSetting = itemView.findViewById(R.id.budget_item_btn_set);
+        tvTitle = itemView.findViewById(R.id.budget_item_title);
     }
 
     public void setData(long budgetMoney, long totalExpenditure, int expenditurePercent, long monthMoney) {
+
+        String currentMonth = new SimpleDateFormat("MM",Locale.TAIWAN).format(new Date(System.currentTimeMillis()));
+        tvTitle.setText(String.format(Locale.getDefault(),"%s 月預算",currentMonth));
+
+
         tvBudget.setText(String.format(Locale.getDefault(),"目前預算 : $%d",budgetMoney));
         tvTotalExpenditure.setText(String.format(Locale.getDefault(),"目前支出 : $%d",totalExpenditure));
         tvExpenditurePercent.setText(String.format(Locale.getDefault(),"支出率 : %d%%",expenditurePercent));
