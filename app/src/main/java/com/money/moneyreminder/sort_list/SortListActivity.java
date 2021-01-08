@@ -55,7 +55,7 @@ public class SortListActivity extends AppCompatActivity implements SortListActiv
         recyclerView = findViewById(R.id.sort_list_recycler_view);
         progressBar = findViewById(R.id.sort_list_progress);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        FloatingActionButton addBtn = findViewById(R.id.sort_list_add_btn);
+        ImageView addBtn = findViewById(R.id.sort_list_add_btn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

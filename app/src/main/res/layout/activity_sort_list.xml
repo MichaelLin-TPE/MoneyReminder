@@ -46,6 +46,16 @@
                 android:layout_width="@dimen/back_button_size"
                 android:layout_height="@dimen/back_button_size"/>
 
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/sort_list_save_btn"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/sort_list_add_btn"
+                android:src="@drawable/plus"
+                android:contentDescription="@null"
+                android:layout_width="@dimen/back_button_size"
+                android:layout_height="@dimen/back_button_size"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -62,16 +72,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sort_list_add_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/app_main_color"
-        android:src="@drawable/plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <ProgressBar
         android:id="@+id/sort_list_progress"
         app:layout_constraintTop_toBottomOf="@id/sort_list_line"
